@@ -10,7 +10,7 @@ public class Product
     private String notes;
     private String cost;
     private String id;
-    private String qty;
+    private String qty="0";
 
     public String getNotes() {
         return notes;

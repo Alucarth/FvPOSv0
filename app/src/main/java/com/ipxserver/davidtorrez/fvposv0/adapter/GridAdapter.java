@@ -58,10 +58,13 @@ public class GridAdapter extends BaseAdapter
             rootView = inflater.inflate(R.layout.gridview_item,viewGroup,false);
         }
         Product producto = lista.get(i);
+
         TextView tv= (TextView) rootView.findViewById(R.id.txtNotes);
         tv.setText(producto.getNotes());
         TextView tc = (TextView) rootView.findViewById(R.id.txtCost);
-        tc.setText(producto.getCost());
+        tc.setText(producto.getCost()+"x"+producto.getQty());
+
+
 
         return rootView;
     }
