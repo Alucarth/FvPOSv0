@@ -109,4 +109,18 @@ public class GridAdapter extends BaseAdapter
 
         return rootView;
     }
+    public ArrayList<Product> getLista()
+    {
+        ArrayList<Product> listProduct=null;
+        for(int i=0;i<lista.size();i++)
+        {
+            Product pro = (Product) lista.get(i);
+            if(Integer.parseInt(pro.getQty())>0)
+            {
+                listProduct.add(pro);
+            }
+        }
+
+        return listProduct;
+    }
 }
