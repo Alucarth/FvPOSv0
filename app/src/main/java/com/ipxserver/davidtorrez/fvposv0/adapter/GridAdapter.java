@@ -1,10 +1,14 @@
 package com.ipxserver.davidtorrez.fvposv0.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -20,6 +24,8 @@ public class GridAdapter extends BaseAdapter
 {
     ArrayList<Product> lista;
     Context context;
+    TextView tv;
+    TextView tc;
     public GridAdapter(Context context){
         this.context = context;
         lista = new ArrayList<Product>();
@@ -59,10 +65,25 @@ public class GridAdapter extends BaseAdapter
         }
         Product producto = lista.get(i);
 
-        TextView tv= (TextView) rootView.findViewById(R.id.txtNotes);
+       tv= (TextView) rootView.findViewById(R.id.txtNotes);
         tv.setText(producto.getNotes());
-        TextView tc = (TextView) rootView.findViewById(R.id.txtCost);
-        tc.setText(producto.getCost()+"x"+producto.getQty());
+        tc = (TextView) rootView.findViewById(R.id.txtCost);
+//        tc.setText(producto.getCost()+"x"+producto.getQty());
+        ImageButton b=(ImageButton) rootView.findViewById(R.id.imgButton);
+        if(Integer.parseInt(producto.getQty())>0)
+        {
+            tc.setText(producto.getCost() + "x" + producto.getQty());
+            rootView.setBackgroundColor(Color.GREEN);
+            b.setVisibility(View.VISIBLE);
+        }else{
+            tc.setText(producto.getCost());
+            rootView.setBackgroundColor(Color.BLUE);
+            b.setVisibility(View.INVISIBLE);
+        }
+
+
+
+
 
 
 

@@ -11,6 +11,7 @@ public class Product
     private String cost;
     private String id;
     private String qty="0";
+    private boolean habilitado=false;
 
     public String getNotes() {
         return notes;
@@ -42,5 +43,13 @@ public class Product
 
     public void setQty(String qty) {
         this.qty = qty;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
     }
 }

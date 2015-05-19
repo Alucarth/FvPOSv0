@@ -24,4 +24,13 @@
         android:layout_marginTop="27dp"
         android:layout_below="@+id/txtNotes"
         android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgButton"
+        android:background="@drawable/ic_discard"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

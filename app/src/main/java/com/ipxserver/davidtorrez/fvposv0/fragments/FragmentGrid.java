@@ -53,10 +53,10 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
 
         int cant = Integer.parseInt(pro.getQty().toString())+1;
         pro.setQty(""+cant);
-        pro.setCost(""+pro.getCost()+"x "+pro.getQty());
+//        pro.setCost(""+pro.getCost()+"x "+pro.getQty());
         gridAdapter.notifyDataSetChanged();
 
 
-        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();
     }
 }
