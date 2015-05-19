@@ -24,13 +24,12 @@
         android:layout_marginTop="27dp"
         android:layout_below="@+id/txtNotes"
         android:layout_centerHorizontal="true" />
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_remove"
+        android:id="@+id/img_ic_remove"
+        />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgButton"
-        android:background="@drawable/ic_discard"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
