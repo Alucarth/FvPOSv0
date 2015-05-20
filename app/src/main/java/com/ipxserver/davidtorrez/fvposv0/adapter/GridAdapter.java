@@ -34,7 +34,7 @@ public class GridAdapter extends BaseAdapter
     public GridAdapter(Context context){
         this.context = context;
         lista = new ArrayList<Product>();
-        for(int i=0;i<10;i++)
+        for(int i=0;i<20;i++)
         {
             Product producto = new Product();
             producto.setNotes(" Producto n "+i);

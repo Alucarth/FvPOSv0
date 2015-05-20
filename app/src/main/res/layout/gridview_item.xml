@@ -27,9 +27,11 @@
     <ImageView
         android:layout_width="25dp"
         android:layout_height="25dp"
+
         android:background="@drawable/ic_remove"
         android:id="@+id/img_ic_remove"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
