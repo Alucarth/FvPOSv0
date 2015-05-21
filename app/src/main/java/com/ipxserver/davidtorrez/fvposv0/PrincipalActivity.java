@@ -5,7 +5,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
 
+import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.adapter.PagerAdapter;
 
 
@@ -13,14 +15,21 @@ public class PrincipalActivity extends ActionBarActivity {
 
     PagerAdapter pagerAdapter;
     ViewPager viewPager;
+    GridbarAdapter gridbarAdapter;
+    GridView gridbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+
         viewPager =(ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
+        //Todo: Revisar el tipo de contexto al cual pertenese el gridbarAdapter
+        gridbarAdapter = new GridbarAdapter(getApplicationContext());
+        gridbar= (GridView) findViewById(R.id.barraSaldo);
+        gridbar.setAdapter(gridbarAdapter);
     }
 
 

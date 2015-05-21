@@ -17,6 +17,8 @@ import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridAdapter;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by David Torrez on 13/05/2015.
@@ -58,5 +60,12 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
 
 
 //        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();
+    }
+    public ArrayList<Product> getLista()
+    {
+        ArrayList<Product> listaSeleccionados=null;
+
+
+        return listaSeleccionados;
     }
 }
