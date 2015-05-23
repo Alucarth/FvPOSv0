@@ -19,6 +19,7 @@ public class GridbarAdapter extends BaseAdapter
 {
     ArrayList <ItemBar> items;
     Context context;
+    int saldo;
     public GridbarAdapter(Context context)
     {
         this.context = context;
@@ -34,6 +35,19 @@ public class GridbarAdapter extends BaseAdapter
         ib.setDescripcion("Total");
         items.add(ib);
 
+    }
+    public void incrementar(int cantidad)
+    {
+        saldo = saldo + cantidad;
+        if(items!=null)
+        {
+            for(int i=0;i<items.size();i++)
+            {
+                ItemBar it = (ItemBar) items.get(i);
+                it.setNumero(saldo);
+            }
+            notifyDataSetChanged();
+        }
     }
     @Override
     public int getCount() {

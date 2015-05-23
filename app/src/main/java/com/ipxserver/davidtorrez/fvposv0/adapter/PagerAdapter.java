@@ -27,6 +27,8 @@ public class PagerAdapter extends FragmentPagerAdapter
                 break;
             case 1: titulo ="lista grid";
                 break;
+            case 2: titulo ="lista 2";
+                break;
             default: titulo="sin fragmento";
         }
 //        return super.getPageTitle(position);
@@ -40,6 +42,7 @@ public class PagerAdapter extends FragmentPagerAdapter
             case 0: return new FragmentLista();
 
             case 1: return new FragmentGrid();
+            case 2: return new FragmentGrid();
             default: return null;
         }
 
@@ -48,6 +51,6 @@ public class PagerAdapter extends FragmentPagerAdapter
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

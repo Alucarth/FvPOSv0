@@ -1,5 +1,6 @@
 package com.ipxserver.davidtorrez.fvposv0;
 
+import android.content.IntentFilter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 
+import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.adapter.PagerAdapter;
 
@@ -17,6 +19,7 @@ public class PrincipalActivity extends ActionBarActivity {
     ViewPager viewPager;
     GridbarAdapter gridbarAdapter;
     GridView gridbar;
+    ProductReceiver reciver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +33,22 @@ public class PrincipalActivity extends ActionBarActivity {
         gridbarAdapter = new GridbarAdapter(getApplicationContext());
         gridbar= (GridView) findViewById(R.id.barraSaldo);
         gridbar.setAdapter(gridbarAdapter);
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reciver = new ProductReceiver(gridbarAdapter);
+        registerReceiver(reciver,new IntentFilter("addproducto"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(reciver);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

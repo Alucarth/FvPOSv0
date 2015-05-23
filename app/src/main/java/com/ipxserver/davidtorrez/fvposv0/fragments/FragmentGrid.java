@@ -1,6 +1,7 @@
 package com.ipxserver.davidtorrez.fvposv0.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
 import com.ipxserver.davidtorrez.fvposv0.PrincipalActivity;
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridAdapter;
@@ -28,6 +30,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
     View rootView;
     GridView gv;
     GridAdapter gridAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
 ////     Toast.makeText(getApplicationContext(),gv.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 //            }
 //        });
+
         return rootView;
     }
 
@@ -58,6 +62,10 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
 //        pro.setCost(""+pro.getCost()+"x "+pro.getQty());
         gridAdapter.notifyDataSetChanged();
 
+        //enviando al broadcast
+        Intent intent = new Intent("addproducto");
+        intent.putExtra("cantidad",cant);
+        getActivity().sendBroadcast(intent);
 
 //        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();
     }

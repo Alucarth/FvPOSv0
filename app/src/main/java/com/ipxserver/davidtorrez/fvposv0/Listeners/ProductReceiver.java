@@ -3,8 +3,12 @@ package com.ipxserver.davidtorrez.fvposv0.Listeners;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import com.ipxserver.davidtorrez.fvposv0.PrincipalActivity;
+import com.ipxserver.davidtorrez.fvposv0.adapter.GridAdapter;
+import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
 import java.util.ArrayList;
@@ -14,19 +18,21 @@ import java.util.ArrayList;
  */
 public class ProductReceiver extends BroadcastReceiver
 {
-
+    //Todo: ver si esto ayudara en el envio del broadcast
     public static final int PRODUCTO_AGREGADO=0;
     public static final int PRODUCTO_ELIMINADO=1;
     public static final int PRODUCTO_ACTUALIZADO=2;
-   ArrayAdapter <Product> arrayAdapter;
+//   ArrayAdapter <Product> arrayAdapter;
+    private final GridbarAdapter gridAdapter;
 
-    public ProductReceiver(ArrayAdapter<Product> arrayAdapter)
+    public ProductReceiver(GridbarAdapter gridAdapter)
     {
-        this.arrayAdapter =arrayAdapter;
-
+        this.gridAdapter = gridAdapter;
     }
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        int cantidad= intent.getIntExtra("cantidad",-1);
+        gridAdapter.incrementar(cantidad);
+        Log.i("David","on recieve se activo XD cantidad="+cantidad);
     }
 }
