@@ -2,10 +2,12 @@ package com.ipxserver.davidtorrez.fvposv0.models;
 
 import android.widget.BaseAdapter;
 
+import java.io.Serializable;
+
 /**
  * Created by keyrus on 17-05-15.
  */
-public class Product
+public class Product implements Serializable
 {
     private String notes;
     private String cost;

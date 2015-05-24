@@ -65,6 +65,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
         //enviando al broadcast
         Intent intent = new Intent("addproducto");
         intent.putExtra("cantidad",cant);
+        intent.putExtra("producto",pro);
         getActivity().sendBroadcast(intent);
 
 //        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();

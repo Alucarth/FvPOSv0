@@ -23,16 +23,42 @@ public class ProductReceiver extends BroadcastReceiver
     public static final int PRODUCTO_ELIMINADO=1;
     public static final int PRODUCTO_ACTUALIZADO=2;
 //   ArrayAdapter <Product> arrayAdapter;
+    ArrayList<Product> listaProductos;
     private final GridbarAdapter gridAdapter;
 
     public ProductReceiver(GridbarAdapter gridAdapter)
     {
         this.gridAdapter = gridAdapter;
+
+        listaProductos = new ArrayList<Product>();
+
     }
     @Override
     public void onReceive(Context context, Intent intent) {
         int cantidad= intent.getIntExtra("cantidad",-1);
+        Product p = (Product) intent.getSerializableExtra("producto");
+        adcionarProducto(p);
         gridAdapter.incrementar(cantidad);
         Log.i("David","on recieve se activo XD cantidad="+cantidad);
     }
+    private void adcionarProducto(Product producto)
+    {
+        boolean enlista=false;
+        for(int i=0;i<listaProductos.size();i++)
+        {
+            Product p = (Product) listaProductos.get(i);
+            if(p.getId().equals(producto.getId()))
+            {
+                enlista = true;
+                p.setQty(producto.getQty());
+            }
+
+        }
+        if(!enlista)
+        {
+            listaProductos.add(producto);
+        }
+
+    }
+
 }
