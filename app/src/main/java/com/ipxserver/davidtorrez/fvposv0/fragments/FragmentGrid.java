@@ -1,20 +1,15 @@
 package com.ipxserver.davidtorrez.fvposv0.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
-import com.ipxserver.davidtorrez.fvposv0.PrincipalActivity;
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridAdapter;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
@@ -64,6 +59,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
 
         //enviando al broadcast
         Intent intent = new Intent("addproducto");
+        intent.putExtra("operacion", ProductReceiver.PRODUCTO_AGREGADO);
         intent.putExtra("cantidad",cant);
         intent.putExtra("producto",pro);
         getActivity().sendBroadcast(intent);

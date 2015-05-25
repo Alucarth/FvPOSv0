@@ -2,18 +2,13 @@ package com.ipxserver.davidtorrez.fvposv0.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
@@ -37,6 +32,7 @@ public class GridAdapter extends BaseAdapter
         for(int i=0;i<20;i++)
         {
             Product producto = new Product();
+            producto.setId("a"+i);
             producto.setNotes(" Producto n "+i);
             producto.setCost("$ " + (i + 2));
             lista.add(producto);

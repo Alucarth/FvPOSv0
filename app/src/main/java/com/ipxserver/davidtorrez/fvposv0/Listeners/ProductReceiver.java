@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.ipxserver.davidtorrez.fvposv0.PrincipalActivity;
-import com.ipxserver.davidtorrez.fvposv0.adapter.GridAdapter;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
@@ -20,29 +18,50 @@ public class ProductReceiver extends BroadcastReceiver
 {
     //Todo: ver si esto ayudara en el envio del broadcast
     public static final int PRODUCTO_AGREGADO=0;
+
     public static final int PRODUCTO_ELIMINADO=1;
     public static final int PRODUCTO_ACTUALIZADO=2;
+    public static final int FRAGMENT_FACTURA=5;
 //   ArrayAdapter <Product> arrayAdapter;
     ArrayList<Product> listaProductos;
     private final GridbarAdapter gridAdapter;
+    private final PrincipalActivity main;
 
-    public ProductReceiver(GridbarAdapter gridAdapter)
+    public ProductReceiver(GridbarAdapter gridAdapter,PrincipalActivity main)
     {
         this.gridAdapter = gridAdapter;
+        this.main = main;
 
         listaProductos = new ArrayList<Product>();
 
     }
     @Override
     public void onReceive(Context context, Intent intent) {
-        int cantidad= intent.getIntExtra("cantidad",-1);
-        Product p = (Product) intent.getSerializableExtra("producto");
-        adcionarProducto(p);
-        gridAdapter.incrementar(cantidad);
-        Log.i("David","on recieve se activo XD cantidad="+cantidad);
+        int operacion = intent.getIntExtra("operacion",-1);
+        switch (operacion)
+        {
+            case PRODUCTO_AGREGADO: agregarProducto(intent);
+                break;
+            case FRAGMENT_FACTURA: cambiarFragmento(intent);
+                break;
+
+        }
+
+        Log.i("David","on recieve se activo XD metodo "+operacion);
     }
-    private void adcionarProducto(Product producto)
+
+    private void cambiarFragmento(Intent intent) {
+        int fragment_id = intent.getIntExtra("operacion",-1);
+        main.cambiarFragmento(fragment_id);
+
+    }
+
+    private void agregarProducto(Intent intent)
     {
+        int cantidad= intent.getIntExtra("cantidad",-1);
+        Product producto = (Product) intent.getSerializableExtra("producto");
+
+        gridAdapter.incrementar(cantidad);
         boolean enlista=false;
         for(int i=0;i<listaProductos.size();i++)
         {
