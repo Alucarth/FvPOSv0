@@ -32,10 +32,11 @@ public class FragmentLista extends Fragment
 
                 Intent intent = new Intent("addproducto");
 
-                intent.putExtra("operacion", ProductReceiver.FRAGMENT_FACTURA);
+                intent.putExtra("operacion", ProductReceiver.FRAGMENT_TABSWIPE);
                 getActivity().sendBroadcast(intent);
             }
         });
+        setHasOptionsMenu(true);
 
         return rootView;
 

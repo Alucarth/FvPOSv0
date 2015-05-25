@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentFactura;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentGrid;
-import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentLista;
 
 /**
  * Created by David Torrez on 13/05/2015.
@@ -24,11 +23,11 @@ public class PagerAdapter extends FragmentPagerAdapter
         String titulo=null;
         switch(position)
         {
-            case 0: titulo ="Llista de Pedidos";
+            case 0: titulo ="categoria 1";
                 break;
-            case 1: titulo ="lista grid";
+            case 1: titulo ="categoria 2";
                 break;
-            case 2: titulo ="lista 2";
+            case 2: titulo ="categoria 3";
                 break;
             case 3: titulo ="Factura";
                 break;
@@ -42,7 +41,7 @@ public class PagerAdapter extends FragmentPagerAdapter
     public Fragment getItem(int i) {
         switch (i)
         {
-            case 0: return new FragmentLista();
+            case 0: return new FragmentGrid();
 
             case 1: return new FragmentGrid();
             case 2: return new FragmentGrid();

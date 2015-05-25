@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.ipxserver.davidtorrez.fvposv0.PrincipalActivity;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
+import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
 import java.util.ArrayList;
@@ -22,19 +23,23 @@ public class ProductReceiver extends BroadcastReceiver
     public static final int PRODUCTO_ELIMINADO=1;
     public static final int PRODUCTO_ACTUALIZADO=2;
     public static final int FRAGMENT_FACTURA=5;
+    public static final int FRAGMENT_TABSWIPE=6;
+    public static final int FRAGMENT_LISTA=7;
 //   ArrayAdapter <Product> arrayAdapter;
     ArrayList<Product> listaProductos;
     private final GridbarAdapter gridAdapter;
     private final PrincipalActivity main;
+    private final FragmentTabswipe fragmentTabswipe;
 
-    public ProductReceiver(GridbarAdapter gridAdapter,PrincipalActivity main)
+    public ProductReceiver(GridbarAdapter gridAdapter,PrincipalActivity main,FragmentTabswipe fragmentTabswipe)
     {
         this.gridAdapter = gridAdapter;
         this.main = main;
-
+        this.fragmentTabswipe =fragmentTabswipe;
         listaProductos = new ArrayList<Product>();
 
     }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         int operacion = intent.getIntExtra("operacion",-1);
@@ -61,7 +66,7 @@ public class ProductReceiver extends BroadcastReceiver
         int cantidad= intent.getIntExtra("cantidad",-1);
         Product producto = (Product) intent.getSerializableExtra("producto");
 
-        gridAdapter.incrementar(cantidad);
+        //gridAdapter.incrementar(cantidad);
         boolean enlista=false;
         for(int i=0;i<listaProductos.size();i++)
         {

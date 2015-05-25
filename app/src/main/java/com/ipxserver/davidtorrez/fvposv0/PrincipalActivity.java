@@ -1,6 +1,5 @@
 package com.ipxserver.davidtorrez.fvposv0;
 
-import android.app.ActionBar;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,7 +41,7 @@ public class PrincipalActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
        inicializarContenido();
-        cargarFragmento(getFragmentLista());
+        cargarFragmento(getFragmentTabswipe());
 
     }
     public void cambiarFragmento(int fragment_id)
@@ -66,8 +65,9 @@ public class PrincipalActivity extends FragmentActivity {
 
     public void inicializarContenido()
     {
-        ActionBar actionBar = getActionBar();
-        actionBar.show();
+
+
+//        actionBar.show();
 //        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 //
 //        viewPager =(ViewPager) findViewById(R.id.pager);
@@ -107,7 +107,7 @@ public class PrincipalActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        reciver = new ProductReceiver(gridbarAdapter,this);
+        reciver = new ProductReceiver(gridbarAdapter,this,null);
         registerReceiver(reciver,new IntentFilter("addproducto"));
     }
 
@@ -120,6 +120,7 @@ public class PrincipalActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_principal, menu);
 
