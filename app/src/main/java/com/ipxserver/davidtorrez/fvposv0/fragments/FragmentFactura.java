@@ -39,7 +39,7 @@ public class FragmentFactura extends Fragment
         }
         productListAdapter = new ProductListAdapter(rootView.getContext(),listaSeleccionados);
         lista.setAdapter(productListAdapter);
-
+        setHasOptionsMenu(true);
         return rootView;
     }
 }

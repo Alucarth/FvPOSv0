@@ -36,7 +36,7 @@ public class FragmentTabswipe extends Fragment
         gridbar= (GridView) rootView.findViewById(R.id.barraSaldo);
         gridbar.setAdapter(gridbarAdapter);
 //        gridbar.setVisibility(View.INVISIBLE);
-
+        setHasOptionsMenu(true);
         return rootView;
     }
 

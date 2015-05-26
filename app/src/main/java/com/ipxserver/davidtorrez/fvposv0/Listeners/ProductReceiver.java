@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.ipxserver.davidtorrez.fvposv0.PrincipalActivity;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
-import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
 import java.util.ArrayList;
@@ -29,13 +28,13 @@ public class ProductReceiver extends BroadcastReceiver
     ArrayList<Product> listaProductos;
     private final GridbarAdapter gridAdapter;
     private final PrincipalActivity main;
-    private final FragmentTabswipe fragmentTabswipe;
 
-    public ProductReceiver(GridbarAdapter gridAdapter,PrincipalActivity main,FragmentTabswipe fragmentTabswipe)
+
+    public ProductReceiver(GridbarAdapter gridAdapter,PrincipalActivity main)
     {
         this.gridAdapter = gridAdapter;
         this.main = main;
-        this.fragmentTabswipe =fragmentTabswipe;
+
         listaProductos = new ArrayList<Product>();
 
     }
@@ -47,7 +46,10 @@ public class ProductReceiver extends BroadcastReceiver
         {
             case PRODUCTO_AGREGADO: agregarProducto(intent);
                 break;
-            case FRAGMENT_FACTURA: cambiarFragmento(intent);
+            case FRAGMENT_FACTURA:
+            case FRAGMENT_LISTA:
+            case FRAGMENT_TABSWIPE:
+                cambiarFragmento(intent);
                 break;
 
         }

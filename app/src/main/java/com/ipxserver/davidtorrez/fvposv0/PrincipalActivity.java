@@ -41,7 +41,7 @@ public class PrincipalActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
        inicializarContenido();
-        cargarFragmento(getFragmentTabswipe());
+        cargarFragmento(getFragmentLista());
 
     }
     public void cambiarFragmento(int fragment_id)
@@ -65,7 +65,6 @@ public class PrincipalActivity extends FragmentActivity {
 
     public void inicializarContenido()
     {
-
 
 //        actionBar.show();
 //        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
@@ -107,7 +106,7 @@ public class PrincipalActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        reciver = new ProductReceiver(gridbarAdapter,this,null);
+        reciver = new ProductReceiver(gridbarAdapter,this);
         registerReceiver(reciver,new IntentFilter("addproducto"));
     }
 

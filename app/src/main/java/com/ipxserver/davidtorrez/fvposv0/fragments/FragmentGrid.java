@@ -44,7 +44,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
 ////     Toast.makeText(getApplicationContext(),gv.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 //            }
 //        });
-
+        setHasOptionsMenu(true);
         return rootView;
     }
 
