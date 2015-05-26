@@ -1,17 +1,18 @@
 package com.ipxserver.davidtorrez.fvposv0;
 
+
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 
-import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
+import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.adapter.PagerAdapter;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentFactura;
@@ -19,13 +20,13 @@ import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentLista;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
 
 
-public class PrincipalActivity extends FragmentActivity {
+public class PrincipalActivity extends ActionBarActivity {
 
     PagerAdapter pagerAdapter;
     ViewPager viewPager;
     GridbarAdapter gridbarAdapter;
     GridView gridbar;
-    ProductReceiver reciver;
+   FragmentReceiver reciver;
     FragmentLista fragmentLista=null;
     FragmentFactura fragmentFactura=null;
     FragmentTabswipe fragmentTabswipe=null;
@@ -39,6 +40,7 @@ public class PrincipalActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_principal);
        inicializarContenido();
         cargarFragmento(getFragmentLista());
@@ -106,8 +108,8 @@ public class PrincipalActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        reciver = new ProductReceiver(gridbarAdapter,this);
-        registerReceiver(reciver,new IntentFilter("addproducto"));
+        reciver = new FragmentReceiver(gridbarAdapter,this);
+        registerReceiver(reciver,new IntentFilter("cambiar_fragmento"));
     }
 
     @Override

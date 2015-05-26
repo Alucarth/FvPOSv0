@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentFactura;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentGrid;
 
 /**
@@ -29,8 +28,7 @@ public class PagerAdapter extends FragmentPagerAdapter
                 break;
             case 2: titulo ="categoria 3";
                 break;
-            case 3: titulo ="Factura";
-                break;
+
             default: titulo="sin fragmento";
         }
 //        return super.getPageTitle(position);
@@ -45,7 +43,7 @@ public class PagerAdapter extends FragmentPagerAdapter
 
             case 1: return new FragmentGrid();
             case 2: return new FragmentGrid();
-            case 3: return new FragmentFactura();
+            //case 3: return new FragmentFactura();
             default: return null;
         }
 
@@ -54,6 +52,6 @@ public class PagerAdapter extends FragmentPagerAdapter
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }

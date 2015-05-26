@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
+import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
 
 /**
@@ -30,9 +30,9 @@ public class FragmentLista extends Fragment
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent("addproducto");
+                Intent intent = new Intent("cambiar_fragmento");
 
-                intent.putExtra("operacion", ProductReceiver.FRAGMENT_TABSWIPE);
+                intent.putExtra("operacion", FragmentReceiver.FRAGMENT_TABSWIPE);
                 getActivity().sendBroadcast(intent);
             }
         });

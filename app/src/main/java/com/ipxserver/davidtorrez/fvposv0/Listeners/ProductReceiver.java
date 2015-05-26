@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.ipxserver.davidtorrez.fvposv0.PrincipalActivity;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
+import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
 import java.util.ArrayList;
@@ -27,13 +27,13 @@ public class ProductReceiver extends BroadcastReceiver
 //   ArrayAdapter <Product> arrayAdapter;
     ArrayList<Product> listaProductos;
     private final GridbarAdapter gridAdapter;
-    private final PrincipalActivity main;
+    private final FragmentTabswipe fragmentTabswipe;
 
 
-    public ProductReceiver(GridbarAdapter gridAdapter,PrincipalActivity main)
+    public ProductReceiver(GridbarAdapter gridAdapter,FragmentTabswipe fragmentTabswipe)
     {
         this.gridAdapter = gridAdapter;
-        this.main = main;
+        this.fragmentTabswipe = fragmentTabswipe;
 
         listaProductos = new ArrayList<Product>();
 
@@ -46,29 +46,19 @@ public class ProductReceiver extends BroadcastReceiver
         {
             case PRODUCTO_AGREGADO: agregarProducto(intent);
                 break;
-            case FRAGMENT_FACTURA:
-            case FRAGMENT_LISTA:
-            case FRAGMENT_TABSWIPE:
-                cambiarFragmento(intent);
-                break;
-
         }
 
         Log.i("David","on recieve se activo XD metodo "+operacion);
     }
 
-    private void cambiarFragmento(Intent intent) {
-        int fragment_id = intent.getIntExtra("operacion",-1);
-        main.cambiarFragmento(fragment_id);
 
-    }
 
     private void agregarProducto(Intent intent)
     {
         int cantidad= intent.getIntExtra("cantidad",-1);
         Product producto = (Product) intent.getSerializableExtra("producto");
 
-        //gridAdapter.incrementar(cantidad);
+        gridAdapter.incrementar(cantidad);
         boolean enlista=false;
         for(int i=0;i<listaProductos.size();i++)
         {
