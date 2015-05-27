@@ -1,14 +1,20 @@
 package com.ipxserver.davidtorrez.fvposv0.fragments;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
@@ -59,7 +65,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 //        gridbar.setVisibility(View.INVISIBLE);
 
 
-
+        setHasOptionsMenu(true);
         return rootView;
     }
 
@@ -78,25 +84,35 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         getActivity().registerReceiver(reciver, new IntentFilter("addproducto"));
 
     }
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        getActivity().unregisterReceiver(reciver);
-//    }
-//
-//
-//    @Override
-//    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-//        viewPager.setCurrentItem(tab.getPosition());
-//    }
-//
-//    @Override
-//    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-//
-//    }
-//
-//    @Override
-//    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-//
-//    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(reciver);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_tabswipe, menu);
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i("David","entro al item selected");
+        switch (item.getItemId())
+        {
+            case R.id.action_cancelar: cancelarFactura(item); return true;
+            default:  return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void cancelarFactura(MenuItem item) {
+        Intent intent = new Intent("cambiar_fragmento");
+
+        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+        getActivity().sendBroadcast(intent);
+        Log.i("David","entro a la funcion de cancelar factura");
+    }
 }
