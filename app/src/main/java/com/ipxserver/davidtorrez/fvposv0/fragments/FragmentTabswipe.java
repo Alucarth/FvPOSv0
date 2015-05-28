@@ -99,16 +99,26 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.i("David","entro al item selected");
+        Log.i("David", "entro al item selected");
         switch (item.getItemId())
         {
             case R.id.action_cancelar: cancelarFactura(item); return true;
+            case R.id.action_facturar: llamarFacturar(item); return true;
             default:  return super.onOptionsItemSelected(item);
         }
 
     }
 
+    private void llamarFacturar(MenuItem item) {
+        Intent intent = new Intent("cambiar_fragmento");
+
+        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_FACTURA);
+        getActivity().sendBroadcast(intent);
+    }
+
     private void cancelarFactura(MenuItem item) {
+
+
         Intent intent = new Intent("cambiar_fragmento");
 
         intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
