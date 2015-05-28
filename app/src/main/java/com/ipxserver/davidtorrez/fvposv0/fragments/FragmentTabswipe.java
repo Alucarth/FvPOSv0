@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
@@ -38,6 +39,10 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         View rootView = inflater.inflate(R.layout.frament_tabswipe, container, false);
         viewPager =(ViewPager) rootView.findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
+
+        tabs.setViewPager(viewPager);
 //        actionBar = getActivity().getActionBar();
 //
 //        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
