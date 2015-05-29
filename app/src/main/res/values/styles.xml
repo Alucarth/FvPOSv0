@@ -1,8 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+
+    </style>
+    <style name="PagerSlidingTabStrip">
+        <item name="pstsIndicatorColor">#7986CB</item>
+        <item name="pstsDividerColor">#1A237E</item>
+        <item name="pstsShouldExpand">true</item>
+        <item name="pstsTextAllCaps">false</item>
     </style>
 
 </resources>

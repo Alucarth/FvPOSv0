@@ -2,7 +2,7 @@
     <string name="app_name">Factura Virtual</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Salir</string>
     <string name="notes">Notes</string>
     <string name="cost">Cost</string>
 </resources>
