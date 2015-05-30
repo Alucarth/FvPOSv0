@@ -3,9 +3,11 @@ package com.ipxserver.davidtorrez.fvposv0.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.ipxserver.davidtorrez.fvposv0.R;
@@ -40,6 +42,18 @@ public class FragmentFactura extends Fragment
         productListAdapter = new ProductListAdapter(rootView.getContext(),listaSeleccionados);
         lista.setAdapter(productListAdapter);
         setHasOptionsMenu(true);
+
+        ImageButton buttonUser = (ImageButton) rootView.findViewById(R.id.button_user);
+        buttonUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getChildFragmentManager();
+                FragmentUserDialog fragmentUserDialog = new FragmentUserDialog();
+                fragmentUserDialog.show(fm,"fragment_factura");
+
+            }
+        });
+
         return rootView;
     }
 }
