@@ -13,7 +13,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
-        fab:type="DEFAULT"
+        fab:type="BIG"
         fab:button_color="#3F51B5"
         fab:button_colorPressed="#304FFE"
         fab:image="@drawable/fab_plus_icon"

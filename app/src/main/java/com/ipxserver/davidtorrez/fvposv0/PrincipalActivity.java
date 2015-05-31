@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridView;
 
 import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
-import com.ipxserver.davidtorrez.fvposv0.adapter.PagerAdapter;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentFactura;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentLista;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
@@ -22,10 +19,9 @@ import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
 
 public class PrincipalActivity extends ActionBarActivity {
 
-    PagerAdapter pagerAdapter;
-    ViewPager viewPager;
+
     GridbarAdapter gridbarAdapter;
-    GridView gridbar;
+
    FragmentReceiver reciver;
     FragmentLista fragmentLista=null;
     FragmentFactura fragmentFactura=null;

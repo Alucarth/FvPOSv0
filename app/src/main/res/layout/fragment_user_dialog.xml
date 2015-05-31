@@ -3,38 +3,30 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <EditText
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txtNitUser"
+        android:hint="NIT" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/txtNitUser"
-            android:hint="NIT" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:src="@drawable/ic_action_search"
-            android:background="#ff3f51b5" />
-    </LinearLayout>
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
-        android:id="@+id/editText" />
+        android:id="@+id/editText"
+        android:hint="Razon Social" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"

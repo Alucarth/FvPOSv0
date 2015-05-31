@@ -6,10 +6,14 @@
 
     </style>
     <style name="PagerSlidingTabStrip">
-        <item name="pstsIndicatorColor">#7986CB</item>
-        <item name="pstsDividerColor">#1A237E</item>
+        <item name="pstsIndicatorColor">#9FA8DA</item>
+        <item name="pstsDividerColor">#ffffff</item>
+        <item name="pstsUnderlineColor">#3F51B5</item>
+
         <item name="pstsShouldExpand">true</item>
-        <item name="pstsTextAllCaps">false</item>
+
+        <item name="pstsTextAllCaps">true</item>
+
     </style>
 
 </resources>
