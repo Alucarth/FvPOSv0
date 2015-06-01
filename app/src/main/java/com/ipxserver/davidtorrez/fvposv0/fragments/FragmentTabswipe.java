@@ -120,6 +120,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 
         intent.putExtra("operacion", FragmentReceiver.FRAGMENT_FACTURA);
         intent.putExtra("lista_seleccionados", reciver.getListaProductos());
+        intent.putExtra("monto",reciver.getMonto());
         getActivity().sendBroadcast(intent);
         Log.i("David", "enviando  cambiar fragmento");
 

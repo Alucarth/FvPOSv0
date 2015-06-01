@@ -101,5 +101,7 @@ public class GridbarAdapter extends BaseAdapter
         return rootView;
     }
 
-
+    public int getSaldo() {
+        return saldo;
+    }
 }

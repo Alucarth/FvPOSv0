@@ -23,6 +23,7 @@ public class FragmentReceiver extends BroadcastReceiver
     private final GridbarAdapter gridAdapter;
     private final PrincipalActivity main;
     private ArrayList<Product> listaProductos=null;
+    private int monto;
     public FragmentReceiver( GridbarAdapter gridAdapter,PrincipalActivity main)
     {
         this.gridAdapter = gridAdapter;
@@ -40,6 +41,7 @@ public class FragmentReceiver extends BroadcastReceiver
         if(fragment_id==FRAGMENT_FACTURA)
         {
             listaProductos = (ArrayList<Product>)intent.getSerializableExtra("lista_seleccionados");
+            monto = intent.getIntExtra("monto",-1);
             Log.i("David", "tamao del list product size " + listaProductos.size());
 //            Product product = new Product();
 //            product.setCost("23 ");
@@ -58,5 +60,9 @@ public class FragmentReceiver extends BroadcastReceiver
     public ArrayList<Product> getListaProductos() {
         Log.i("David", "retornando lista  size " + listaProductos.size());
         return listaProductos;
+    }
+
+    public int getMonto() {
+        return monto;
     }
 }

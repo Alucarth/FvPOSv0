@@ -110,4 +110,8 @@ public class ProductReceiver extends BroadcastReceiver
     public ArrayList<Product> getListaProductos() {
         return listaProductos;
     }
+    public int getMonto()
+    {
+        return gridAdapter.getSaldo();
+    }
 }

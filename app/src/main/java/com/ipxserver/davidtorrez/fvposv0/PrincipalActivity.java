@@ -51,7 +51,7 @@ public class PrincipalActivity extends ActionBarActivity {
 
                 FragmentTransaction transaction = manager.beginTransaction();
 //                ArrayList<Product> lista = reciver.getListaProductos();
-                FragmentFactura fragmentFactura = FragmentFactura.newInstance(reciver.getListaProductos());
+                FragmentFactura fragmentFactura = FragmentFactura.newInstance(reciver.getListaProductos(),reciver.getMonto());
                 transaction.replace(R.id.contenedor_fragmnet, fragmentFactura);//reemplazar el id con el del contenedor
                 transaction.commit();
 

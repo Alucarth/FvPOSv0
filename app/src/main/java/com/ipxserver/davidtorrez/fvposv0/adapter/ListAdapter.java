@@ -23,12 +23,12 @@ public class ListAdapter extends BaseAdapter
     {
         this.context = context;
         this.lista = lista;
-        Product product = new Product();
-        product.setCost("3 ");
-        product.setQty("2");
-        product.setId("p1");
-        product.setNotes("its work");
-        adcionarProducto(product);
+//        Product product = new Product();
+//        product.setCost("3 ");
+//        product.setQty("2");
+//        product.setId("p1");
+//        product.setNotes("its work");
+//        adcionarProducto(product);
 
     }
     @Override
