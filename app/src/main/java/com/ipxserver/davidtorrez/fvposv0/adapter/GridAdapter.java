@@ -1,6 +1,7 @@
 package com.ipxserver.davidtorrez.fvposv0.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
@@ -106,6 +108,14 @@ public class GridAdapter extends BaseAdapter
                     int cantidad = Integer.parseInt(prod.getQty());
                     cantidad--;
                     prod.setQty("" + cantidad);
+                    //enviando al broadcast
+
+                    Intent intent = new Intent("cast_product");
+                    intent.putExtra("operacion", ProductReceiver.PRODUCTO_ELIMINADO);
+                    intent.putExtra("monto",Integer.parseInt(prod.getCost()));
+                    intent.putExtra("producto",prod);
+                    context.getApplicationContext().sendBroadcast(intent);
+                    Log.i("David","Broad Cast enviado");
                     notifyDataSetChanged();
 
                 }

@@ -15,8 +15,6 @@ import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridAdapter;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
-import java.util.ArrayList;
-
 
 /**
  * Created by David Torrez on 13/05/2015.
@@ -26,7 +24,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
     View rootView;
     GridView gv;
     GridAdapter gridAdapter;
-
+    public String tituloCategoria=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -59,19 +57,13 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
         gridAdapter.notifyDataSetChanged();
 
         //enviando al broadcast
-        Intent intent = new Intent("addproducto");
+        Intent intent = new Intent("cast_product");
         intent.putExtra("operacion", ProductReceiver.PRODUCTO_AGREGADO);
-        intent.putExtra("cantidad",Integer.parseInt(pro.getCost()));
+        intent.putExtra("monto",Integer.parseInt(pro.getCost()));
         intent.putExtra("producto",pro);
         getActivity().sendBroadcast(intent);
 
 //        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();
     }
-    public ArrayList<Product> getLista()
-    {
-        ArrayList<Product> listaSeleccionados=null;
 
-
-        return listaSeleccionados;
-    }
 }

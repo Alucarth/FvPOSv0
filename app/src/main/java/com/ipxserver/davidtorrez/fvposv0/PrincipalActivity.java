@@ -24,7 +24,7 @@ public class PrincipalActivity extends ActionBarActivity {
 
    FragmentReceiver reciver;
     FragmentLista fragmentLista=null;
-    FragmentFactura fragmentFactura=null;
+//    FragmentFactura fragmentFactura=null;
     FragmentTabswipe fragmentTabswipe=null;
 
 
@@ -46,19 +46,36 @@ public class PrincipalActivity extends ActionBarActivity {
     {
         switch (fragment_id)
         {
-            case FRAGMENT_FACTURA: cargarFragmento(getFragmentFactura());
+            case FRAGMENT_FACTURA: //cargarFragmento(getFragmentFactura());
+                FragmentManager manager = getSupportFragmentManager();
+
+                FragmentTransaction transaction = manager.beginTransaction();
+//                ArrayList<Product> lista = reciver.getListaProductos();
+                FragmentFactura fragmentFactura = FragmentFactura.newInstance(reciver.getListaProductos());
+                transaction.replace(R.id.contenedor_fragmnet, fragmentFactura);//reemplazar el id con el del contenedor
+                transaction.commit();
+
+//                getFragmentFactura().listAdapter.adcionarProducto(product);
+
+//                for(int i=0;i<reciver.getListaProductos().size();i++)
+//                {
+//                    Product pro = (Product) reciver.getListaProductos().get(i);
+//                    getFragmentFactura().listAdapter.adcionarProducto(pro);
+//                }
                 break;
             case FRAGMENT_TABSWIPE: cargarFragmento(getFragmentTabswipe());
                 break;
             case FRAGMENT_LISTA: cargarFragmento(getFragmentLista());;
                 break;
         }
+
     }
     private void cargarFragmento(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.contenedor_fragmnet, fragment);//reemplazar el id con el del contenedor
         transaction.commit();
+
     }
 
     public void inicializarContenido()
@@ -75,6 +92,7 @@ public class PrincipalActivity extends ActionBarActivity {
 //        gridbar= (GridView) findViewById(R.id.barraSaldo);
 //        gridbar.setAdapter(gridbarAdapter);
 //        gridbar.setVisibility(View.INVISIBLE);
+
     }
     public FragmentLista getFragmentLista() {
         if(fragmentLista==null)
@@ -85,13 +103,14 @@ public class PrincipalActivity extends ActionBarActivity {
         return fragmentLista;
     }
 
-    public FragmentFactura getFragmentFactura() {
-        if(fragmentFactura==null)
-        {
-            fragmentFactura = new FragmentFactura();
-        }
-        return fragmentFactura;
-    }
+//    public FragmentFactura getFragmentFactura() {
+//        if(fragmentFactura==null)
+//        {
+//            fragmentFactura = new FragmentFactura();
+//        }
+//
+//        return fragmentFactura;
+//    }
 
     public FragmentTabswipe getFragmentTabswipe() {
         if(fragmentTabswipe==null)

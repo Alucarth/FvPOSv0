@@ -38,6 +38,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 //
         View rootView = inflater.inflate(R.layout.frament_tabswipe, container, false);
         viewPager =(ViewPager) rootView.findViewById(R.id.pager);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(pagerAdapter);
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
@@ -86,7 +87,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     public void onResume() {
         super.onResume();
         reciver = new ProductReceiver(gridbarAdapter,this);
-        getActivity().registerReceiver(reciver, new IntentFilter("addproducto"));
+        getActivity().registerReceiver(reciver, new IntentFilter("cast_product"));
 
     }
     @Override
@@ -118,7 +119,11 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         Intent intent = new Intent("cambiar_fragmento");
 
         intent.putExtra("operacion", FragmentReceiver.FRAGMENT_FACTURA);
+        intent.putExtra("lista_seleccionados", reciver.getListaProductos());
         getActivity().sendBroadcast(intent);
+        Log.i("David", "enviando  cambiar fragmento");
+
+
     }
 
     private void cancelarFactura(MenuItem item) {

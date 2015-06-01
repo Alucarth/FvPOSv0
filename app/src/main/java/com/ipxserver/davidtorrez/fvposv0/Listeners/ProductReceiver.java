@@ -46,19 +46,48 @@ public class ProductReceiver extends BroadcastReceiver
         {
             case PRODUCTO_AGREGADO: agregarProducto(intent);
                 break;
+            case PRODUCTO_ELIMINADO: eliminarProducto(intent);
+                break;
         }
 
         Log.i("David","on recieve se activo XD metodo "+operacion);
     }
 
+    private void eliminarProducto(Intent intent) {
+        int monto = intent.getIntExtra("monto",-1);
+        Product producto = (Product) intent.getSerializableExtra("producto");
+        gridAdapter.disminuir(monto);
+        //Todo: Revisar si los objetos estan correctos
+
+        for(int i=0;i<listaProductos.size();i++)
+        {
+            Product p = (Product) listaProductos.get(i);
+            if(p.getId().equals(producto.getId()))
+            {
+                if(Integer.parseInt(producto.getQty())>1)
+                {
+                    p.setQty(producto.getQty());
+                    listaProductos.set(i, p);
+                }
+                else
+                {
+                    listaProductos.remove(i);
+                }
+
+            }
+
+        }
+
+
+    }
 
 
     private void agregarProducto(Intent intent)
     {
-        int cantidad= intent.getIntExtra("cantidad",-1);
+        int monto= intent.getIntExtra("monto",-1);
         Product producto = (Product) intent.getSerializableExtra("producto");
 
-        gridAdapter.incrementar(cantidad);
+        gridAdapter.incrementar(monto);
         boolean enlista=false;
         for(int i=0;i<listaProductos.size();i++)
         {
@@ -67,6 +96,7 @@ public class ProductReceiver extends BroadcastReceiver
             {
                 enlista = true;
                 p.setQty(producto.getQty());
+                listaProductos.set(i,p);
             }
 
         }
@@ -77,4 +107,7 @@ public class ProductReceiver extends BroadcastReceiver
 
     }
 
+    public ArrayList<Product> getListaProductos() {
+        return listaProductos;
+    }
 }

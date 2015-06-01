@@ -1,6 +1,7 @@
 package com.ipxserver.davidtorrez.fvposv0.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,22 @@ public class GridbarAdapter extends BaseAdapter
         items.add(ib);
 
     }
-    public void incrementar(int cantidad)
+    public void incrementar(int monto)
     {
-        saldo = saldo + cantidad;
+        saldo = saldo + monto;
+        if(items!=null)
+        {
+            for(int i=0;i<items.size();i++)
+            {
+                ItemBar it = (ItemBar) items.get(i);
+                it.setNumero(saldo);
+            }
+            notifyDataSetChanged();
+        }
+    }
+    public void disminuir(int monto)
+    {
+        saldo = saldo -monto;
         if(items!=null)
         {
             for(int i=0;i<items.size();i++)
@@ -78,9 +92,14 @@ public class GridbarAdapter extends BaseAdapter
         TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
 
         ItemBar item = (ItemBar) items.get(i);
-        txtNumero.setText(item.getNumero()+" Bs");
+        txtNumero.setText("Bs "+item.getNumero());
         txtDescripcion.setText(item.getDescripcion());
+
+        txtNumero.setTextColor(Color.parseColor("#76FF03"));
+        txtDescripcion.setTextColor(Color.parseColor("#76FF03"));
 
         return rootView;
     }
+
+
 }
