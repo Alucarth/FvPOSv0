@@ -37,6 +37,7 @@ public class FragmentUserDialog extends DialogFragment implements TextView.OnEdi
 
         final TextView txtNit = (EditText) rootView.findViewById(R.id.txtNitUser);
         txtNit.requestFocus();
+
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         txtNit.setOnEditorActionListener(this);

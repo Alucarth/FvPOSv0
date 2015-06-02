@@ -1,16 +1,22 @@
 package com.ipxserver.davidtorrez.fvposv0.fragments;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -108,11 +114,58 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     }
 
     private void adicionarCliente() {
-        FragmentManager fm = getChildFragmentManager();
+
+        //Todo: Dialog builder de momento hasta que se encuentre uno con mayor control XD
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle("Buscar Cliente");
+
+        LinearLayout lila1= new LinearLayout(getActivity());
+        lila1.setOrientation(LinearLayout.VERTICAL); //1 is for vertical orientation
+        final EditText input = new EditText(getActivity());
+        final EditText input2 = new EditText(getActivity());
+        lila1.addView(input);
+        lila1.addView(input2);
+        input.setHint("NIT|CI");
+
+
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.requestFocus();
+
+        builder.setView(lila1);
+
+
+
+        builder.setPositiveButton("aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              //Todo iniciar Progress con la consulta
+                nit.setText(input.getText().toString());
+                mostrarCliente(input.getText().toString());
+            }
+        });
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
+
+        //
+        //FragmentManager fm = getChildFragmentManager();
    //     DialogUser dialogUser = new DialogUser();
 //        dialogUser.show(fm,"fragment_factura");
-        FragmentUserDialog fragmentUserDialog = new FragmentUserDialog();
-        fragmentUserDialog.show(fm,"fragment_factura");
+//        FragmentUserDialog fragmentUserDialog = new FragmentUserDialog();
+//        fragmentUserDialog.show(fm,"fragment_factura");
+    }
+
+    private void mostrarCliente(String nit) {
+
+
     }
 
     private void atras() {
