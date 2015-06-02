@@ -21,6 +21,7 @@ import com.ipxserver.davidtorrez.fvposv0.R;
  */
 public class FragmentUserDialog extends DialogFragment implements TextView.OnEditorActionListener
 {
+
     public FragmentUserDialog()
     {
 
@@ -29,21 +30,25 @@ public class FragmentUserDialog extends DialogFragment implements TextView.OnEdi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_user_dialog,container);
-       getDialog().setTitle("Datos Cliente");
+       getDialog().setTitle("Datos del Cliente");
+
+        final TextView txtNombre =(TextView) rootView.findViewById(R.id.txt_factura_nombre);
+
+
+        final TextView txtNit = (EditText) rootView.findViewById(R.id.txtNitUser);
+        txtNit.requestFocus();
+        getDialog().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        txtNit.setOnEditorActionListener(this);
         Button button = (Button) rootView.findViewById(R.id.buttonAceptar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                dismiss();
+                txtNombre.setText(txtNit.getText().toString() + " its work");
             }
         });
-        EditText txtNit = (EditText) rootView.findViewById(R.id.txtNitUser);
-        txtNit.requestFocus();
-        getDialog().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-        txtNit.setOnEditorActionListener(this);
         return  rootView;
     }
 
