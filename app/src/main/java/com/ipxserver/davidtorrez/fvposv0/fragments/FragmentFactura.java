@@ -2,11 +2,13 @@ package com.ipxserver.davidtorrez.fvposv0.fragments;
 
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +42,9 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     TextView nit,name;
 
     Client cliente;
+
+    //Dialogos
+    public ProgressDialog pDialog;
 //    FacturaReceiver facturaReceiver;
    public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, int monto)
    {
@@ -124,9 +129,9 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         LinearLayout lila1= new LinearLayout(getActivity());
         lila1.setOrientation(LinearLayout.VERTICAL); //1 is for vertical orientation
         final EditText input = new EditText(getActivity());
-        final EditText input2 = new EditText(getActivity());
+      //  final EditText input2 = new EditText(getActivity());
         lila1.addView(input);
-        lila1.addView(input2);
+        //lila1.addView(input2);
         input.setHint("NIT|CI");
 
 
@@ -137,15 +142,20 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
 
 
-        builder.setPositiveButton("aceptar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
               //Todo iniciar Progress con la consulta
-                nit.setText(input.getText().toString());
-                mostrarCliente(input.getText().toString());
+                cliente = new Client();
+                cliente.setNit(input.getText().toString());
+               // nit.setText(cliente.getNit());
+                buscarCliente(cliente.getNit());
+                //mostrarCliente(input.getText().toString());
             }
+
+
         });
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -163,15 +173,132 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //        fragmentUserDialog.show(fm,"fragment_factura");
     }
 
-    private void mostrarCliente(String nit) {
+    private void buscarCliente(String nit) {
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pDialog.setTitle("Buscando Cliente");
+        pDialog.setMessage("Por favor Espere ...");
+        pDialog.setCancelable(true);
+        pDialog.setMax(100);
+//        numero= txtEntrada.getText().toString();
+//        monto= txtSalida.getText().toString();
+
+        AsyncCallWS task = new AsyncCallWS();
 
 
+        //Call execute
+        task.execute();
+    }
+
+    private void mostrarCliente() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setTitle("Datos Cliente");
+
+        LinearLayout ld= new LinearLayout(getActivity());
+        ld.setOrientation(LinearLayout.VERTICAL); //1 is for vertical orientation
+        final EditText txtNitDialog = new EditText(getActivity());
+        final EditText txtNombreDialog = new EditText(getActivity());
+        final EditText txtEmailDialog = new EditText(getActivity());
+        //  final EditText input2 = new EditText(getActivity());
+        ld.addView(txtNitDialog);
+        ld.addView(txtNombreDialog);
+        ld.addView(txtEmailDialog);
+        //lila1.addView(input2);
+
+        txtNitDialog.setText(cliente.getNit());
+        txtNombreDialog.setHint("Nombre/Razon Social");
+        txtEmailDialog.setHint("Correo Electronico");
+
+        txtNitDialog.setInputType(InputType.TYPE_CLASS_NUMBER);
+        txtNombreDialog.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        txtEmailDialog.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT);
+        txtNombreDialog.requestFocus();
+
+        builder.setView(ld);
+
+
+
+        builder.setPositiveButton("aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Todo iniciar Progress con la consulta de registro en caso de ser necesario
+                //.setText(input.getText().toString());
+                //buscarCliente(input.getText().toString());
+                //mostrarCliente(input.getText().toString());
+                cliente.setNit(txtNitDialog.getText().toString());
+                cliente.setNombre(txtNombreDialog.getText().toString());
+                cliente.setEmail(txtEmailDialog.getText().toString());
+
+                name.setText("Cliente:"+cliente.getNombre());
+                nit.setText("Nit:"+cliente.getNit());
+            }
+
+
+        });
+        builder.setNegativeButton("cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
     }
 
     private void atras() {
 
     }
 
+    private class AsyncCallWS extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            Log.i("consultaWS", "doInBackground");
+//	            getFahrenheit(celcius);
+            //getCobro();
+//	            calcularEdad();
+
+            //Todo: simulando comunicacion
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Log.i("consultaWS", "onPostExecute");
+            pDialog.dismiss();
+            mostrarCliente();
+//              Toast.makeText(MulticobroPrincipal.this, "Tarea finalizada!",
+//              Toast.LENGTH_SHORT).show();
+//	            mostrar.setText(david);
+            //Todo Alert con info del cliente registrarlo en el caso de no existir
+            //alerta("MultiCobro",cobro.getMenssage());
+
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.i("consultaWS", "onPreExecute");
+//	            mostrar.setText("Calculating...");
+
+            pDialog.setProgress(0);
+            pDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            Log.i("consultaWS", "onProgressUpdate");
+        }
+
+    }
 //    @Override
 //    public void onDialogPositiveClick(DialogUser dialogUser) {
 //        cliente = new Client();
