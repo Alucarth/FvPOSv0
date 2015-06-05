@@ -6,9 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
@@ -32,16 +39,76 @@ public class PrincipalActivity extends ActionBarActivity {
     private static final int FRAGMENT_TABSWIPE=6;
     private static final int FRAGMENT_LISTA=7;
 
+    //Variables para el navigation drawer
+    private DrawerLayout drawerLayout;
+    private ListView navList;
+    private CharSequence mTitle;
+
+    private ActionBarDrawerToggle drawerToggle;
+    private LinearLayout drawer_child;
+     String[] names;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_principal);
+        navigationInit();
+
        inicializarContenido();
         cargarFragmento(getFragmentLista());
 
     }
+
+    private void navigationInit() {
+        this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        this.navList = (ListView) findViewById(R.id.left_drawer);
+        this.drawer_child = (LinearLayout) findViewById(R.id.drawer_child);
+        // Load an array of options names
+        names = new String[]{"Nueva Factura","Reporte del Dia","Configuracion","Cerra Sesion"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, names);
+        navList.setAdapter(adapter);
+        //hasta aqui el esquelo funciona bien XD
+
+        navList.setOnItemClickListener(new DrawerItemClickListener());
+
+        //action bar toogle
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout
+                , R.string.open_drawer,
+                R.string.close_drawer) {
+
+            /**
+             * Called when a drawer has settled in a completely closed state.
+             */
+            public void onDrawerClosed(View view) {
+
+                // creates call to onPrepareOptionsMenu()
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mTitle);
+            }
+
+            /**
+             * Called when a drawer has settled in a completely open state.
+             */
+            public void onDrawerOpened(View drawerView) {
+
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Factura Virtual");
+                // creates call to onPrepareOptionsMenu()
+
+            }
+        };
+
+        drawerLayout.setDrawerListener(drawerToggle);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+    }
+
     public void cambiarFragmento(int fragment_id)
     {
         switch (fragment_id)
@@ -124,7 +191,7 @@ public class PrincipalActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         reciver = new FragmentReceiver(gridbarAdapter,this);
-        registerReceiver(reciver,new IntentFilter("cambiar_fragmento"));
+        registerReceiver(reciver, new IntentFilter("cambiar_fragmento"));
     }
 
     @Override
@@ -149,6 +216,9 @@ public class PrincipalActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -157,5 +227,37 @@ public class PrincipalActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean drawerOpen = drawerLayout.isDrawerOpen(drawer_child);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    private class DrawerItemClickListener implements
+            ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+
+        //Todo Colocar evento para cada opsion de la lista
+
+        mTitle = names[position];
+        navList.setItemChecked(position, true);
+        getSupportActionBar().setTitle(mTitle);
+        drawerLayout.closeDrawer(drawer_child);
     }
 }
