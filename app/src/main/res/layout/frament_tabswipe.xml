@@ -43,9 +43,9 @@
             android:layout_height="50dp"
             android:id="@+id/barraSaldo"
             android:numColumns="2"
-            android:paddingTop="2dp"
+            android:paddingTop="1dp"
             android:background="#e0000000"
-
+            android:stretchMode="columnWidth"
             />
 
 

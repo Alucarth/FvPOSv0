@@ -129,10 +129,13 @@ public class PrincipalActivity extends ActionBarActivity {
 //                    Product pro = (Product) reciver.getListaProductos().get(i);
 //                    getFragmentFactura().listAdapter.adcionarProducto(pro);
 //                }
+                setTitle("Factura");
                 break;
             case FRAGMENT_TABSWIPE: cargarFragmento(getFragmentTabswipe());
+                setTitle("Productos");
                 break;
-            case FRAGMENT_LISTA: cargarFragmento(getFragmentLista());;
+            case FRAGMENT_LISTA: cargarFragmento(getFragmentLista());
+                setTitle("Historial");
                 break;
         }
 
