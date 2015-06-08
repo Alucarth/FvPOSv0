@@ -16,7 +16,7 @@ import java.net.URL;
 public class Conexion {
 
     public final static int LOGIN=0;
-    public final static  String LOGIN_URL="http://192.168.1.14/cloud/public/loginPOS";
+    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
 
 
     private String respuesta;
