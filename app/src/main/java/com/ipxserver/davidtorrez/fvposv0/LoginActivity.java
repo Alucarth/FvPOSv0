@@ -1,6 +1,9 @@
 package com.ipxserver.davidtorrez.fvposv0;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -44,8 +47,8 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
 
-                usuario = new User(eduser.getText().toString(),ednit.getText().toString(),edpass.getText().toString());
-                conexion = new Conexion(usuario.getUser(),usuario.getPassword());
+                usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
+                conexion = new Conexion(usuario.getUser(), usuario.getPassword());
                 pDialog = new ProgressDialog(LoginActivity.this);
                 pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pDialog.setTitle("Autentificando");
@@ -59,6 +62,31 @@ public class LoginActivity extends FragmentActivity {
 
             }
         });
+    }
+    public void Cambiar()
+    {
+        Intent intent = new Intent(this, PrincipalActivity.class);
+        intent.putExtra("cuenta", conexion.getRespuesta());
+//		 intent.putExtra("", value)
+        startActivity(intent);
+    }
+    public void alerta(String titulo,String mensaje) {
+        //se prepara la alerta creando nueva instancia
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        //seleccionamos la cadena a mostrar
+        dialogBuilder.setMessage(mensaje);
+        //elegimo un titulo y configuramos para que se pueda quitar
+        dialogBuilder.setCancelable(true).setTitle(titulo);
+        dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        //mostramos el dialogBuilder
+        dialogBuilder.create().show();
+
+//		  ProgressDialog.show( MulticobroPrincipal.this,titulo,mensaje,true,true);
+
     }
 
     @Override
@@ -97,6 +125,14 @@ public class LoginActivity extends FragmentActivity {
         protected void onPostExecute(Void result) {
             Log.i(TAG, "onPostExecute");
             pDialog.dismiss();
+            if(conexion.getCodigo()==200)
+            {
+                Cambiar();
+            }
+            else
+            {
+                alerta("Autentificacion","Por favor verifique que el usuario y password sean correctos");
+            }
             Log.i("David", "codifgo" + conexion.getCodigo());
             Log.i("David","conexion"+conexion.getRespuesta());
 //              Toast.makeText(MulticobroPrincipal.this, "Tarea finalizada!",

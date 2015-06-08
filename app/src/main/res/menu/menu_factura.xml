@@ -4,7 +4,7 @@
 
     <item android:id="@+id/action_factura_cliente"
         android:title="cliente"
-        android:icon="@drawable/ic_action_user"
+        android:icon="@drawable/ic_action_add_person"
         app:showAsAction="withText|ifRoom"
         />
     <item android:id="@+id/action_factura_imprimir"

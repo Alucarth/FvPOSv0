@@ -1,6 +1,7 @@
 package com.ipxserver.davidtorrez.fvposv0;
 
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,12 +18,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentFactura;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentLista;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
+import com.ipxserver.davidtorrez.fvposv0.models.Account;
 
 
 public class PrincipalActivity extends ActionBarActivity {
@@ -46,6 +50,9 @@ public class PrincipalActivity extends ActionBarActivity {
 
     private ActionBarDrawerToggle drawerToggle;
     private LinearLayout drawer_child;
+
+    private String respuesta;
+    private Account cuenta;
      String[] names;
 
 
@@ -53,6 +60,11 @@ public class PrincipalActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
+        Intent intent = getIntent();
+        respuesta = intent.getStringExtra("cuenta");
+        cuenta = new Account(respuesta);
+        Log.i("David","respuesta "+respuesta);
         navigationInit();
 
        inicializarContenido();
@@ -65,7 +77,7 @@ public class PrincipalActivity extends ActionBarActivity {
         this.navList = (ListView) findViewById(R.id.left_drawer);
         this.drawer_child = (LinearLayout) findViewById(R.id.drawer_child);
         // Load an array of options names
-        names = new String[]{"Nueva Factura","Reporte del Dia","Configuracion","Cerra Sesion"};
+        names = new String[]{"Nueva Factura","Reporte del Dia","Acerca de Factura Virtual","Cerrar Sesion"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, names);
@@ -95,7 +107,7 @@ public class PrincipalActivity extends ActionBarActivity {
             public void onDrawerOpened(View drawerView) {
 
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Factura Virtual");
+                getSupportActionBar().setTitle(cuenta.getBranch());
                 // creates call to onPrepareOptionsMenu()
 
             }
@@ -150,7 +162,10 @@ public class PrincipalActivity extends ActionBarActivity {
 
     public void inicializarContenido()
     {
-
+        TextView txtFirstName = (TextView)findViewById(R.id.txt_fist_name);
+        TextView txtLastName = (TextView)findViewById(R.id.txt_last_name);
+        txtFirstName.setText(cuenta.getFirst_name());
+        txtLastName.setText(cuenta.getLast_name());
 //        actionBar.show();
 //        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 //
@@ -257,7 +272,13 @@ public class PrincipalActivity extends ActionBarActivity {
     private void selectItem(int position) {
 
         //Todo Colocar evento para cada opsion de la lista
-
+        switch (position)
+        {
+            case 0: cargarFragmento(getFragmentTabswipe());
+                break;
+            case 1: cargarFragmento(getFragmentLista());
+                break;
+        }
         mTitle = names[position];
         navList.setItemChecked(position, true);
         getSupportActionBar().setTitle(mTitle);

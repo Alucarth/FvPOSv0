@@ -11,6 +11,7 @@
             android:name=".PrincipalActivity"
             android:label="@string/app_name" >
 
+
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -20,6 +21,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
