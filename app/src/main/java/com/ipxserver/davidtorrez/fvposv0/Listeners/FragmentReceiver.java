@@ -19,6 +19,7 @@ public class FragmentReceiver extends BroadcastReceiver
     public static final int FRAGMENT_FACTURA=5;
     public static final int FRAGMENT_TABSWIPE=6;
     public static final int FRAGMENT_LISTA=7;
+    public static final int FRAGMENT_EMPRESA=8;
 
     private final GridbarAdapter gridAdapter;
     private final PrincipalActivity main;

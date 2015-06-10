@@ -15,17 +15,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
+import com.ipxserver.davidtorrez.fvposv0.adapter.NavAdapter;
+import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentEmpresa;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentFactura;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentLista;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvposv0.models.Account;
+import com.ipxserver.davidtorrez.fvposv0.models.NavItem;
+
+import java.util.ArrayList;
 
 
 public class PrincipalActivity extends ActionBarActivity {
@@ -37,11 +41,10 @@ public class PrincipalActivity extends ActionBarActivity {
     FragmentLista fragmentLista=null;
 //    FragmentFactura fragmentFactura=null;
     FragmentTabswipe fragmentTabswipe=null;
+    FragmentEmpresa fragmentEmpresa=null;
 
 
-    private static final int FRAGMENT_FACTURA=5;
-    private static final int FRAGMENT_TABSWIPE=6;
-    private static final int FRAGMENT_LISTA=7;
+
 
     //Variables para el navigation drawer
     private DrawerLayout drawerLayout;
@@ -54,6 +57,8 @@ public class PrincipalActivity extends ActionBarActivity {
     private String respuesta;
     private Account cuenta;
      String[] names;
+
+    private ArrayList<NavItem> navmenu;
 
 
     @Override
@@ -77,11 +82,26 @@ public class PrincipalActivity extends ActionBarActivity {
         this.navList = (ListView) findViewById(R.id.left_drawer);
         this.drawer_child = (LinearLayout) findViewById(R.id.drawer_child);
         // Load an array of options names
-        names = new String[]{"Nueva Factura","Reporte del Dia","Acerca de Factura Virtual","Cerrar Sesion"};
+        navmenu = new ArrayList<NavItem>();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, names);
-        navList.setAdapter(adapter);
+        NavItem navItem = new NavItem("Nueva Factura",R.drawable.ic_action_new_black);
+        navmenu.add(navItem);
+
+        navItem = new NavItem("Reporte Diario",R.drawable.ic_action_report);
+        navmenu.add(navItem);
+
+        navItem = new NavItem("Acerca de Factura Virtual",R.drawable.ic_action_empresa_black);
+        navmenu.add(navItem);
+
+        navItem = new NavItem("Cerrar Sesion",R.drawable.ic_action_exit);
+        navmenu.add(navItem);
+
+//        names = new String[]{"Nueva Factura","Reporte del Dia","Acerca de Factura Virtual","Cerrar Sesion"};
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_list_item_1, names);
+        NavAdapter navAdapter = new NavAdapter(navList.getContext(),navmenu);
+        navList.setAdapter(navAdapter);
         //hasta aqui el esquelo funciona bien XD
 
         navList.setOnItemClickListener(new DrawerItemClickListener());
@@ -125,7 +145,7 @@ public class PrincipalActivity extends ActionBarActivity {
     {
         switch (fragment_id)
         {
-            case FRAGMENT_FACTURA: //cargarFragmento(getFragmentFactura());
+            case FragmentReceiver.FRAGMENT_FACTURA: //cargarFragmento(getFragmentFactura());
                 FragmentManager manager = getSupportFragmentManager();
 
                 FragmentTransaction transaction = manager.beginTransaction();
@@ -143,12 +163,16 @@ public class PrincipalActivity extends ActionBarActivity {
 //                }
                 setTitle("Factura");
                 break;
-            case FRAGMENT_TABSWIPE: cargarFragmento(getFragmentTabswipe());
+            case FragmentReceiver.FRAGMENT_TABSWIPE: cargarFragmento(getFragmentTabswipe());
                 setTitle("Productos");
                 break;
-            case FRAGMENT_LISTA: cargarFragmento(getFragmentLista());
-                setTitle("Historial");
+            case FragmentReceiver.FRAGMENT_LISTA: cargarFragmento(getFragmentLista());
+                setTitle("Reporte de Ventas");
                 break;
+            case FragmentReceiver.FRAGMENT_EMPRESA: cargarFragmento(getFragmentEmpresa());
+                setTitle("Factura Virtual");
+                break;
+
         }
 
     }
@@ -203,6 +227,14 @@ public class PrincipalActivity extends ActionBarActivity {
             fragmentTabswipe = new FragmentTabswipe();
         }
         return fragmentTabswipe;
+    }
+    public  FragmentEmpresa getFragmentEmpresa()
+    {
+        if(fragmentEmpresa==null)
+        {
+            fragmentEmpresa = new FragmentEmpresa();
+        }
+        return fragmentEmpresa;
     }
 
     @Override
@@ -278,8 +310,11 @@ public class PrincipalActivity extends ActionBarActivity {
                 break;
             case 1: cargarFragmento(getFragmentLista());
                 break;
+            case 2: cargarFragmento(getFragmentEmpresa());
+                break;
         }
-        mTitle = names[position];
+        NavItem navItem = (NavItem) navmenu.get(position);
+        mTitle = navItem.getTitulo();
         navList.setItemChecked(position, true);
         getSupportActionBar().setTitle(mTitle);
         drawerLayout.closeDrawer(drawer_child);

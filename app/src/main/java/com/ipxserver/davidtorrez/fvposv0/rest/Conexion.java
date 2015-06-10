@@ -16,7 +16,8 @@ import java.net.URL;
 public class Conexion {
 
     public final static int LOGIN=0;
-    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
+//    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
+    public final static  String LOGIN_URL="http://192.168.1.14/cloud/public/loginPOS";
 
 
     private String respuesta;
@@ -49,14 +50,14 @@ public class Conexion {
 
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            Log.i("David","user"+user);
-            Log.i("David","pass"+pass);
+            Log.i("David","user:"+user);
+            Log.i("David","pass:"+pass);
             String basicAuth = "Basic " + new String(Base64.encode((user + ":" + pass).getBytes(), Base64.NO_WRAP));
             con.setRequestProperty("Authorization", basicAuth);
             con.setConnectTimeout(30000);
             con.setReadTimeout(30000);
             con.setInstanceFollowRedirects(true);
-            int codestatus = con.getResponseCode();
+            int codestatus =con.getResponseCode() ;
             setCodigo(codestatus);
             readStream(con.getInputStream());
         } catch (Exception e) {
