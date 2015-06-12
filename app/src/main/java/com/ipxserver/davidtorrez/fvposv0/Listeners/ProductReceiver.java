@@ -54,7 +54,7 @@ public class ProductReceiver extends BroadcastReceiver
     }
 
     private void eliminarProducto(Intent intent) {
-        int monto = intent.getIntExtra("monto",-1);
+        Double monto = intent.getDoubleExtra("monto", -1);
         Product producto = (Product) intent.getSerializableExtra("producto");
         gridAdapter.disminuir(monto);
         //Todo: Revisar si los objetos estan correctos
@@ -84,7 +84,7 @@ public class ProductReceiver extends BroadcastReceiver
 
     private void agregarProducto(Intent intent)
     {
-        int monto= intent.getIntExtra("monto",-1);
+        Double monto= intent.getDoubleExtra("monto", -1);
         Product producto = (Product) intent.getSerializableExtra("producto");
 
         gridAdapter.incrementar(monto);
@@ -110,7 +110,7 @@ public class ProductReceiver extends BroadcastReceiver
     public ArrayList<Product> getListaProductos() {
         return listaProductos;
     }
-    public int getMonto()
+    public Double getMonto()
     {
         return gridAdapter.getSaldo();
     }

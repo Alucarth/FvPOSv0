@@ -1,18 +1,87 @@
 package com.ipxserver.davidtorrez.fvposv0.models;
 
-import android.widget.BaseAdapter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by keyrus on 17-05-15.
  */
 public class Product implements Serializable
 {
+    public final static String ID ="id";
+    public final static String NOTES="notes";
+    public final static String COST="cost";
+    public final static String PRODUCT_KEY="product_key";
+    private String product_key;
     private String notes;
     private String cost;
     private String id;
     private String qty="0";
+
+
+    public static Product fromJson(String jsonText)
+    {
+        Product product = new Product();
+
+        try {
+            JSONObject json = new JSONObject(jsonText);
+
+            if(json.has(Product.ID))
+            {
+                product.setId(json.getString(Product.ID));
+            }
+            if(json.has(Product.NOTES))
+            {
+                product.setNotes(json.getString(Product.NOTES));
+            }
+            if(json.has(Product.COST))
+            {
+                product.setCost(json.getString(Product.COST));
+            }
+            if(json.has(Product.PRODUCT_KEY))
+            {
+                product.setProduct_key(json.getString(Product.PRODUCT_KEY));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return product;
+    }
+
+    public static ArrayList<Product> fromJsonArray(String jsonArray)
+    {
+        ArrayList<Product> productos= new ArrayList<Product>();
+        Product producto;
+        try {
+            JSONArray array = new JSONArray(jsonArray);
+
+            for(int i =0;i<array.length();i++)
+            {
+                JSONObject json = array.getJSONObject(i);
+                producto = Product.fromJson(json.toString());
+                productos.add(producto);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return productos;
+    }
+
+    public String getProduct_key() {
+        return product_key;
+    }
+
+    public void setProduct_key(String product_key) {
+        this.product_key = product_key;
+    }
+
     private boolean habilitado=false;
 
     public String getNotes() {

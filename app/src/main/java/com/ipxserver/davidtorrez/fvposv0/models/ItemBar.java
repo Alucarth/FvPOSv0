@@ -5,14 +5,14 @@ package com.ipxserver.davidtorrez.fvposv0.models;
  */
 public class ItemBar
 {
-    private int numero;
+    private Double numero;
     private String descripcion;
 
-    public int getNumero() {
+    public Double getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Double numero) {
         this.numero = numero;
     }
 

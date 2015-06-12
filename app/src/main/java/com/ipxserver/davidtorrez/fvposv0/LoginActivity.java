@@ -32,6 +32,10 @@ public class LoginActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_login);
         inicializarComponentes();
+//        Double num= 12.29*2.3;
+        Double num=Double.parseDouble("10.00");
+
+        Log.i("Login conversor","imprimiendo double:"+num);
 
 
 

@@ -1,16 +1,24 @@
 package com.ipxserver.davidtorrez.fvposv0.models;
 
+import android.util.Log;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by David-Pc on 07/06/2015.
  */
 public class Account
 {
+    private String TAG="David";
     private String branch,first_name,last_name;
     //TODO: tratar productos XD ver logica de envio
     private String productos;
+    private ArrayList<Categoria> categorias;
+
     public Account(String jsonText)
     {
         try {
@@ -29,8 +37,29 @@ public class Account
             }
             if(json.has("productos"))
             {
-                setProductos(json.getString("productos"));
+//                JSONArray jsonArrayProductos = new JSONArray(json.getString("productos"));
+                JSONObject jsonProducto = new JSONObject(json.getString("productos"));
+                JSONArray jsonArrayCategorias = new JSONArray(json.getString("categorias"));
+                categorias = new ArrayList<Categoria>();
+                for(int i=0;i<jsonArrayCategorias.length();i++)
+                {
+                     JSONObject jsonObject = jsonArrayCategorias.getJSONObject(i);
+                     String nombreCategoria = jsonObject.getString("categoria");
+                     String arrayProduto=null;
+                     if(jsonProducto.has(nombreCategoria))
+                     {
+                         arrayProduto = jsonProducto.getString(nombreCategoria);
+                     }
+//                     JSONObject jsonArray = jsonArrayProductos.getJSONObject(i);
+//                     String jsonproductos = jsonArray.getString(nombreCategoria);
+                    Log.i(TAG, "categoria: "+nombreCategoria);
+                    Log.i(TAG, "productos: "+arrayProduto);
+                    Categoria categoria = new Categoria(nombreCategoria,arrayProduto);
+                    categorias.add(categoria);
+                }
+
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,5 +96,9 @@ public class Account
 
     public void setProductos(String productos) {
         this.productos = productos;
+    }
+
+    public ArrayList<Categoria> getCategorias() {
+        return categorias;
     }
 }

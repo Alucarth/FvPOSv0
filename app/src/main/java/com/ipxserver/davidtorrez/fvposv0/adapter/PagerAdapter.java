@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentGrid;
+import com.ipxserver.davidtorrez.fvposv0.models.Categoria;
 
 import java.util.ArrayList;
 
@@ -16,14 +17,16 @@ public class PagerAdapter extends FragmentPagerAdapter
     //Todo: antes de esto pasar el arrya list del objeto con toda la lista
     ArrayList<FragmentGrid> lista;
 
-    public PagerAdapter(FragmentManager fm) {
+    public PagerAdapter(FragmentManager fm,ArrayList<Categoria> categorias) {
         super(fm);
         lista = new ArrayList<FragmentGrid>();
 
-        for(int i=0;i<3;i++)
+        for(int i=0;i<categorias.size();i++)
         {
-            FragmentGrid fg = new FragmentGrid();
-            fg.tituloCategoria ="Categoria "+i;
+
+            Categoria categoria = (Categoria)categorias.get(i);
+            FragmentGrid fg = FragmentGrid.newInstance(categoria.getProductos());
+            fg.tituloCategoria = categoria.getNombre();
             lista.add(fg);
         }
     }

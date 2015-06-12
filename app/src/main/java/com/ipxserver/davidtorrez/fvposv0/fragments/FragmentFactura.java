@@ -38,7 +38,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     public ArrayList<Product> listaSeleccionados;
 //    public ProductListAdapter productListAdapter;
     public ListAdapter listAdapter;
-    public int monto;
+    public Double monto;
     TextView nit,name;
 
     Client cliente;
@@ -46,14 +46,14 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     //Dialogos
     public ProgressDialog pDialog;
 //    FacturaReceiver facturaReceiver;
-   public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, int monto)
+   public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, Double monto)
    {
        FragmentFactura  fragmentFactura = new FragmentFactura();
        Bundle arg = new Bundle();
        //Todo: Adicionar un parametro de monto total para tenerlo todo en el fragmento
 
        arg.putSerializable("lista",listaSeleccionados);
-       arg.putInt("monto",monto);
+       arg.putDouble("monto",monto);
         fragmentFactura.setArguments(arg);
        return fragmentFactura;
    }
@@ -64,7 +64,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         super.onCreate(savedInstanceState);
 
         listaSeleccionados = (ArrayList<Product>)getArguments().getSerializable("lista");
-        monto = getArguments().getInt("monto");
+        monto = getArguments().getDouble("monto");
     }
 
     @Override

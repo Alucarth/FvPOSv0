@@ -20,6 +20,9 @@ import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.adapter.PagerAdapter;
+import com.ipxserver.davidtorrez.fvposv0.models.Categoria;
+
+import java.util.ArrayList;
 
 /**
  * Created by David-Pc on 25/05/2015.
@@ -32,9 +35,29 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     private ProductReceiver reciver;
     //ActionBar actionBar;
     ViewPager viewPager;
+    private ArrayList<Categoria> categorias;
+
+    public static FragmentTabswipe newInstance(ArrayList<Categoria> categorias)
+    {
+        FragmentTabswipe  fragmentTabswipe = new FragmentTabswipe();
+        Bundle arg = new Bundle();
+        //Todo: Adicionar un parametro de monto total para tenerlo todo en el fragmento
+
+        arg.putSerializable("categorias",categorias);
+        fragmentTabswipe.setArguments(arg);
+        return fragmentTabswipe;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        categorias = (ArrayList<Categoria>) getArguments().getSerializable("categorias");
+        Log.i("David","categorias size:"+categorias.size());
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        pagerAdapter = new PagerAdapter(this.getChildFragmentManager());
+        pagerAdapter = new PagerAdapter(this.getChildFragmentManager(),categorias);
 //
         View rootView = inflater.inflate(R.layout.frament_tabswipe, container, false);
         viewPager =(ViewPager) rootView.findViewById(R.id.pager);

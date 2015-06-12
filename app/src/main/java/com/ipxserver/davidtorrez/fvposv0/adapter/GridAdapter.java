@@ -27,18 +27,19 @@ public class GridAdapter extends BaseAdapter
     Context context;
 
 
-    public GridAdapter(Context context){
+    public GridAdapter(Context context,ArrayList<Product> lista){
         this.context = context;
-        lista = new ArrayList<Product>();
-        for(int i=0;i<20;i++)
-        {
-            Product producto = new Product();
-            producto.setId("a"+i);
-            producto.setNotes(" Producto n " + i);
-            producto.setCost((i + 2) + "");
-            lista.add(producto);
-
-        }
+        this.lista = lista;
+//        lista = new ArrayList<Product>();
+//        for(int i=0;i<20;i++)
+//        {
+//            Product producto = new Product();
+//            producto.setId("a"+i);
+//            producto.setNotes(" Producto n " + i);
+//            producto.setCost((i + 2) + "");
+//            lista.add(producto);
+//
+//        }
     }
 
     @Override
@@ -112,7 +113,7 @@ public class GridAdapter extends BaseAdapter
 
                     Intent intent = new Intent("cast_product");
                     intent.putExtra("operacion", ProductReceiver.PRODUCTO_ELIMINADO);
-                    intent.putExtra("monto",Integer.parseInt(prod.getCost()));
+                    intent.putExtra("monto",Double.parseDouble(prod.getCost()));
                     intent.putExtra("producto",prod);
                     context.getApplicationContext().sendBroadcast(intent);
                     Log.i("David","Broad Cast enviado");
@@ -122,9 +123,9 @@ public class GridAdapter extends BaseAdapter
             });
             txtQty.setText("x" + producto.getQty());
             int cantidad = Integer.parseInt(producto.getQty());
-            int costo= Integer.parseInt(producto.getCost());
+            Double costo= Double.parseDouble(producto.getCost());
 
-            double subtotal = (double)(cantidad*costo);
+            Double subtotal = (Double)(cantidad*costo);
             //Double subtotal = (double)(Double.parseDouble(producto.getCost())*Integer.parseInt(producto.getQty()));
             txtSubtotal.setText("Bs "+redondear(subtotal));
             itemSeleccionado(rootView);

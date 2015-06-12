@@ -20,24 +20,25 @@ public class GridbarAdapter extends BaseAdapter
 {
     ArrayList <ItemBar> items;
     Context context;
-    int saldo;
+    Double saldo;
     public GridbarAdapter(Context context)
     {
         this.context = context;
         items = new ArrayList<ItemBar>();
 
         ItemBar ib = new ItemBar();
-        ib.setNumero(0);
+        ib.setNumero(0.0);
         ib.setDescripcion("Subtotal");
         items.add(ib);
 
         ib = new ItemBar();
-        ib.setNumero(0);
+        ib.setNumero(0.0);
         ib.setDescripcion("Total");
         items.add(ib);
+        saldo = 0.0;
 
     }
-    public void incrementar(int monto)
+    public void incrementar(Double monto)
     {
         saldo = saldo + monto;
         if(items!=null)
@@ -50,7 +51,7 @@ public class GridbarAdapter extends BaseAdapter
             notifyDataSetChanged();
         }
     }
-    public void disminuir(int monto)
+    public void disminuir(Double monto)
     {
         saldo = saldo -monto;
         if(items!=null)
@@ -101,7 +102,7 @@ public class GridbarAdapter extends BaseAdapter
         return rootView;
     }
 
-    public int getSaldo() {
+    public Double getSaldo() {
         return saldo;
     }
 }

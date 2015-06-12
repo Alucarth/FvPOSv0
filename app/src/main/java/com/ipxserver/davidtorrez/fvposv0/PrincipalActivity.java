@@ -224,7 +224,7 @@ public class PrincipalActivity extends ActionBarActivity {
     public FragmentTabswipe getFragmentTabswipe() {
         if(fragmentTabswipe==null)
         {
-            fragmentTabswipe = new FragmentTabswipe();
+            fragmentTabswipe = FragmentTabswipe.newInstance(cuenta.getCategorias());
         }
         return fragmentTabswipe;
     }
