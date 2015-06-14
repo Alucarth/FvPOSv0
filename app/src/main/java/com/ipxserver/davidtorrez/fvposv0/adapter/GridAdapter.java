@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.ipxserver.davidtorrez.fvposv0.Listeners.ProductReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
+import com.ipxserver.davidtorrez.fvposv0.Util.Font;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 
 import java.text.DecimalFormat;
@@ -121,13 +122,13 @@ public class GridAdapter extends BaseAdapter
 
                 }
             });
-            txtQty.setText("x" + producto.getQty());
+            txtQty.setText("x"+producto.getQty());
             int cantidad = Integer.parseInt(producto.getQty());
             Double costo= Double.parseDouble(producto.getCost());
 
             Double subtotal = (Double)(cantidad*costo);
             //Double subtotal = (double)(Double.parseDouble(producto.getCost())*Integer.parseInt(producto.getQty()));
-            txtSubtotal.setText("Bs "+redondear(subtotal));
+            txtSubtotal.setText(subtotal.toString()+"Bs");
             itemSeleccionado(rootView);
 
             txtNotes.setTextColor(Color.WHITE);
@@ -137,9 +138,15 @@ public class GridAdapter extends BaseAdapter
 
             txtQty.setVisibility(View.VISIBLE);
             txtSubtotal.setVisibility(View.VISIBLE);
+            txtCost.setText(producto.getCost() + " Bs");
+            Font.NINBUS.apply(context,txtCost);
+
         }else{
             itemNormal(rootView);
-            txtCost.setText("Bs "+producto.getCost());
+            txtCost.setText(producto.getCost() + " Bs");
+            Font.NINBUS.apply(context, txtCost);
+
+
 
             txtNotes.setTextColor(Color.BLACK);
             txtQty.setTextColor(Color.BLACK);

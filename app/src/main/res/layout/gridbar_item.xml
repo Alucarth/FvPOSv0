@@ -7,15 +7,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Numero"
+        android:textSize="20dp"
         android:id="@+id/txtNumero"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="2dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Descripcion"
+
         android:id="@+id/txtDescripcion"
         android:layout_below="@+id/txtNumero"
         android:layout_centerHorizontal="true" />
