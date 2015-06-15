@@ -36,6 +36,8 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     //ActionBar actionBar;
     ViewPager viewPager;
     private ArrayList<Categoria> categorias;
+    private boolean activarMenu=false;
+
 
     public static FragmentTabswipe newInstance(ArrayList<Categoria> categorias)
     {
@@ -61,7 +63,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 //
         View rootView = inflater.inflate(R.layout.frament_tabswipe, container, false);
         viewPager =(ViewPager) rootView.findViewById(R.id.pager);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(categorias.size());
         viewPager.setAdapter(pagerAdapter);
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
@@ -91,6 +93,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         gridbarAdapter = new GridbarAdapter(rootView.getContext());
         gridbar= (GridView) rootView.findViewById(R.id.barraSaldo);
         gridbar.setAdapter(gridbarAdapter);
+
 //        gridbar.setVisibility(View.INVISIBLE);
 
 
@@ -121,8 +124,13 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_tabswipe, menu);
-
+        if(activarMenu)
+        {
+            inflater.inflate(R.menu.menu_toast, menu);
+        }
+        else {
+            inflater.inflate(R.menu.menu_tabswipe, menu);
+        }
 
     }
 
@@ -131,7 +139,10 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         Log.i("David", "entro al item selected");
         switch (item.getItemId())
         {
-            case R.id.action_cancelar: cancelarFactura(item); return true;
+            case R.id.action_cancelar:
+
+                cancelarFactura(item);
+                return true;
             case R.id.action_facturar: llamarFacturar(item); return true;
             default:  return super.onOptionsItemSelected(item);
         }
@@ -152,11 +163,48 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 
     private void cancelarFactura(MenuItem item) {
 
+        //Todo: long press usarlo a futuro para compartir informacion lo malo es que ocupa un espacion adicioanl arriba de action bar
 
-        Intent intent = new Intent("cambiar_fragmento");
-
-        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
-        getActivity().sendBroadcast(intent);
+//        ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+//            @Override
+//            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+//
+//                MenuInflater inflater = actionMode.getMenuInflater();
+//                inflater.inflate(R.menu.menu_toast,menu);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+//
+////                        switch (menuItem.getItemId())
+////                        {
+////                            case R.id.action_cancelar: cancelarFactura(menuItem); return true;
+////                            case R.id.action_facturar: llamarFacturar(menuItem); return true;
+////                            default:  return false;
+////                        }
+//                return false;
+//
+//            }
+//
+//            @Override
+//            public void onDestroyActionMode(ActionMode actionMode) {
+//
+//            }
+//        };
+//
+//        mActionMode = getActivity().startActionMode(mActionModeCallback);
+        activarMenu = true;
+        getActivity().invalidateOptionsMenu();
+//        Intent intent = new Intent("cambiar_fragmento");
+//
+//        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+//        getActivity().sendBroadcast(intent);
         Log.i("David","entro a la funcion de cancelar factura");
     }
 }

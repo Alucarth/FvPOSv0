@@ -1,7 +1,6 @@
 package com.ipxserver.davidtorrez.fvposv0;
 
 
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -66,9 +65,10 @@ public class PrincipalActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        Intent intent = getIntent();
-        respuesta = intent.getStringExtra("cuenta");
-        cuenta = new Account(respuesta);
+//        Intent intent = getIntent();
+//        respuesta = intent.getStringExtra("cuenta");
+//        cuenta = new Account(respuesta);
+        cuenta = new Account("{\"productos\":{\"categoria1\":[{\"id\":9,\"product_key\":\"AM11\",\"notes\":\" producto 1\",\"cost\":\"10.00\"},{\"id\":13,\"product_key\":\"AM15\",\"notes\":\" producto con descripsion\",\"cost\":\"99.00\"},{\"id\":11,\"product_key\":\"AM13\",\"notes\":\" producto 3\",\"cost\":\"10.00\"}],\"categoria2\":[{\"id\":12,\"product_key\":\"AM14\",\"notes\":\" producto 4\",\"cost\":\"10.00\"},{\"id\":10,\"product_key\":\"AM12\",\"notes\":\" producto 2\",\"cost\":\"10.00\"},{\"id\":14,\"product_key\":\"AM16\",\"notes\":\" producto 6\",\"cost\":\"10.00\"}],\"categoria3\":[{\"id\":16,\"product_key\":\"AM18\",\"notes\":\" producto 8\",\"cost\":\"10.00\"},{\"id\":17,\"product_key\":\"AM19\",\"notes\":\" producto 9\",\"cost\":\"10.00\"},{\"id\":18,\"product_key\":\"AM20\",\"notes\":\" producto 0\",\"cost\":\"10.00\"}]},\"categorias\":[{\"categoria\":\"categoria1\"},{\"categoria\":\"categoria2\"},{\"categoria\":\"categoria3\"}],\"first_name\":\"Aurora\",\"last_name\":\"Bustillo Bravo\",\"branch\":\"Casa Matriz\"}");
         Log.i("David","respuesta "+respuesta);
         navigationInit();
 

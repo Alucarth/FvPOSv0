@@ -178,7 +178,7 @@ public class GridAdapter extends BaseAdapter
 
     private void itemSeleccionado(View rootView) {
 
-        rootView.setBackgroundResource(R.color.actionbar_background);
+        rootView.setBackgroundResource(R.drawable.layer_card_selected);
     }
 
     public ArrayList<Product> getLista()

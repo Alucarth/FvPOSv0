@@ -6,11 +6,11 @@
         android:title="cancelar"
 
         android:icon="@drawable/ic_action_cancel"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="always|withText"
         />
     <item android:id="@+id/action_facturar"
         android:title="facturar"
         android:icon="@drawable/ic_action_ok"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="always|withText"
         />
 </menu>
