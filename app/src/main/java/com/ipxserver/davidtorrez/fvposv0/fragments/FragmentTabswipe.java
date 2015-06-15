@@ -199,12 +199,12 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 //        };
 //
 //        mActionMode = getActivity().startActionMode(mActionModeCallback);
-        activarMenu = true;
-        getActivity().invalidateOptionsMenu();
-//        Intent intent = new Intent("cambiar_fragmento");
-//
-//        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
-//        getActivity().sendBroadcast(intent);
+//        activarMenu = true;
+//        getActivity().invalidateOptionsMenu();
+        Intent intent = new Intent("cambiar_fragmento");
+
+        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+        getActivity().sendBroadcast(intent);
         Log.i("David","entro a la funcion de cancelar factura");
     }
 }

@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="NOMBRE"
+            android:textSize="11dp"
             android:id="@+id/txt_factura_nombre"
             android:layout_marginStart="15dp"
             android:layout_alignParentTop="true"
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="NIT"
+            android:textSize="11dp"
             android:id="@+id/txt_factura_nit"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/txt_factura_nombre"
@@ -35,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nit 0"
+            android:textSize="11dp"
             android:id="@+id/checkBox"
 
             android:layout_marginEnd="45dp"
