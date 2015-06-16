@@ -5,12 +5,12 @@
     <item android:id="@+id/action_factura_cliente"
         android:title="cliente"
         android:icon="@drawable/ic_action_add_person"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         />
     <item android:id="@+id/action_factura_imprimir"
         android:title="imprimir"
         android:icon="@drawable/ic_action_imprimir"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         />
     <item android:id="@+id/action_factura_cancelar"
         android:title="cancelar"

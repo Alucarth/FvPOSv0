@@ -18,6 +18,14 @@ public class Account
     //TODO: tratar productos XD ver logica de envio
     private String productos;
     private ArrayList<Categoria> categorias;
+   //para json response
+   private String name;
+    private String nit;
+    private String address1;
+    private String address2;
+    private String num_auto;
+    private String fecha_limite;
+
 
     public Account(String jsonText)
     {
@@ -58,6 +66,30 @@ public class Account
                     categorias.add(categoria);
                 }
 
+            }
+            if(json.has("name"))
+            {
+                name = json.getString("name");
+            }
+            if(json.has("nit"))
+            {
+                nit = json.getString("nit");
+            }
+            if(json.has("address1"))
+            {
+                address1=json.getString("address1");
+            }
+            if(json.has("address2"))
+            {
+                address2=json.getString("address2");
+            }
+            if(json.has("num_auto"))
+            {
+                num_auto=json.getString("num_auto");
+            }
+            if(json.has("fecha_limite"))
+            {
+                fecha_limite=json.getString("fecha_limite");
             }
 
         } catch (JSONException e) {
@@ -100,5 +132,53 @@ public class Account
 
     public ArrayList<Categoria> getCategorias() {
         return categorias;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNit() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    public String getNum_auto() {
+        return num_auto;
+    }
+
+    public void setNum_auto(String num_auto) {
+        this.num_auto = num_auto;
+    }
+
+    public String getFecha_limite() {
+        return fecha_limite;
+    }
+
+    public void setFecha_limite(String fecha_limite) {
+        this.fecha_limite = fecha_limite;
     }
 }

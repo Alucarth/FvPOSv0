@@ -8,6 +8,7 @@ import java.sql.ClientInfoStatus;
 /**
  * Created by David Torrez on 01/06/2015.
  */
+
 public class Client
 {
     public static final String ID="id";

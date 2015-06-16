@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:id="@+id/head"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true">
@@ -14,9 +14,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="NOMBRE"
-            android:textSize="11dp"
+            android:textSize="15dp"
             android:id="@+id/txt_factura_nombre"
             android:layout_marginStart="15dp"
             android:layout_alignParentTop="true"
@@ -25,9 +25,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="NIT"
-            android:textSize="11dp"
+            android:textSize="15dp"
             android:id="@+id/txt_factura_nit"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/txt_factura_nombre"
@@ -37,23 +37,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nit 0"
-            android:textSize="11dp"
+            android:textSize="14dp"
             android:id="@+id/checkBox"
-
             android:layout_marginEnd="45dp"
-            android:layout_above="@+id/textView3"
+
             android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginTop="20dp"
-            android:text="Productos"
-            android:id="@+id/textView3"
 
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
     <ListView
