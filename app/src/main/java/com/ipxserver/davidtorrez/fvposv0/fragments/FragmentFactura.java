@@ -4,10 +4,18 @@ package com.ipxserver.davidtorrez.fvposv0.fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.Util.Converter;
 import com.ipxserver.davidtorrez.fvposv0.Util.DateUtil;
@@ -34,7 +43,6 @@ import com.ipxserver.davidtorrez.fvposv0.models.InvoiceItem;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 import com.nbbse.mobiprint3.Printer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -61,7 +69,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
        Bundle arg = new Bundle();
        //Todo: Adicionar un parametro de monto total para tenerlo todo en el fragmento
 
-       arg.putSerializable("lista",listaSeleccionados);
+       arg.putSerializable("lista", listaSeleccionados);
        arg.putDouble("monto",monto);
         fragmentFactura.setArguments(arg);
        return fragmentFactura;
@@ -125,11 +133,64 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     }
 
     private void imprimir() {
-        Printer print= Printer.getInstance();
-        print.printText("Hola mundo ",2);
-        print.printBitmap(getResources().openRawResource(R.raw.linea));
-        print.printText("verificando imagen de impresion");
-        print.printEndLine();
+
+
+        Factura factura = new Factura(convertiraISO("{\"invoice_number\":\"0058\",\"control_code\":\"86-CE-FC-74\",\"invoice_date\":\"17-06-2015\",\"activity_pri\":\"ENSE\\u00d1ANZA DE ADULTOS Y OTROS TIPOS DE ENSE\\u00d1ANZA\",\"amount\":\"900.00\",\"subtotal\":\"900.00\",\"fiscal\":\"0.00\",\"client\":{\"id\":19,\"nit\":\"256352\",\"name\":\"Alejandro\",\"public_id\":3},\"account\":{\"id\":4,\"timezone_id\":null,\"date_format_id\":null,\"datetime_format_id\":null,\"currency_id\":1,\"created_at\":\"2015-01-24 07:02:21\",\"updated_at\":\"2015-06-07 05:50:14\",\"deleted_at\":null,\"nit\":\"131555028\",\"name\":\"Centro de Capacitaci\\u00f3n T\\u00e9cnica Golden Bridge S.A.\",\"ip\":\"190.129.127.93\",\"account_key\":\"lyoArnN7Sl3c3bDI37qR452K9tABb9Vv\",\"last_login\":\"2015-06-07 05:50:14\",\"address1\":\"Sopocachi\",\"address2\":\"Calle Presbitero Medina N\\u00ba 2431\",\"city\":\"\",\"state\":\"\",\"postal_code\":\"\",\"country_id\":1,\"invoice_terms\":null,\"email_footer\":null,\"industry_id\":null,\"size_id\":null,\"work_phone\":\"2410650 - 2410640 - 2410665\",\"work_email\":\"\",\"pro_plan_paid\":\"2015-01-24\",\"cod_search\":0,\"aux1\":null,\"aux2\":null,\"custom_label1\":\"\",\"custom_value1\":\"\",\"custom_label2\":\"\",\"custom_value2\":\"\",\"custom_client_label1\":\"N\\u00famero de Cuenta\",\"custom_client_label2\":\"Celular\",\"custom_client_label3\":\"N\\u00ba de Carnet\",\"custom_client_label4\":\"N\\u00famero de Matr\\u00edcula\",\"custom_client_label5\":\"Plan\",\"custom_client_label6\":\"N\\u00famero de Cuotas\",\"custom_client_label7\":\"Cuota Mensual\",\"custom_client_label8\":\"Cuota Inicial\",\"custom_client_label9\":\"Ejec. Publicidad\",\"custom_client_label10\":\"\",\"custom_client_label11\":\"Fecha de Contrato\",\"custom_client_label12\":\"Primer Vencimiento\",\"open\":0,\"hide_quantity\":0,\"hide_paid_to_date\":0,\"custom_invoice_label1\":null,\"custom_invoice_label2\":null,\"custom_invoice_taxes1\":null,\"custom_invoice_taxes2\":null,\"vat_number\":\"\",\"invoice_taxes\":1,\"invoice_item_taxes\":0,\"fill_products\":1,\"update_products\":0,\"language_id\":1},\"law\":\"-\",\"invoice_items\":[{\"notes\":\"Abono a Matr\\u00edcula\",\"cost\":\"60.00\",\"qty\":\"15.00\"}],\"address1\":\"Sopocachi\",\"address2\":\"Calle Presbitero Medina N\\u00ba 2431\",\"num_auto\":\"2904001336362\",\"fecha_limite\":\"31-05-2015\"}"));
+            Imprimir(factura);
+        Intent intent = new Intent("cambiar_fragmento");
+
+        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+        getActivity().sendBroadcast(intent);
+//        Printer print= Printer.getInstance();
+//        print.printText("Hola mundo ",2);
+////        print.printBitmap(getResources().openRawResource(R.raw.linea));
+////        print.printText("verificando imagen de impresion");
+////        print.printEndLine();
+//        String filename = getActivity().getFilesDir()+"/imagen.bmp";
+//        String cadena = "imagen de lo que sea";
+//        Toast.makeText(getActivity().getApplicationContext(),getActivity().getFilesDir()+"",Toast.LENGTH_LONG).show();
+//
+//        Bitmap imagen = drawText(cadena, 200, 20);
+//
+//        try {
+//            if (AndroidBmpUtil.save(imagen, filename))
+//            {
+//                Log.e("David", "sin Errores :)");
+//                print.printBitmap(filename);
+//            }
+//            else
+//            {
+//                Log.e("David", "por queeeeeeeeeeeeeee XD");
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Bitmap bi = BitmapFactory.decodeFile(filename);
+//        print.printBitmap(filename);
+//        print.printEndLine();
+//        FileOutputStream outputStream;
+//
+//        try {
+//            outputStream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
+//            outputStream.write(string.getBytes());
+//            outputStream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        try{
+//            FileInputStream fin = getActivity().openFileInput(filename);
+//            int c;
+//            String temp="";
+//
+//            while( (c = fin.read()) != -1){
+//                temp = temp + Character.toString((char)c);
+//            }
+//
+//            Toast.makeText(getActivity().getApplicationContext(),"file read: "+temp,Toast.LENGTH_SHORT).show();
+//        }
+//        catch(Exception e){
+//        }
 
     }
 
@@ -267,6 +328,36 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
     }
 
+    public static Bitmap drawText(String text, int textWidth, int textSize) {
+// Get text dimensions
+        TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG
+                | Paint.LINEAR_TEXT_FLAG);
+        textPaint.setStyle(Paint.Style.FILL);
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(textSize);
+        StaticLayout mTextLayout = new StaticLayout(text, textPaint,
+                textWidth, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+
+// Create bitmap and canvas to draw to
+        Bitmap b = Bitmap.createBitmap(textWidth, mTextLayout.getHeight(), Bitmap.Config.RGB_565);
+        Canvas c = new Canvas(b);
+
+// Draw background
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG
+                | Paint.LINEAR_TEXT_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+        c.drawPaint(paint);
+
+// Draw text
+        c.save();
+        c.translate(0, 0);
+        mTextLayout.draw(c);
+        c.restore();
+
+        return b;
+    }
+
     private class AsyncCallWS extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
@@ -316,15 +407,14 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     }
 
     //---------------------------------------------------Modulo de Impresion--------------------------------------//
-    public void Imprimir(Factura factura, byte[] ImagenQr,Vector DetalleProductos,Vector vec)
+    public void Imprimir(Factura factura)
     {
    Converter conv= new Converter();
         Vector vnombre = TextLine("NOMBRE: "+factura.getCliente().getName(),36);
 
         Vector literal = TextLine("SON: "+conv.getStringOfNumber(factura.getAmount()),37);
-        Vector vactividad = TextLine(factura.getActividad(),36);
-        Vector vtitulo =  TextLine(factura.getAccount().getName(),20);
-        byte titulos[]= null;
+        Vector vactividad = TextLine(factura.getActividad(),34);
+        Vector vtitulo =  TextLine(factura.getAccount().getName(),35);
         byte printLine[] =null;
 //        try {
 //            printLine = ba.readImage(BMPGenerator.encodeBMP(getLinea()));
@@ -341,30 +431,28 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
         for(int i=0;i<factura.getInvoiceItems().size();i++)
         {
-//            try {
-//                InvoiceItem invitem = (InvoiceItem) factura.getInvoiceItems().elementAt(i);
-//
-////                                        String concepto =(String) conceptos.elementAt(i);
-////                                            imprimir.printText(invitem.getNotes(), 1);
-//
-//
-//                double subTotal = (Double.parseDouble(invitem.getCost())*Double.parseDouble(invitem.getQty()));
-//                double costo =Double.parseDouble(invitem.getCost());
-//
-//
-////                                            double c = Double.parseDouble(invitem.getQty());
-//
-//
-////                                        ba = (byte[]) DetalleProductos.elementAt(i);
-////                byte[] b = ba.readImage(BMPGenerator.encodeBMP(getInvoiceItem(""+invitem.getQty(),""+invitem.getCost(),""+redondeo(subTotal,2))));
-//                prods.addElement(b);
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
+
+                InvoiceItem invitem = (InvoiceItem) factura.getInvoiceItems().elementAt(i);
+
+//                                        String concepto =(String) conceptos.elementAt(i);
+//                                            imprimir.printText(invitem.getNotes(), 1);
+
+
+                double subTotal = (Double.parseDouble(invitem.getCost())*Double.parseDouble(invitem.getQty()));
+                double costo =Double.parseDouble(invitem.getCost());
+
+
+//                                            double c = Double.parseDouble(invitem.getQty());
+
+
+//                                        ba = (byte[]) DetalleProductos.elementAt(i);
+                String  producto = ConstruirFila(""+invitem.getQty(),""+invitem.getCost(),""+redondeo(subTotal,2));
+                prods.addElement(producto);
+
 
         }
-        Vector s = TextLine("\"LA REPRODUCCION TOTAL O PARCIAL Y/O EL USO NO AUTORIZADO DE ESTA NOTA FISCAL, CONSTITUYE UN DELITO A SER SANSIONADO CONFORME A LA LEY\"",45);
-        byte vs[] = null;
+        Vector s = TextLine("\"LA REPRODUCCION TOTAL O PARCIAL Y/O EL USO NO AUTORIZADO DE ESTA NOTA FISCAL, CONSTITUYE UN DELITO A SER SANSIONADO CONFORME A LA LEY\"",32);
+//        byte vs[] = null;
 //        try {
 ////            vs= ba.readImage(BMPGenerator.encodeBMP(getLeyenda(s)));
 //        } catch (IOException ex) {
@@ -383,12 +471,14 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //                                    imprimir.printBitmap(deviceOps.readImage("/FAC_tigo2.bmp", 0));
 //                                    //imprimir.printBitmap(deviceOps.readImage("/viva.bmp", 0));
                     //Encabezado
-                    for(int j=0;j<vtitulo.size();j++)
-                    {
-                        String linea = (String) vtitulo.elementAt(j);
-//                                        imprimir.printText(linea, 1);
-                        imprimir.printText(ConstruirFilaA(linea), 2);
-                    }
+//                    for(int j=0;j<vtitulo.size();j++)
+//                    {
+//                        String linea = (String) vtitulo.elementAt(j);
+////                                        imprimir.printText(linea, 1);
+//                        imprimir.printText(ConstruirFilaA(linea), 1);
+//                    }
+                    imprimir.printText("   IPX Server ",2);
+
 //                                    imprimir.printTextWidthHeightZoom(ConstruirFilaA(factura.getAccount().getName()), 2, 1);
 //                                     try{
 //                                         imprimir.printBitmap(this.ba.readImage(BMPGenerator.encodeBMP(imprimirTitulo(""))));
@@ -396,18 +486,19 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //                                     }catch(IOException e){}
 //                                    imprimir.printTextWidthHeightZoom(ConstruirFilaA(), 2, 1);
 //                                    imprimir.printText(ConstruirFila(factura.getAccount().getName()), 1);
-                    String dir1 =  factura.getAddress1().replace('º', 'o');
-                    String dir2= factura.getAddress2().replace('º', 'o');
+                    String dir1 ="Edificio Caracas Of. 201";
+                    String dir2= "Av. 16 de Julio No 1456";
 
+                    imprimir.printText("           Casa Matriz");
                     imprimir.printText(ConstruirFila(dir1), 1);
                     imprimir.printText(ConstruirFila(dir2), 1);
 //                                    imprimir.printText(ConstruirFila("SFC-001"), 1);
                     imprimir.printText(ConstruirFila("FACTURA"), 1);
                     imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
                     //Datos de la Empresa
-                    imprimir.printText("                            NIT: " + factura.getAccount().getNit(), 1);
-                    imprimir.printText("              FACTURA No.: "+factura.getInvoiceNumber(), 1);
-                    imprimir.printText("     AUTORIZACION No.: "+factura.getNumAuto(), 1);
+                    imprimir.printText("              NIT: " + factura.getAccount().getNit(), 1);
+                    imprimir.printText("      FACTURA No.: "+factura.getInvoiceNumber(), 1);
+                    imprimir.printText(" AUTORIZACION No.: "+factura.getNumAuto(), 1);
                     imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
                     //Datos del cliente
                     //Colocar Actividad Economica  PRODUCCI\u00D3N DE AGUAS MINERALES
@@ -424,7 +515,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //                                         imprimir.printTextWidthHeightZoom(ConstruirFilaA(linea), 2, 1);
                     }
 //                                    imprimir.printText(ConstruirFila(""+factura.getActividad()), 1);
-                    imprimir.printText("FECHA: "+factura.getInvoiceDate()+"         Hora: "+ DateUtil.dateToString1(), 1);
+                    imprimir.printText("FECHA: "+factura.getInvoiceDate()+" Hora:"+ DateUtil.dateToString1(), 1);
                     imprimir.printText("NIT/CI: "+factura.getCliente().getNit()+"    Cod.:"+factura.getCliente().getPublic_id(), 1);
 //                                    imprimir.printText("NOMBRE: "+factura.getCliente().getName(), 1);
                     for(int j=0;j<vnombre.size();j++)
@@ -436,8 +527,8 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
 //                                    imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
                     //invoice items
-//                                    imprimir.printText(ConstruirFila("CANT.","CONCEPTO P.U.","TOTAL"), 1);
-//                                    imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
+                    imprimir.printText(ConstruirFila("Cant.","Precio","Importe"), 1);
+                    imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
 //
                     //productos impresos por hardware
 //                                    for(int i =0;i<factura.getInvoiceItems().size();i++)
@@ -478,8 +569,9 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                             imprimir.printText(l, 1);
                         }
 //                                        imprimir.printText(invitem.getNotes(), 1);
-                        byte  b[] = (byte[]) prods.elementAt(i);
-//                        imprimir.printBitmap(b);
+                        String  producto = (String) prods.elementAt(i);
+                      imprimir.printText(producto);
+//                      imprimir.printBitmap(b);
 
                     }
 
@@ -503,15 +595,15 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
 //                                  imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
 
-                    imprimir.printText("                          TOTAL: Bs "+factura.getAmount(), 1);
+                    imprimir.printText("                TOTAL: Bs "+factura.getAmount(), 1);
 
                     double descuento = Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount());
 //                                    imprimir.printText("ICE: "+factura.getIce(), 1);
 
-                    imprimir.printText("                 DESCUENTOS: Bs "+redondeo(descuento,2)+" ", 1);
+                    imprimir.printText("           DESCUENTOS: Bs "+redondeo(descuento,2)+" ", 1);
 
 //                                    imprimir.printText("IMPORTE BASE CREDITO FISCAL: "+factura.getFiscal(),1);
-                    imprimir.printText("           MONTO A PAGAR: Bs "+factura.getAmount(),1);
+                    imprimir.printText("        MONTO A PAGAR: Bs "+factura.getAmount(),1);
 
 
 //                                    imprimir.printText("SON:"+NumeroLiteral(""+monto)+"Bolivianos",1);
@@ -529,7 +621,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                     imprimir.printText("CODIGO DE CONTROL: "+factura.getControlCode(),1);
                     imprimir.printText("FECHA LIMITE EMISION: "+factura.getFechaLimite(),1);
 
-//                                            imprimir.printBitmap(ImagenQr);
+                    imprimir.printBitmap(getResources().openRawResource(R.raw.bus_ticket_qr));
 
 //                                    imprimir.printEndLine();
 //                                    imprimir.printText("CSD:"+operador.getId()+" "+operador.getUsuario() +"-"+factura.getDatecom(), 1);
@@ -548,12 +640,19 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //                                  BmpArray b = new BmpArray();
 //                                      Vector leyenda= TextLine("'ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAIS, EL USO ILICITO DE ESTA SERA SANCIONADO DE ACUERDO A LEY'");
 
-                    try{
-//                                         imprimir.printBitmap(this.ba.readImage(BMPGenerator.encodeBMP(getLeyenda(s))));
-//                        imprimir.printBitmap(vs);
-
-                    }catch(Exception e){}
+//                    try{
+////                                         imprimir.printBitmap(this.ba.readImage(BMPGenerator.encodeBMP(getLeyenda(s))));
+////                        imprimir.printBitmap(vs);
+//                        for(int y = 0;y<s.size();y++)
+//                        {
+//                            String l = (String) s.elementAt(y);
+//                            imprimir.printText(l, 1);
+//                        }
+//
+//                    }catch(Exception e){}
+                    imprimir.printBitmap(getResources().openRawResource(R.raw.fac3));
 //                    imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
+                    imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
                     imprimir.printText(ConstruirFila("www.facturavirtual.com.bo"), 1);
 //                                      Vector vec = TextLine(factura.getLaw());
 //                                       BmpArray b2 = new BmpArray(this);
@@ -578,7 +677,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //                tickerLogin.setText("Verifique el estado del papel!! ");
                 break;
             case Printer.PRINTER_PAPER_ERROR:
-//                tickerLogin.setText("Error de impresión!! ");
+//                tickerLogin.setText("Error de impresion!! ");
                 break;
         }
 
@@ -608,11 +707,25 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
         return fila;
     }
+    public String ConstruirFila(String cantidad,String concepto,String monto)
+    {
+        String linea=""+cantidad+" "+concepto;
+        String espacio =" ";
+
+        int size=32-linea.length()-monto.length();
+        for(int i=0;i<size;i++)
+        {
+            linea = linea+ espacio;
+        }
+        linea = linea +monto;
+
+        return linea;
+    }
     public String ConstruirFila(String cad1)
     {
         String fila=cad1;
         String espacio =" ";
-        int size = (56-cad1.length())/2;
+        int size = (36-cad1.length())/2;
         for(int i=0;i<size;i++)
         {
             fila = espacio+fila ;
@@ -620,7 +733,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
         return fila;
     }
-    public Vector  TextLine(String texto,int caracteres)
+    public static Vector  TextLine(String texto,int caracteres)
     {
         String vec[] =Split(texto," ");
 //            imprimir.printText("hola mundo vector"+vec.length, 1);
@@ -719,4 +832,14 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //        getActivity().unregisterReceiver(facturaReceiver);
 //        super.onPause();
 //    }
+public static String convertiraISO(String s) {
+    String out = null;
+    try {
+        out = new String(s.getBytes("ISO-8859-1"), "UTF-8");
+    } catch (java.io.UnsupportedEncodingException e) {
+
+        return null;
+    }
+    return out;
+}
 }
