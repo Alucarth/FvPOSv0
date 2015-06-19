@@ -41,6 +41,7 @@ import com.ipxserver.davidtorrez.fvposv0.models.Client;
 import com.ipxserver.davidtorrez.fvposv0.models.Factura;
 import com.ipxserver.davidtorrez.fvposv0.models.InvoiceItem;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
+import com.ipxserver.davidtorrez.fvposv0.rest.Conexion;
 import com.nbbse.mobiprint3.Printer;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
     //Dialogos
     public ProgressDialog pDialog;
+    private Conexion conexion=null;
 //    FacturaReceiver facturaReceiver;
    public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, Double monto)
    {
@@ -410,7 +412,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     public void Imprimir(Factura factura)
     {
    Converter conv= new Converter();
-        Vector vnombre = TextLine("NOMBRE: "+factura.getCliente().getName(),36);
+        Vector vnombre = TextLine("NOMBRE: "+cliente.getNombre(),36);
 
         Vector literal = TextLine("SON: "+conv.getStringOfNumber(factura.getAmount()),37);
         Vector vactividad = TextLine(factura.getActividad(),34);
@@ -428,26 +430,49 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //        }
 
         Vector prods = new Vector();
-
-        for(int i=0;i<factura.getInvoiceItems().size();i++)
+//impresion en base respuesta
+//        for(int i=0;i<factura.getInvoiceItems().size();i++)
+//        {
+//
+//                InvoiceItem invitem = (InvoiceItem) factura.getInvoiceItems().elementAt(i);
+//
+////                                        String concepto =(String) conceptos.elementAt(i);
+////                                            imprimir.printText(invitem.getNotes(), 1);
+//
+//
+//                double subTotal = (Double.parseDouble(invitem.getCost())*Double.parseDouble(invitem.getQty()));
+//                double costo =Double.parseDouble(invitem.getCost());
+//
+//
+////                                            double c = Double.parseDouble(invitem.getQty());
+//
+//
+////                                        ba = (byte[]) DetalleProductos.elementAt(i);
+//                String  producto = ConstruirFila(""+invitem.getQty(),""+invitem.getCost(),""+redondeo(subTotal,2));
+//                prods.addElement(producto);
+//
+//
+//        }
+        //impresion en base lista seleccionada
+        for(int i=0;i<listaSeleccionados.size();i++)
         {
-
-                InvoiceItem invitem = (InvoiceItem) factura.getInvoiceItems().elementAt(i);
+            Product product = (Product) listaSeleccionados.get(i);
+            //InvoiceItem invitem = (InvoiceItem) factura.getInvoiceItems().elementAt(i);
 
 //                                        String concepto =(String) conceptos.elementAt(i);
 //                                            imprimir.printText(invitem.getNotes(), 1);
 
 
-                double subTotal = (Double.parseDouble(invitem.getCost())*Double.parseDouble(invitem.getQty()));
-                double costo =Double.parseDouble(invitem.getCost());
+            double subTotal = (Double.parseDouble(product.getCost())*Integer.parseInt(product.getQty()));
+//            double costo =Double.parseDouble(product.getCost());
 
 
 //                                            double c = Double.parseDouble(invitem.getQty());
 
 
 //                                        ba = (byte[]) DetalleProductos.elementAt(i);
-                String  producto = ConstruirFila(""+invitem.getQty(),""+invitem.getCost(),""+redondeo(subTotal,2));
-                prods.addElement(producto);
+            String  producto = ConstruirFila(""+product.getQty(),""+product.getCost(),""+redondeo(subTotal,2));
+            prods.addElement(producto);
 
 
         }
@@ -799,39 +824,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         }
         return splitArray;
     }
-//    @Override
-//    public void onDialogPositiveClick(DialogUser dialogUser) {
-//        cliente = new Client();
-//        View view  = (View) dialogUser.getView();
-//        TextView txtNombreUser = (TextView) view.findViewById(R.id.txtNameUser);
-//        TextView txtNitUser =(TextView)view.findViewById(R.id.txtNitUser);
-//        TextView txtEmail = (TextView)view.findViewById(R.id.txtEmailUser);
-//        cliente.setNombre(txtNombreUser.getText().toString());
-//        cliente.setNit(txtNitUser.toString());
-//        cliente.setEmail(txtEmail.toString());
-//        nit.setText(cliente.getNit());
-//        name.setText(cliente.getNombre());
-//
-//    }
-//
-//    @Override
-//    public void onDialgoNegativeClick(DialogUser dialogUser) {
-//        dialogUser.getDialog().cancel();
-//    }
-    //
-//    @Override
-//    public void onResume() {
-//        facturaReceiver = new FacturaReceiver(this);
-//        getActivity().registerReceiver(facturaReceiver, new IntentFilter("cast_factura"));
-//        Log.i("David","resume Factura aqui esta escuchando");
-//        super.onResume();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        getActivity().unregisterReceiver(facturaReceiver);
-//        super.onPause();
-//    }
+
 public static String convertiraISO(String s) {
     String out = null;
     try {

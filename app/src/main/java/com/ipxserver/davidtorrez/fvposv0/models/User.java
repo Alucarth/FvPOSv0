@@ -1,10 +1,11 @@
 package com.ipxserver.davidtorrez.fvposv0.models;
 
+import java.io.Serializable;
+
 /**
  * Created by David-Pc on 07/06/2015.
  */
-public class User
-{
+public class User implements Serializable {
     //for request
     private String user,password;
     //for response

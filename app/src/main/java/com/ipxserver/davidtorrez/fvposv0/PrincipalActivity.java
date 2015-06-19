@@ -1,6 +1,7 @@
 package com.ipxserver.davidtorrez.fvposv0;
 
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentLista;
 import com.ipxserver.davidtorrez.fvposv0.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvposv0.models.Account;
 import com.ipxserver.davidtorrez.fvposv0.models.NavItem;
+import com.ipxserver.davidtorrez.fvposv0.models.User;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,8 @@ public class PrincipalActivity extends ActionBarActivity {
     FragmentTabswipe fragmentTabswipe=null;
     FragmentEmpresa fragmentEmpresa=null;
 
+    User usuario;
+
 
 
 
@@ -55,7 +59,7 @@ public class PrincipalActivity extends ActionBarActivity {
 
     private String respuesta;
     private Account cuenta;
-     String[] names;
+    String[] names;
 
     private ArrayList<NavItem> navmenu;
 
@@ -224,7 +228,7 @@ public class PrincipalActivity extends ActionBarActivity {
     public FragmentTabswipe getFragmentTabswipe() {
         if(fragmentTabswipe==null)
         {
-            fragmentTabswipe = FragmentTabswipe.newInstance(cuenta.getCategorias());
+            fragmentTabswipe = FragmentTabswipe.newInstance(cuenta.getCategorias(),usuario);
         }
         return fragmentTabswipe;
     }

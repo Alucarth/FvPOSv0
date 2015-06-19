@@ -16,9 +16,10 @@ import java.net.URL;
 public class Conexion {
 
     public final static int LOGIN=0;
+    public final static int CLIENTE=1;
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
-    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
-
+    public final static  String LOGIN_URL="http://192.168.2.194/cloud2/public/loginPOS";
+    public final static String CLIENTE_URL="http://192.168.2.194/cloud2/public/cliente/";
 
     private String respuesta;
     private int codigo;
@@ -34,19 +35,37 @@ public class Conexion {
         this.user = user;
         this.pass = pass;
     }
-
     public void enviarGet(int servicio)
     {
-        String urls = null;
+        String url = null;
         switch (servicio)
         {
             case LOGIN:
-                urls = LOGIN_URL;
+                url = LOGIN_URL;
                 break;
-            default: urls="sin direccion";
+            default: url="sin direccion";
         }
+        sendGet(url);
+
+    }
+    public void enviarGet(int servicio,String parametros)
+    {
+        String url = null;
+        switch (servicio)
+        {
+            case Conexion.CLIENTE:
+                url = Conexion.CLIENTE_URL+parametros;
+                break;
+            default: url="sin direccion";
+        }
+        sendGet(url);
+    }
+
+    public void sendGet(String direccion)
+    {
+
         try {
-            URL url = new URL(urls);
+            URL url = new URL(direccion);
 
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
