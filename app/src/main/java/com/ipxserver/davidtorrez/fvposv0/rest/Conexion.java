@@ -18,8 +18,8 @@ public class Conexion {
     public final static int LOGIN=0;
     public final static int CLIENTE=1;
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
-    public final static  String LOGIN_URL="http://192.168.2.194/cloud2/public/loginPOS";
-    public final static String CLIENTE_URL="http://192.168.2.194/cloud2/public/cliente/";
+    public final static  String LOGIN_URL="http://192.168.1.14/cloud2/public/loginPOS";
+    public final static String CLIENTE_URL="http://192.168.1.14/cloud2/public/cliente/";
 
     private String respuesta;
     private int codigo;

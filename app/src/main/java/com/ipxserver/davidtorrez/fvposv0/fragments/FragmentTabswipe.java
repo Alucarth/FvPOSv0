@@ -21,7 +21,6 @@ import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.adapter.PagerAdapter;
 import com.ipxserver.davidtorrez.fvposv0.models.Categoria;
-import com.ipxserver.davidtorrez.fvposv0.models.User;
 
 import java.util.ArrayList;
 
@@ -39,17 +38,16 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     private ArrayList<Categoria> categorias;
     private boolean activarMenu=false;
 
-    private User usuario;
+//    private User usuario;
 
 
-    public static FragmentTabswipe newInstance(ArrayList<Categoria> categorias,User usuario)
+    public static FragmentTabswipe newInstance(ArrayList<Categoria> categorias)
     {
         FragmentTabswipe  fragmentTabswipe = new FragmentTabswipe();
         Bundle arg = new Bundle();
         //Todo: Adicionar un parametro de monto total para tenerlo todo en el fragmento
 
         arg.putSerializable("categorias",categorias);
-        arg.putSerializable("usuario",usuario);
         fragmentTabswipe.setArguments(arg);
         return fragmentTabswipe;
     }
@@ -59,7 +57,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         super.onCreate(savedInstanceState);
         categorias = (ArrayList<Categoria>) getArguments().getSerializable("categorias");
         Log.i("David","categorias size:"+categorias.size());
-        usuario = (User) getArguments().getSerializable("usuario");
+
     }
 
     @Override
@@ -160,6 +158,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         intent.putExtra("operacion", FragmentReceiver.FRAGMENT_FACTURA);
         intent.putExtra("lista_seleccionados", reciver.getListaProductos());
         intent.putExtra("monto",reciver.getMonto());
+
         getActivity().sendBroadcast(intent);
         Log.i("David", "enviando  cambiar fragmento");
 

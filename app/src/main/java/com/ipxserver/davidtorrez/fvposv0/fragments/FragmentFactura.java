@@ -41,6 +41,7 @@ import com.ipxserver.davidtorrez.fvposv0.models.Client;
 import com.ipxserver.davidtorrez.fvposv0.models.Factura;
 import com.ipxserver.davidtorrez.fvposv0.models.InvoiceItem;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
+import com.ipxserver.davidtorrez.fvposv0.models.User;
 import com.ipxserver.davidtorrez.fvposv0.rest.Conexion;
 import com.nbbse.mobiprint3.Printer;
 
@@ -64,15 +65,20 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     //Dialogos
     public ProgressDialog pDialog;
     private Conexion conexion=null;
+    String clienteNit;
+
+    User usuario;
+
 //    FacturaReceiver facturaReceiver;
-   public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, Double monto)
+   public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, Double monto,User usuario)
    {
        FragmentFactura  fragmentFactura = new FragmentFactura();
        Bundle arg = new Bundle();
        //Todo: Adicionar un parametro de monto total para tenerlo todo en el fragmento
 
        arg.putSerializable("lista", listaSeleccionados);
-       arg.putDouble("monto",monto);
+       arg.putDouble("monto", monto);
+       arg.putSerializable("usuario", usuario);
         fragmentFactura.setArguments(arg);
        return fragmentFactura;
    }
@@ -83,6 +89,8 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         super.onCreate(savedInstanceState);
 
         listaSeleccionados = (ArrayList<Product>)getArguments().getSerializable("lista");
+        usuario =(User) getArguments().getSerializable("usuario");
+        Log.i("David", "usuario=" + usuario.getUser());
         monto = getArguments().getDouble("monto");
     }
 
@@ -224,10 +232,10 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
             @Override
             public void onClick(DialogInterface dialog, int which) {
               //Todo iniciar Progress con la consulta
-                cliente = new Client();
-                cliente.setNit(input.getText().toString());
+
+                clienteNit = input.getText().toString();
                // nit.setText(cliente.getNit());
-                buscarCliente(cliente.getNit());
+                buscarCliente();
                 //mostrarCliente(input.getText().toString());
             }
 
@@ -251,13 +259,9 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //        fragmentUserDialog.show(fm,"fragment_factura");
     }
 
-    private void buscarCliente(String nit) {
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pDialog.setTitle("Buscando Cliente");
-        pDialog.setMessage("Por favor Espere ...");
-        pDialog.setCancelable(true);
-        pDialog.setMax(100);
+    private void buscarCliente() {
+
+
 //        numero= txtEntrada.getText().toString();
 //        monto= txtSalida.getText().toString();
 
@@ -271,8 +275,15 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     private void mostrarCliente() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        if(cliente.getResultado().equals("0"))
+        {
+            builder.setTitle("Datos Cliente");
+        }
+        else
+        {
+            builder.setTitle("Registro de Cliente");
+        }
 
-        builder.setTitle("Datos Cliente");
 
         LinearLayout ld= new LinearLayout(getActivity());
         ld.setOrientation(LinearLayout.VERTICAL); //1 is for vertical orientation
@@ -285,10 +296,13 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         ld.addView(txtEmailDialog);
         //lila1.addView(input2);
 
-        txtNitDialog.setText(cliente.getNit());
+        txtNitDialog.setText(clienteNit);
         txtNombreDialog.setHint("Nombre/Razon Social");
         txtEmailDialog.setHint("Correo Electronico");
+        if(cliente.getResultado().equals("0")) {
+            txtNombreDialog.setText(cliente.getNombre());
 
+        }
         txtNitDialog.setInputType(InputType.TYPE_CLASS_NUMBER);
         txtNombreDialog.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         txtEmailDialog.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT);
@@ -305,7 +319,10 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                 //.setText(input.getText().toString());
                 //buscarCliente(input.getText().toString());
                 //mostrarCliente(input.getText().toString());
-                cliente.setNit(txtNitDialog.getText().toString());
+                if(cliente.getResultado().equals("0")) {
+                   //Todo: Registrar cliente XD
+                }
+                    cliente.setNit(txtNitDialog.getText().toString());
                 cliente.setNombre(txtNombreDialog.getText().toString());
                 cliente.setEmail(txtEmailDialog.getText().toString());
 
@@ -367,14 +384,8 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //	            getFahrenheit(celcius);
             //getCobro();
 //	            calcularEdad();
-
-            //Todo: simulando comunicacion
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+            conexion = new Conexion(usuario.getUser(),usuario.getPassword());
+           conexion.enviarGet(Conexion.CLIENTE,clienteNit);
             return null;
         }
 
@@ -382,7 +393,14 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         protected void onPostExecute(Void result) {
             Log.i("consultaWS", "onPostExecute");
             pDialog.dismiss();
-            mostrarCliente();
+
+            if(conexion.getCodigo()==200) {
+                cliente= Client.fromJson(conexion.getRespuesta());
+
+                Log.i("David"," cliente:nit "+cliente.getNit());
+                Log.i("David","cliente:name "+cliente.getNombre());
+            }
+                mostrarCliente();
 //              Toast.makeText(MulticobroPrincipal.this, "Tarea finalizada!",
 //              Toast.LENGTH_SHORT).show();
 //	            mostrar.setText(david);
@@ -396,7 +414,11 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         protected void onPreExecute() {
             Log.i("consultaWS", "onPreExecute");
 //	            mostrar.setText("Calculating...");
-
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.setTitle("Buscando Cliente");
+            pDialog.setMessage("Por favor Espere ...");
+            pDialog.setCancelable(true);
             pDialog.setProgress(0);
             pDialog.show();
         }

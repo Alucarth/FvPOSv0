@@ -52,7 +52,7 @@ public class Account
                 for(int i=0;i<jsonArrayCategorias.length();i++)
                 {
                      JSONObject jsonObject = jsonArrayCategorias.getJSONObject(i);
-                     String nombreCategoria = jsonObject.getString("categoria");
+                     String nombreCategoria = jsonObject.getString("name");
                      String arrayProduto=null;
                      if(jsonProducto.has(nombreCategoria))
                      {

@@ -71,6 +71,7 @@ public class LoginActivity extends FragmentActivity {
     {
         Intent intent = new Intent(this, PrincipalActivity.class);
         intent.putExtra("cuenta", conexion.getRespuesta());
+        intent.putExtra("usuario",usuario);
 //		 intent.putExtra("", value)
         startActivity(intent);
     }
