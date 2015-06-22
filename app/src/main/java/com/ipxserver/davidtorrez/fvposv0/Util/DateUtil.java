@@ -91,7 +91,7 @@ public final class DateUtil {
         if (minute < 10) {
             dateStr.append("0");
         }
-        dateStr.append(minute).append("  ");
+        dateStr.append(minute).append(" ");
         if (amPm == Calendar.AM) {
             dateStr.append("am");
         } else {

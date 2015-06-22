@@ -4,6 +4,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,10 +18,11 @@ public class Conexion {
 
     public final static int LOGIN=0;
     public final static int CLIENTE=1;
+    public final static int GUARDARFACTURA=2;
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
     public final static  String LOGIN_URL="http://192.168.1.14/cloud2/public/loginPOS";
     public final static String CLIENTE_URL="http://192.168.1.14/cloud2/public/cliente/";
-
+    public final static String GUARDARFACTURA_URL="http://192.168.1.14/cloud2/public/guardarFactura";
     private String respuesta;
     private int codigo;
     private String error;
@@ -60,7 +62,20 @@ public class Conexion {
         }
         sendGet(url);
     }
-
+    public void enviarPost(int servicio,String parametros)
+    {
+        Log.e("David"," servicio:"+servicio);
+        Log.e("David"," parametros:"+parametros);
+        String url=null;
+        switch (servicio)
+        {
+            case Conexion.GUARDARFACTURA:
+                url = Conexion.GUARDARFACTURA_URL;
+                break;
+            default: url="sin direccion";
+        }
+        sendPost(url,parametros);
+    }
     public void sendGet(String direccion)
     {
 
@@ -118,7 +133,44 @@ public class Conexion {
 //            e.printStackTrace();
 //        }
     }
+    private void sendPost(String direccion,String urlParameters)
+    {
+        try{
+//        String urlParameters  = "param1=a&param2=b&param3=c";
+            byte[] postData       = urlParameters.getBytes();
+            int    postDataLength = postData.length;
+    //        String request        = "http://example.com/index.php";
+            URL    url            = new URL( direccion );
+            HttpURLConnection con= (HttpURLConnection) url.openConnection();
+            String basicAuth = "Basic " + new String(Base64.encode((user + ":" + pass).getBytes(), Base64.NO_WRAP));
+            con.setRequestProperty("Authorization", basicAuth);
+            con.setConnectTimeout(30000);
+            con.setReadTimeout(30000);
+            con.setInstanceFollowRedirects(true);
+            con.setRequestMethod("POST");
+            con.setRequestProperty( "Content-Type", "application/json");
+//            conn.setRequestProperty( "charset", "utf-8");
+            con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+            con.setUseCaches(false);
 
+
+
+
+            DataOutputStream wr = new DataOutputStream( con.getOutputStream());
+            wr.write(postData);
+
+
+            int codestatus =con.getResponseCode() ;
+            Log.e("Conexion","status "+ codestatus);
+            setCodigo(codestatus);
+
+            readStream(con.getInputStream());
+
+        }catch (Exception e){
+
+            Log.e("David Error:","post error"+e.getStackTrace());
+        }
+    }
     private void readStream(InputStream in) {
         BufferedReader reader = null;
         StringBuilder builder = new StringBuilder();
@@ -130,6 +182,7 @@ public class Conexion {
                 builder.append(line);
             }
             setRespuesta(builder.toString());
+            Log.e("Conexion", "respuesta :" + builder.toString());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

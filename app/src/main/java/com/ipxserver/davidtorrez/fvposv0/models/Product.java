@@ -74,6 +74,35 @@ public class Product implements Serializable
         return productos;
     }
 
+    private static JSONObject toJSONObject(Product producto) {
+        JSONObject json = new JSONObject();
+        try{
+
+            json.put("id", producto.getId());
+//            json.put("amount", producto.getCost());
+            json.put("qty",producto.getQty());
+//
+//            json.put("boni", producto.getBoni());
+//            json.put("desc", producto.getDesc());
+
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return json;
+    }
+
+    public static JSONArray toJSONs(ArrayList<Product> productos) {
+        JSONArray productsArray = new JSONArray();
+        for (int i = 0; i < productos.size(); i++) {
+            Product producto = (Product)productos.get(i);
+
+            JSONObject jsonObject = toJSONObject(producto);
+            productsArray.put(jsonObject);
+        }
+//        return productsArray.toString();
+        return productsArray;
+    }
+
     public String getProduct_key() {
         return product_key;
     }

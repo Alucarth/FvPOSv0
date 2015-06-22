@@ -42,6 +42,7 @@ import com.ipxserver.davidtorrez.fvposv0.models.Factura;
 import com.ipxserver.davidtorrez.fvposv0.models.InvoiceItem;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 import com.ipxserver.davidtorrez.fvposv0.models.User;
+import com.ipxserver.davidtorrez.fvposv0.models.solicitudFactura;
 import com.ipxserver.davidtorrez.fvposv0.rest.Conexion;
 import com.nbbse.mobiprint3.Printer;
 
@@ -53,6 +54,8 @@ import java.util.Vector;
  */
 public class FragmentFactura extends Fragment //implements //DialogUser.UserDialgoListener
 {
+
+
     public ArrayList<Product> listaSeleccionados;
 //    public ProductListAdapter productListAdapter;
     public ListAdapter listAdapter;
@@ -64,10 +67,13 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
     //Dialogos
     public ProgressDialog pDialog;
-    private Conexion conexion=null;
+//    private Conexion conexion=null;
     String clienteNit;
 
     User usuario;
+
+    int servicio;
+
 
 //    FacturaReceiver facturaReceiver;
    public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, Double monto,User usuario)
@@ -144,13 +150,13 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
     private void imprimir() {
 
+        servicio =Conexion.GUARDARFACTURA;
+        getGuardarFacturaWS servicio2 = new getGuardarFacturaWS();
+        servicio2.execute();
 
-        Factura factura = new Factura(convertiraISO("{\"invoice_number\":\"0058\",\"control_code\":\"86-CE-FC-74\",\"invoice_date\":\"17-06-2015\",\"activity_pri\":\"ENSE\\u00d1ANZA DE ADULTOS Y OTROS TIPOS DE ENSE\\u00d1ANZA\",\"amount\":\"900.00\",\"subtotal\":\"900.00\",\"fiscal\":\"0.00\",\"client\":{\"id\":19,\"nit\":\"256352\",\"name\":\"Alejandro\",\"public_id\":3},\"account\":{\"id\":4,\"timezone_id\":null,\"date_format_id\":null,\"datetime_format_id\":null,\"currency_id\":1,\"created_at\":\"2015-01-24 07:02:21\",\"updated_at\":\"2015-06-07 05:50:14\",\"deleted_at\":null,\"nit\":\"131555028\",\"name\":\"Centro de Capacitaci\\u00f3n T\\u00e9cnica Golden Bridge S.A.\",\"ip\":\"190.129.127.93\",\"account_key\":\"lyoArnN7Sl3c3bDI37qR452K9tABb9Vv\",\"last_login\":\"2015-06-07 05:50:14\",\"address1\":\"Sopocachi\",\"address2\":\"Calle Presbitero Medina N\\u00ba 2431\",\"city\":\"\",\"state\":\"\",\"postal_code\":\"\",\"country_id\":1,\"invoice_terms\":null,\"email_footer\":null,\"industry_id\":null,\"size_id\":null,\"work_phone\":\"2410650 - 2410640 - 2410665\",\"work_email\":\"\",\"pro_plan_paid\":\"2015-01-24\",\"cod_search\":0,\"aux1\":null,\"aux2\":null,\"custom_label1\":\"\",\"custom_value1\":\"\",\"custom_label2\":\"\",\"custom_value2\":\"\",\"custom_client_label1\":\"N\\u00famero de Cuenta\",\"custom_client_label2\":\"Celular\",\"custom_client_label3\":\"N\\u00ba de Carnet\",\"custom_client_label4\":\"N\\u00famero de Matr\\u00edcula\",\"custom_client_label5\":\"Plan\",\"custom_client_label6\":\"N\\u00famero de Cuotas\",\"custom_client_label7\":\"Cuota Mensual\",\"custom_client_label8\":\"Cuota Inicial\",\"custom_client_label9\":\"Ejec. Publicidad\",\"custom_client_label10\":\"\",\"custom_client_label11\":\"Fecha de Contrato\",\"custom_client_label12\":\"Primer Vencimiento\",\"open\":0,\"hide_quantity\":0,\"hide_paid_to_date\":0,\"custom_invoice_label1\":null,\"custom_invoice_label2\":null,\"custom_invoice_taxes1\":null,\"custom_invoice_taxes2\":null,\"vat_number\":\"\",\"invoice_taxes\":1,\"invoice_item_taxes\":0,\"fill_products\":1,\"update_products\":0,\"language_id\":1},\"law\":\"-\",\"invoice_items\":[{\"notes\":\"Abono a Matr\\u00edcula\",\"cost\":\"60.00\",\"qty\":\"15.00\"}],\"address1\":\"Sopocachi\",\"address2\":\"Calle Presbitero Medina N\\u00ba 2431\",\"num_auto\":\"2904001336362\",\"fecha_limite\":\"31-05-2015\"}"));
-            Imprimir(factura);
-        Intent intent = new Intent("cambiar_fragmento");
+//        Factura factura = new Factura(convertiraISO("{\"invoice_number\":\"0058\",\"control_code\":\"86-CE-FC-74\",\"invoice_date\":\"17-06-2015\",\"activity_pri\":\"ENSE\\u00d1ANZA DE ADULTOS Y OTROS TIPOS DE ENSE\\u00d1ANZA\",\"amount\":\"900.00\",\"subtotal\":\"900.00\",\"fiscal\":\"0.00\",\"client\":{\"id\":19,\"nit\":\"256352\",\"name\":\"Alejandro\",\"public_id\":3},\"account\":{\"id\":4,\"timezone_id\":null,\"date_format_id\":null,\"datetime_format_id\":null,\"currency_id\":1,\"created_at\":\"2015-01-24 07:02:21\",\"updated_at\":\"2015-06-07 05:50:14\",\"deleted_at\":null,\"nit\":\"131555028\",\"name\":\"Centro de Capacitaci\\u00f3n T\\u00e9cnica Golden Bridge S.A.\",\"ip\":\"190.129.127.93\",\"account_key\":\"lyoArnN7Sl3c3bDI37qR452K9tABb9Vv\",\"last_login\":\"2015-06-07 05:50:14\",\"address1\":\"Sopocachi\",\"address2\":\"Calle Presbitero Medina N\\u00ba 2431\",\"city\":\"\",\"state\":\"\",\"postal_code\":\"\",\"country_id\":1,\"invoice_terms\":null,\"email_footer\":null,\"industry_id\":null,\"size_id\":null,\"work_phone\":\"2410650 - 2410640 - 2410665\",\"work_email\":\"\",\"pro_plan_paid\":\"2015-01-24\",\"cod_search\":0,\"aux1\":null,\"aux2\":null,\"custom_label1\":\"\",\"custom_value1\":\"\",\"custom_label2\":\"\",\"custom_value2\":\"\",\"custom_client_label1\":\"N\\u00famero de Cuenta\",\"custom_client_label2\":\"Celular\",\"custom_client_label3\":\"N\\u00ba de Carnet\",\"custom_client_label4\":\"N\\u00famero de Matr\\u00edcula\",\"custom_client_label5\":\"Plan\",\"custom_client_label6\":\"N\\u00famero de Cuotas\",\"custom_client_label7\":\"Cuota Mensual\",\"custom_client_label8\":\"Cuota Inicial\",\"custom_client_label9\":\"Ejec. Publicidad\",\"custom_client_label10\":\"\",\"custom_client_label11\":\"Fecha de Contrato\",\"custom_client_label12\":\"Primer Vencimiento\",\"open\":0,\"hide_quantity\":0,\"hide_paid_to_date\":0,\"custom_invoice_label1\":null,\"custom_invoice_label2\":null,\"custom_invoice_taxes1\":null,\"custom_invoice_taxes2\":null,\"vat_number\":\"\",\"invoice_taxes\":1,\"invoice_item_taxes\":0,\"fill_products\":1,\"update_products\":0,\"language_id\":1},\"law\":\"-\",\"invoice_items\":[{\"notes\":\"Abono a Matr\\u00edcula\",\"cost\":\"60.00\",\"qty\":\"15.00\"}],\"address1\":\"Sopocachi\",\"address2\":\"Calle Presbitero Medina N\\u00ba 2431\",\"num_auto\":\"2904001336362\",\"fecha_limite\":\"31-05-2015\"}"));
+//            Imprimir(factura);
 
-        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
-        getActivity().sendBroadcast(intent);
 //        Printer print= Printer.getInstance();
 //        print.printText("Hola mundo ",2);
 ////        print.printBitmap(getResources().openRawResource(R.raw.linea));
@@ -207,7 +213,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     private void adicionarCliente() {
 
         //Todo: Dialog builder de momento hasta que se encuentre uno con mayor control XD
-
+        servicio = Conexion.CLIENTE;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Buscar Cliente");
@@ -235,7 +241,8 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
                 clienteNit = input.getText().toString();
                // nit.setText(cliente.getNit());
-                buscarCliente();
+                getClientSW servicio = new getClientSW();
+                servicio.execute();
                 //mostrarCliente(input.getText().toString());
             }
 
@@ -259,18 +266,9 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //        fragmentUserDialog.show(fm,"fragment_factura");
     }
 
-    private void buscarCliente() {
 
 
-//        numero= txtEntrada.getText().toString();
-//        monto= txtSalida.getText().toString();
 
-        AsyncCallWS task = new AsyncCallWS();
-
-
-        //Call execute
-        task.execute();
-    }
 
     private void mostrarCliente() {
 
@@ -377,15 +375,33 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         return b;
     }
 
-    private class AsyncCallWS extends AsyncTask<String, Void, Void> {
+    private class getClientSW extends AsyncTask<String, Void, Void> {
+       Conexion conexion;
         @Override
         protected Void doInBackground(String... params) {
             Log.i("consultaWS", "doInBackground");
 //	            getFahrenheit(celcius);
             //getCobro();
 //	            calcularEdad();
-            conexion = new Conexion(usuario.getUser(),usuario.getPassword());
-           conexion.enviarGet(Conexion.CLIENTE,clienteNit);
+            switch(servicio)
+            {
+                case  Conexion.CLIENTE:
+                        conexion = new Conexion(usuario.getUser(),usuario.getPassword());
+                        conexion.enviarGet(Conexion.CLIENTE, clienteNit);
+                        break;
+                case Conexion.GUARDARFACTURA:
+
+                    solicitudFactura sf= new solicitudFactura();
+                    sf.setClient_id(cliente.getId());
+                    sf.setName(cliente.getNombre());
+                    sf.setNit(cliente.getNit());
+                    sf.setProductos(listaSeleccionados);
+
+                    Log.i("David", "solicitud json: " + solicitudFactura.toJSON(sf));
+                    conexion.enviarPost(Conexion.GUARDARFACTURA,solicitudFactura.toJSON(sf));
+                    break;
+            }
+
             return null;
         }
 
@@ -395,12 +411,29 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
             pDialog.dismiss();
 
             if(conexion.getCodigo()==200) {
-                cliente= Client.fromJson(conexion.getRespuesta());
 
-                Log.i("David"," cliente:nit "+cliente.getNit());
-                Log.i("David","cliente:name "+cliente.getNombre());
+                switch(servicio) {
+                    case Conexion.CLIENTE:
+                        cliente= Client.fromJson(conexion.getRespuesta());
+
+                        Log.i("David"," cliente:nit "+cliente.getNit());
+                        Log.i("David","cliente:name "+cliente.getNombre());
+                        mostrarCliente();
+                        break;
+                    case Conexion.GUARDARFACTURA:
+                        Log.i("David","respuesta factura; "+conexion.getRespuesta());
+                        //Todo Imprimnir factura en caso de que este todo blue
+
+                        Intent intent = new Intent("cambiar_fragmento");
+
+                        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+                        getActivity().sendBroadcast(intent);
+                        break;
+                }
+
             }
-                mostrarCliente();
+
+
 //              Toast.makeText(MulticobroPrincipal.this, "Tarea finalizada!",
 //              Toast.LENGTH_SHORT).show();
 //	            mostrar.setText(david);
@@ -416,7 +449,105 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //	            mostrar.setText("Calculating...");
             pDialog = new ProgressDialog(getActivity());
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.setTitle("Buscando Cliente");
+            switch(servicio) {
+                case Conexion.CLIENTE:
+                    pDialog.setTitle("Buscando Cliente");
+                    break;
+                case Conexion.GUARDARFACTURA:
+                    pDialog.setTitle("Generando Factura");
+                    break;
+                default: pDialog.setTitle("Prosesando");
+            }
+
+            pDialog.setMessage("Por favor Espere ...");
+            pDialog.setCancelable(true);
+            pDialog.setProgress(0);
+            pDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            Log.i("consultaWS", "onProgressUpdate");
+        }
+
+    }
+    private class getGuardarFacturaWS extends AsyncTask<String, Void, Void> {
+        Conexion conexion;
+        @Override
+        protected Void doInBackground(String... params) {
+            Log.i("consultaWS", "doInBackground");
+//	            getFahrenheit(celcius);
+            //getCobro();
+//	            calcularEdad();
+            switch(servicio)
+            {
+
+                case Conexion.GUARDARFACTURA:
+
+                    solicitudFactura sf= new solicitudFactura();
+                    sf.setClient_id(cliente.getId());
+                    sf.setName(cliente.getNombre());
+                    sf.setNit(cliente.getNit());
+                    sf.setProductos(listaSeleccionados);
+
+                    Log.i("David", "solicitud json: " + solicitudFactura.toJSON(sf));
+                    conexion = new Conexion(usuario.getUser(),usuario.getPassword());
+                    conexion.enviarPost(Conexion.GUARDARFACTURA, solicitudFactura.toJSON(sf));
+                    break;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Log.i("consultaWS", "onPostExecute");
+            pDialog.dismiss();
+            Log.i("consultaWS", " codigo " + conexion.getCodigo());
+            Log.i("consultaWS", " respuesta "+ conexion.getRespuesta());
+            if(conexion.getCodigo()==200) {
+
+                switch(servicio) {
+
+                    case Conexion.GUARDARFACTURA:
+                        Log.i("David", "respuesta factura; " + conexion.getRespuesta());
+                        Factura factura = new Factura(conexion.getRespuesta());
+                        Imprimir(factura);
+                        //Todo Imprimnir factura en caso de que este todo blue
+
+                        Intent intent = new Intent("cambiar_fragmento");
+
+                        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+                        getActivity().sendBroadcast(intent);
+                        break;
+                }
+
+            }
+
+
+//              Toast.makeText(MulticobroPrincipal.this, "Tarea finalizada!",
+//              Toast.LENGTH_SHORT).show();
+//	            mostrar.setText(david);
+            //Todo Alert con info del cliente registrarlo en el caso de no existir
+            //alerta("MultiCobro",cobro.getMenssage());
+
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.i("consultaWS", "onPreExecute");
+//	            mostrar.setText("Calculating...");
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            switch(servicio) {
+
+                case Conexion.GUARDARFACTURA:
+                    pDialog.setTitle("Generando Factura");
+                    break;
+                default: pDialog.setTitle("Prosesando");
+            }
+
             pDialog.setMessage("Por favor Espere ...");
             pDialog.setCancelable(true);
             pDialog.setProgress(0);
@@ -430,13 +561,15 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
     }
 
+
+
     //---------------------------------------------------Modulo de Impresion--------------------------------------//
     public void Imprimir(Factura factura)
     {
    Converter conv= new Converter();
         Vector vnombre = TextLine("NOMBRE: "+cliente.getNombre(),36);
 
-        Vector literal = TextLine("SON: "+conv.getStringOfNumber(factura.getAmount()),37);
+        Vector literal = TextLine("SON: "+conv.getStringOfNumber(factura.getAmount()),34);
         Vector vactividad = TextLine(factura.getActividad(),34);
         Vector vtitulo =  TextLine(factura.getAccount().getName(),35);
         byte printLine[] =null;
@@ -666,7 +799,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                     // imprimir.printText()
 
                     imprimir.printText("CODIGO DE CONTROL: "+factura.getControlCode(),1);
-                    imprimir.printText("FECHA LIMITE EMISION: "+factura.getFechaLimite(),1);
+                    imprimir.printText("FECHA LIMITE EMISION:"+factura.getFechaLimite(),1);
 
                     imprimir.printBitmap(getResources().openRawResource(R.raw.bus_ticket_qr));
 
@@ -756,7 +889,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     }
     public String ConstruirFila(String cantidad,String concepto,String monto)
     {
-        String linea=""+cantidad+" "+concepto;
+        String linea=""+cantidad+"     "+concepto;
         String espacio =" ";
 
         int size=32-linea.length()-monto.length();
