@@ -299,11 +299,9 @@ public class PrincipalActivity extends ActionBarActivity {
         drawerToggle.syncState();
     }
 
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
+        public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
             selectItem(position);
         }
     }
