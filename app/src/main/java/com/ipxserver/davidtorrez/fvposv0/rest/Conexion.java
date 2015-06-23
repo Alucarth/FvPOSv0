@@ -19,10 +19,12 @@ public class Conexion {
     public final static int LOGIN=0;
     public final static int CLIENTE=1;
     public final static int GUARDARFACTURA=2;
+    public final static String SERVIDOR="192.168.1.15";
+    public final static String PROTOCOLO="http://";
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
-    public final static  String LOGIN_URL="http://192.168.1.14/cloud2/public/loginPOS";
-    public final static String CLIENTE_URL="http://192.168.1.14/cloud2/public/cliente/";
-    public final static String GUARDARFACTURA_URL="http://192.168.1.14/cloud2/public/guardarFactura";
+    public final static  String LOGIN_URL="/cloud2/public/loginPOS";
+    public final static String CLIENTE_URL="/cloud2/public/cliente/";
+    public final static String GUARDARFACTURA_URL="/cloud2/public/guardarFactura";
     private String respuesta;
     private int codigo;
     private String error;
@@ -47,7 +49,7 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendGet(url);
+        sendGet(Conexion.PROTOCOLO+Conexion.SERVIDOR+url);
 
     }
     public void enviarGet(int servicio,String parametros)
@@ -60,7 +62,7 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendGet(url);
+        sendGet(Conexion.PROTOCOLO+Conexion.SERVIDOR+url);
     }
     public void enviarPost(int servicio,String parametros)
     {
@@ -74,9 +76,9 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendPost(url,parametros);
+        sendPost(Conexion.PROTOCOLO+Conexion.SERVIDOR+url,parametros);
     }
-    public void sendGet(String direccion)
+    private void sendGet(String direccion)
     {
 
         try {

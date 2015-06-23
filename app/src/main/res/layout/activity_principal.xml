@@ -3,6 +3,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
+
     <FrameLayout android:id="@+id/contenedor_fragmnet"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
