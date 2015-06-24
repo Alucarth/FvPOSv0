@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
 
         android:numColumns="1"
-        android:verticalSpacing="4dp"
+        android:verticalSpacing="2dp"
         android:horizontalSpacing="4dp"
         android:stretchMode="columnWidth"
 

@@ -3,6 +3,7 @@ package com.ipxserver.davidtorrez.fvposv0.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,7 @@ public class GridAdapter extends BaseAdapter
         TextView txtQty;
         TextView txtSubtotal;
         ImageView img;
+        CardView cardView;
 
         if (rootView ==null)
         {
@@ -77,7 +79,8 @@ public class GridAdapter extends BaseAdapter
             txtQty = (TextView) rootView.findViewById(R.id.txtQty);
             txtSubtotal = (TextView) rootView.findViewById(R.id.txtSubtotal);
             img = (ImageView) rootView.findViewById(R.id.img_ic_remove);
-            rootView.setTag(new ViewHolder(img,txtNotes,txtCost,txtQty,txtSubtotal));
+            cardView =(CardView) rootView.findViewById(R.id.cvgrid);
+            rootView.setTag(new ViewHolder(cardView,img,txtNotes,txtCost,txtQty,txtSubtotal));
         }
         else
         {
@@ -87,6 +90,7 @@ public class GridAdapter extends BaseAdapter
             txtQty = viewHolder.textQty;
             txtSubtotal = viewHolder.textSubtotal;
             img = viewHolder.imageButton;
+            cardView =viewHolder.cardView;
         }
         final Product producto = lista.get(i);
 
@@ -128,21 +132,22 @@ public class GridAdapter extends BaseAdapter
 
             Double subtotal = (Double)(cantidad*costo);
             //Double subtotal = (double)(Double.parseDouble(producto.getCost())*Integer.parseInt(producto.getQty()));
-            txtSubtotal.setText(subtotal.toString()+"Bs");
-            itemSeleccionado(rootView);
+            txtSubtotal.setText(subtotal.toString() + "Bs");
+//            itemSeleccionado(rootView);
 
             txtNotes.setTextColor(Color.WHITE);
             txtQty.setTextColor(Color.WHITE);
             txtCost.setTextColor(Color.WHITE);
             txtSubtotal.setTextColor(Color.WHITE);
-
+            cardView.setCardBackgroundColor(Color.parseColor("#3F51B5"));
             txtQty.setVisibility(View.VISIBLE);
             txtSubtotal.setVisibility(View.VISIBLE);
             txtCost.setText(producto.getCost() + " Bs");
             Font.NINBUS.apply(context,txtCost);
 
         }else{
-            itemNormal(rootView);
+//            itemNormal(rootView);
+            cardView.setCardBackgroundColor(Color.parseColor("#ffffff"));
             txtCost.setText(producto.getCost() + " Bs");
             Font.NINBUS.apply(context, txtCost);
 
@@ -199,8 +204,10 @@ public class GridAdapter extends BaseAdapter
     {
         public final ImageView imageButton;
         public final TextView textNotes,textCost,textSubtotal,textQty;
+        public final CardView cardView;
 
-        private ViewHolder(ImageView imageButton, TextView textNotes, TextView textCost,TextView textQty,TextView textSubtotal) {
+        private ViewHolder(CardView cardView,ImageView imageButton, TextView textNotes, TextView textCost,TextView textQty,TextView textSubtotal) {
+            this.cardView = cardView;
             this.imageButton = imageButton;
             this.textNotes = textNotes;
             this.textCost = textCost;
