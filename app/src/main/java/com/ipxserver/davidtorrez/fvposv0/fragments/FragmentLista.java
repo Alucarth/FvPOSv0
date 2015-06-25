@@ -1,6 +1,7 @@
 package com.ipxserver.davidtorrez.fvposv0.fragments;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ipxserver.davidtorrez.fvposv0.Listeners.FacturaReceiver;
 import com.ipxserver.davidtorrez.fvposv0.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvposv0.R;
 import com.ipxserver.davidtorrez.fvposv0.adapter.FacturaCardAdapter;
@@ -26,6 +28,8 @@ public class FragmentLista extends Fragment
 
     ActionButton actionButton;
     RecyclerView recyclerView;
+    FacturaReceiver receiver;
+    FacturaCardAdapter facturaCardAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_lista,container,false);
@@ -44,7 +48,7 @@ public class FragmentLista extends Fragment
             lista.add(item);
         }
 
-        FacturaCardAdapter facturaCardAdapter = new FacturaCardAdapter(lista);
+        facturaCardAdapter= new FacturaCardAdapter(lista);
         recyclerView.setAdapter(facturaCardAdapter);
         actionButton = (ActionButton) rootView.findViewById(R.id.action_button);
         actionButton.setOnClickListener(new View.OnClickListener() {
@@ -61,5 +65,18 @@ public class FragmentLista extends Fragment
 
         return rootView;
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        receiver = new FacturaReceiver(facturaCardAdapter);
+        getActivity().registerReceiver(receiver, new IntentFilter("factura"));
     }
 }

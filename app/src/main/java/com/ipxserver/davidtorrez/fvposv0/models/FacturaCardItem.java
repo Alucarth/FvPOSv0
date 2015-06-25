@@ -1,10 +1,11 @@
 package com.ipxserver.davidtorrez.fvposv0.models;
 
+import java.io.Serializable;
+
 /**
  * Created by David-Pc on 24/06/2015.
  */
-public class FacturaCardItem
-{
+public class FacturaCardItem implements Serializable {
     private String numero;
     private String monto;
     private String fecha;

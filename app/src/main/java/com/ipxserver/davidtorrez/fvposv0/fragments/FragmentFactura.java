@@ -39,6 +39,7 @@ import com.ipxserver.davidtorrez.fvposv0.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvposv0.adapter.ListAdapter;
 import com.ipxserver.davidtorrez.fvposv0.models.Client;
 import com.ipxserver.davidtorrez.fvposv0.models.Factura;
+import com.ipxserver.davidtorrez.fvposv0.models.FacturaCardItem;
 import com.ipxserver.davidtorrez.fvposv0.models.InvoiceItem;
 import com.ipxserver.davidtorrez.fvposv0.models.Product;
 import com.ipxserver.davidtorrez.fvposv0.models.User;
@@ -512,13 +513,22 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                     case Conexion.GUARDARFACTURA:
                         Log.i("David", "respuesta factura; " + conexion.getRespuesta());
                         Factura factura = new Factura(conexion.getRespuesta());
-                        Imprimir(factura);
+                       // Imprimir(factura);
                         //Todo Imprimnir factura en caso de que este todo blue
 
                         Intent intent = new Intent("cambiar_fragmento");
 
                         intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
                         getActivity().sendBroadcast(intent);
+
+                        FacturaCardItem facturaCardItem = new FacturaCardItem();
+                        facturaCardItem.setNumero(factura.getInvoiceNumber());
+                        facturaCardItem.setFecha(factura.getInvoiceDate());
+                        facturaCardItem.setMonto(factura.getAmount());
+                        Intent intent2 = new Intent("factura");
+                        intent2.putExtra("factura_item", facturaCardItem);
+                        getActivity().sendBroadcast(intent2);
+
                         break;
                 }
 

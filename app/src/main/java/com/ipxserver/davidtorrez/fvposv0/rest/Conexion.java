@@ -19,7 +19,7 @@ public class Conexion {
     public final static int LOGIN=0;
     public final static int CLIENTE=1;
     public final static int GUARDARFACTURA=2;
-    public final static String SERVIDOR="192.168.1.15";
+    public final static String SERVIDOR="192.168.1.14";
 //    public final static String SERVIDOR="demo.facturavirtual.com.bo";
     public final static String PROTOCOLO="http://";
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";

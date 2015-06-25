@@ -49,6 +49,10 @@ public class FacturaCardAdapter extends RecyclerView.Adapter<FacturaCardAdapter.
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+    public void addFactura(FacturaCardItem facturaCardItem)
+    {
+        this.listaFacturados.add(facturaCardItem);
+    }
 
     public static class FacturaViewHolder extends RecyclerView.ViewHolder
     {
