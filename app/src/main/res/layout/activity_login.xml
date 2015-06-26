@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="#ff414141"
-    tools:context="com.ipxserver.davidtorrez.fvposv0.LoginActivity">
+    tools:context="com.ipxserver.davidtorrez.fvpos.LoginActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_top_bg"
             android:padding="10dp"
-            android:hint="Sucursal"
+            android:hint="Nit"
             android:textColorHint="#ff414141"
             android:layout_marginBottom="5dp"
             android:drawableLeft="@drawable/ic_action_store"
