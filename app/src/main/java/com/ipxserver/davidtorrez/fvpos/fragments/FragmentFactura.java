@@ -121,6 +121,14 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                     cliente = Client.fromJson("{\"resultado\":0,\"cliente\":{\"id\":0,\"public_id\":1,\"name\":\"Sin Nombre\",\"nit\":\"0\",\"vat_number\":\"Sin Nombre\"}}");
                     Log.i("Client","id "+cliente.getId());
                     Log.i("Client","nombre"+ cliente.getNombre());
+
+                    name.setText("NOMBRE: "+cliente.getNombre());
+                    nit.setText("NIT: "+cliente.getNit());
+                }else
+                {
+                    name.setText("NOMBRE: ");
+                    nit.setText("NIT: ");
+                    cliente = null;
                 }
 
             }
@@ -391,7 +399,10 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     }
 
     private void atras() {
+        Intent intent = new Intent("cambiar_fragmento");
 
+        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+        getActivity().sendBroadcast(intent);
     }
 
     public static Bitmap drawText(String text, int textWidth, int textSize) {

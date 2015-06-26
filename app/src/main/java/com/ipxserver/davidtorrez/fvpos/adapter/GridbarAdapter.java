@@ -93,7 +93,8 @@ public class GridbarAdapter extends BaseAdapter
         TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
 
         ItemBar item = (ItemBar) items.get(i);
-        txtNumero.setText("Bs "+item.getNumero());
+
+        txtNumero.setText("Bs "+String.format("%.2f",item.getNumero()));
         txtDescripcion.setText(item.getDescripcion());
 
         txtNumero.setTextColor(Color.parseColor("#76FF03"));

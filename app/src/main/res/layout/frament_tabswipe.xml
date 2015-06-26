@@ -10,7 +10,7 @@
             android:id="@+id/tabs"
             style="@style/PagerSlidingTabStrip"
             android:textColor="#ffffffff"
-            android:background="@color/actionbar_background"
+            android:background="#cb000000"
             android:layout_width="match_parent"
             android:layout_height="48dip"
 
@@ -43,7 +43,6 @@
             android:layout_height="50dp"
             android:id="@+id/barraSaldo"
             android:numColumns="2"
-            android:paddingTop="1dp"
             android:background="#e0000000"
             android:stretchMode="columnWidth"
             />

@@ -6,9 +6,9 @@
 
     </style>
     <style name="PagerSlidingTabStrip">
-        <item name="pstsIndicatorColor">#9FA8DA</item>
-        <item name="pstsDividerColor">#ffffff</item>
-        <item name="pstsUnderlineColor">#3F51B5</item>
+        <item name="pstsIndicatorColor">#ff02b0dc</item>
+        <item name="pstsDividerColor">#ffffffff</item>
+        <item name="pstsUnderlineColor">#ff02b0dc</item>
 
         <item name="pstsShouldExpand">true</item>
 

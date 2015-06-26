@@ -26,12 +26,14 @@ import java.util.ArrayList;
 public class GridAdapter extends BaseAdapter
 {
     ArrayList<Product> lista;
+
     Context context;
 
 
     public GridAdapter(Context context,ArrayList<Product> lista){
         this.context = context;
         this.lista = lista;
+
 //        lista = new ArrayList<Product>();
 //        for(int i=0;i<20;i++)
 //        {
@@ -155,7 +157,7 @@ public class GridAdapter extends BaseAdapter
 
             txtNotes.setTextColor(Color.BLACK);
             txtQty.setTextColor(Color.BLACK);
-            txtCost.setTextColor(Color.parseColor("#304FFE"));
+            txtCost.setTextColor(Color.parseColor("#3F51B5"));
             txtSubtotal.setTextColor(Color.BLACK);
 
             txtQty.setVisibility(View.INVISIBLE);

@@ -34,7 +34,7 @@ public class FacturaCardAdapter extends RecyclerView.Adapter<FacturaCardAdapter.
     public void onBindViewHolder(FacturaViewHolder facturaViewHolder, int i) {
         FacturaCardItem facturaCardItem = (FacturaCardItem)listaFacturados.get(i);
 
-        facturaViewHolder.numfact.setText("Factura No. "+facturaCardItem.getNumero());
+        facturaViewHolder.numfact.setText("Factura No."+facturaCardItem.getNumero());
         facturaViewHolder.monto.setText(facturaCardItem.getMonto()+" Bs");
         facturaViewHolder.fecha.setText(facturaCardItem.getFecha());
         facturaViewHolder.icono.setImageResource(R.drawable.ic_action_print_black);

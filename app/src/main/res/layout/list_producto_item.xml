@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="1000"
+        android:textColor="#ff000000"
         android:id="@+id/txtCantidad"
         android:textSize="20dp"
         android:layout_alignParentTop="true"
@@ -18,7 +19,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Descripcion"
+        android:textColor="#ff000000"
         android:textSize="15dp"
+
         android:id="@+id/txtDescripcion"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -29,6 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="1000 Bs"
         android:textSize="20dp"
+        android:textColor="#ffff9823"
         android:id="@+id/txtCosto"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
