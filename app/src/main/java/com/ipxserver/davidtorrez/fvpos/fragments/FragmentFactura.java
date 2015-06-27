@@ -806,19 +806,19 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 ////                                        imprimir.printText(linea, 1);
 //                        imprimir.printText(ConstruirFilaA(linea), 1);
 //                    }
-                    imprimir.printText("   IPX Server ",2);
+//                    imprimir.printText(factura.getAccount().getName(),2);
 
-//                                    imprimir.printTextWidthHeightZoom(ConstruirFilaA(factura.getAccount().getName()), 2, 1);
+                    imprimir.printText(ConstruirFilaA(factura.getAccount().getName()), 2);
 //                                     try{
 //                                         imprimir.printBitmap(this.ba.readImage(BMPGenerator.encodeBMP(imprimirTitulo(""))));
 //
 //                                     }catch(IOException e){}
 //                                    imprimir.printTextWidthHeightZoom(ConstruirFilaA(), 2, 1);
 //                                    imprimir.printText(ConstruirFila(factura.getAccount().getName()), 1);
-                    String dir1 ="Edificio Caracas Of. 201";
-                    String dir2= "Av. 16 de Julio No 1456";
+                    String dir1 =factura.getAddress1();
+                    String dir2=factura.getAddress2();
 
-                    imprimir.printText("           Casa Matriz");
+//                    imprimir.printText("           Casa Matriz");
                     imprimir.printText(ConstruirFila(dir1), 1);
                     imprimir.printText(ConstruirFila(dir2), 1);
 //                                    imprimir.printText(ConstruirFila("SFC-001"), 1);
@@ -904,18 +904,11 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
                     }
 
-//                                    for(int i=1;i<DetalleProductos.size();i++)
-//                                    {
-//
-////                                        String concepto =(String) conceptos.elementAt(i);
-////                                        imprimir.printText(concepto, 1);
-//                                        ba = (byte[]) DetalleProductos.elementAt(i);
-//                                        imprimir.printBitmap(ba);
-//
-//                                    }
+
+
                     imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
 //                                    imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
-//                                  segundo metodo
+//                                    segundo metodo
 //                                    for(int i=0;i<bi.length;i++)
 //                                    {
 //                                        imprimir.printBitmap(bi[i].getBi());

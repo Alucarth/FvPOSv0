@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.ipxserver.davidtorrez.fvpos.models.User;
 import com.ipxserver.davidtorrez.fvpos.rest.Conexion;
+import com.nbbse.mobiprint3.Printer;
 
 
 public class LoginActivity extends FragmentActivity {
@@ -50,6 +51,11 @@ public class LoginActivity extends FragmentActivity {
         btsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                Printer printer = Printer.getInstance();
+//                printer.printText("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",2);
+//                printer.printText("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",3);
+//                printer.printEndLine();
 
                 usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
                 conexion = new Conexion(usuario.getUser(), usuario.getPassword());
