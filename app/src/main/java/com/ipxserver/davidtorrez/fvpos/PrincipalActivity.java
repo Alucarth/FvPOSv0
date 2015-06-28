@@ -27,7 +27,9 @@ import com.ipxserver.davidtorrez.fvpos.fragments.FragmentFactura;
 import com.ipxserver.davidtorrez.fvpos.fragments.FragmentLista;
 import com.ipxserver.davidtorrez.fvpos.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvpos.models.Account;
+import com.ipxserver.davidtorrez.fvpos.models.Categoria;
 import com.ipxserver.davidtorrez.fvpos.models.NavItem;
+import com.ipxserver.davidtorrez.fvpos.models.Product;
 import com.ipxserver.davidtorrez.fvpos.models.User;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class PrincipalActivity extends ActionBarActivity {
 //    FragmentFactura fragmentFactura=null;
     FragmentTabswipe fragmentTabswipe=null;
     FragmentEmpresa fragmentEmpresa=null;
+    FragmentTabswipe fragmentEditTabswipe=null;
 
     User usuario;
 
@@ -179,6 +182,18 @@ public class PrincipalActivity extends ActionBarActivity {
             case FragmentReceiver.FRAGMENT_EMPRESA: cargarFragmento(getFragmentEmpresa());
                 setTitle("Factura Virtual");
                 break;
+            case FragmentReceiver.FRAGMENT_EDITTABSWIPE:
+                ArrayList<Product> listaModificada= reciver.getListaProductos();
+                cargarFragmento(getFragmentEditTabswipe());
+                reciver.setListaProductos(listaModificada);
+
+//                Intent intent = new Intent("cast_product");
+//                intent.putExtra("operacion", ProductReceiver.ACTUALIZAR_LISTA);
+//                Log.i("David","enviando lista modificada tamaño:"+listaModificada.size());
+//                intent.putExtra("lista_editada",listaModificada);
+//                sendBroadcast(intent);
+                setTitle("Productos");
+                break;
 
         }
 
@@ -234,6 +249,22 @@ public class PrincipalActivity extends ActionBarActivity {
             fragmentTabswipe = FragmentTabswipe.newInstance(cuenta.getCategorias());
         }
         return fragmentTabswipe;
+    }
+    public FragmentTabswipe getFragmentEditTabswipe() {
+
+            Account cuentaMod = new Account(cuenta.getAccountJsonText());
+
+            for(int i=0;i<cuentaMod.getCategorias().size();i++)
+            {
+                Categoria categoria = (Categoria)cuentaMod.getCategorias().get(i);
+                categoria.setProdcutos(reciver.getListaProductos());
+                cuentaMod.getCategorias().set(i,categoria);
+            }
+            fragmentEditTabswipe = FragmentTabswipe.newInstance(cuentaMod.getCategorias());
+
+
+
+        return fragmentEditTabswipe;
     }
     public  FragmentEmpresa getFragmentEmpresa()
     {
@@ -316,6 +347,8 @@ public class PrincipalActivity extends ActionBarActivity {
             case 1: cargarFragmento(getFragmentLista());
                 break;
             case 2: cargarFragmento(getFragmentEmpresa());
+                break;
+            case 3: this.finish();
                 break;
         }
         NavItem navItem = (NavItem) navmenu.get(position);

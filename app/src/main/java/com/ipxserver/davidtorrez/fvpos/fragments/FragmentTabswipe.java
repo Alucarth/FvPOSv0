@@ -32,7 +32,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     private PagerAdapter pagerAdapter;
     private GridbarAdapter gridbarAdapter;
     private GridView gridbar;
-    private ProductReceiver reciver;
+    public ProductReceiver reciver;
     //ActionBar actionBar;
     ViewPager viewPager;
     private ArrayList<Categoria> categorias;

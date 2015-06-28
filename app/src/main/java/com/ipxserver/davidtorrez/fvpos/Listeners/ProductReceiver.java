@@ -24,6 +24,7 @@ public class ProductReceiver extends BroadcastReceiver
     public static final int FRAGMENT_FACTURA=5;
     public static final int FRAGMENT_TABSWIPE=6;
     public static final int FRAGMENT_LISTA=7;
+    public static final int ACTUALIZAR_LISTA=11;
 //   ArrayAdapter <Product> arrayAdapter;
     ArrayList<Product> listaProductos;
     private final GridbarAdapter gridAdapter;
@@ -48,9 +49,20 @@ public class ProductReceiver extends BroadcastReceiver
                 break;
             case PRODUCTO_ELIMINADO: eliminarProducto(intent);
                 break;
+            case ACTUALIZAR_LISTA: actualizarLista(intent);
+                break;
+
         }
 
         Log.i("David","on recieve se activo XD metodo "+operacion);
+    }
+
+    private void actualizarLista(Intent intent) {
+        listaProductos = (ArrayList<Product>) intent.getSerializableExtra("lista_editada");
+    }
+    public void updateList(ArrayList<Product> listaModificada)
+    {
+        listaProductos = listaModificada;
     }
 
     private void eliminarProducto(Intent intent) {

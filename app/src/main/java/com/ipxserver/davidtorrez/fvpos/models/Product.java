@@ -15,6 +15,7 @@ public class Product implements Serializable
     public final static String ID ="id";
     public final static String NOTES="notes";
     public final static String COST="cost";
+    public final static String QTY="qyt";
     public final static String PRODUCT_KEY="product_key";
     private String product_key;
     private String notes;
@@ -45,6 +46,10 @@ public class Product implements Serializable
             if(json.has(Product.PRODUCT_KEY))
             {
                 product.setProduct_key(json.getString(Product.PRODUCT_KEY));
+            }
+            if(json.has(Product.QTY))
+            {
+                product.setQty(json.getString(Product.QTY));
             }
 
         } catch (JSONException e) {
@@ -89,6 +94,32 @@ public class Product implements Serializable
             ex.printStackTrace();
         }
         return json;
+    }
+    private static JSONObject updateJSONObject(Product producto)
+    {
+        JSONObject json = new JSONObject();
+        try {
+            json.put(Product.ID,producto.getId());
+            json.put(Product.NOTES,producto.getNotes());
+            json.put(Product.COST,producto.getCost());
+            json.put(Product.QTY,producto.getQty());
+            json.put(Product.PRODUCT_KEY,producto.getProduct_key());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public static JSONArray updateJSONArray(ArrayList<Product> products)
+    {
+        JSONArray actualizacion = new JSONArray();
+        for(int i=0;i<products.size();i++)
+        {
+            Product product = (Product)products.get(i);
+            JSONObject jsonObject = updateJSONObject(product);
+            actualizacion.put(jsonObject);
+        }
+        return actualizacion;
     }
 
     public static JSONArray toJSONs(ArrayList<Product> productos) {

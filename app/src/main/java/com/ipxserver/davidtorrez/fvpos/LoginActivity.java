@@ -16,7 +16,6 @@ import android.widget.EditText;
 
 import com.ipxserver.davidtorrez.fvpos.models.User;
 import com.ipxserver.davidtorrez.fvpos.rest.Conexion;
-import com.nbbse.mobiprint3.Printer;
 
 
 public class LoginActivity extends FragmentActivity {
@@ -34,11 +33,9 @@ public class LoginActivity extends FragmentActivity {
         setContentView(R.layout.activity_login);
         inicializarComponentes();
 //        Double num= 12.29*2.3;
-        Double num=Double.parseDouble("10.00");
-
-        Log.i("Login conversor","imprimiendo double:"+num);
-
-
+//        Double num=Double.parseDouble("10.00");
+//
+//        Log.i("Login conversor","imprimiendo double:"+num);
 
     }
 
@@ -70,8 +67,18 @@ public class LoginActivity extends FragmentActivity {
                 //Call execute
                 task.execute();
 
+
             }
         });
+    }
+    public void limpar()
+    {
+        usuario =null;
+
+        eduser.setText("");
+        edpass.setText("");
+        ednit.setText("");
+
     }
     public void Cambiar()
     {
@@ -139,6 +146,7 @@ public class LoginActivity extends FragmentActivity {
             if(conexion.getCodigo()==200)
             {
                 Cambiar();
+
             }
             else
             {
@@ -146,6 +154,7 @@ public class LoginActivity extends FragmentActivity {
             }
             Log.i("David", "codifgo" + conexion.getCodigo());
             Log.i("David","conexion"+conexion.getRespuesta());
+            limpar();
 //              Toast.makeText(MulticobroPrincipal.this, "Tarea finalizada!",
 //              Toast.LENGTH_SHORT).show();
 //	            mostrar.setText(david);

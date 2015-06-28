@@ -401,7 +401,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     private void atras() {
         Intent intent = new Intent("cambiar_fragmento");
 
-        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+        intent.putExtra("operacion", FragmentReceiver.FRAGMENT_EDITTABSWIPE);
         getActivity().sendBroadcast(intent);
     }
 
@@ -720,7 +720,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
         Vector literal = TextLine("SON: "+conv.getStringOfNumber(factura.getAmount()),34);
         Vector vactividad = TextLine(factura.getActividad(),34);
-        Vector vtitulo =  TextLine(factura.getAccount().getName(),35);
+        Vector vtitulo =  TextLine(factura.getAccount().getName(),16);
         byte printLine[] =null;
 //        try {
 //            printLine = ba.readImage(BMPGenerator.encodeBMP(getLinea()));
@@ -800,15 +800,15 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 //                                    imprimir.printBitmap(deviceOps.readImage("/FAC_tigo2.bmp", 0));
 //                                    //imprimir.printBitmap(deviceOps.readImage("/viva.bmp", 0));
                     //Encabezado
-//                    for(int j=0;j<vtitulo.size();j++)
-//                    {
-//                        String linea = (String) vtitulo.elementAt(j);
-////                                        imprimir.printText(linea, 1);
-//                        imprimir.printText(ConstruirFilaA(linea), 1);
-//                    }
+                    for(int j=0;j<vtitulo.size();j++)
+                    {
+                        String linea = (String) vtitulo.elementAt(j);
+//                                        imprimir.printText(linea, 1);
+                        imprimir.printText(ConstruirFilaA(linea), 2);
+                    }
 //                    imprimir.printText(factura.getAccount().getName(),2);
 
-                    imprimir.printText(ConstruirFilaA(factura.getAccount().getName()), 2);
+//                    imprimir.printText(ConstruirFilaA(factura.getAccount().getName()), 2);
 //                                     try{
 //                                         imprimir.printBitmap(this.ba.readImage(BMPGenerator.encodeBMP(imprimirTitulo(""))));
 //
@@ -1021,7 +1021,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     {
         String fila=cad1;
         String espacio =" ";
-        int size = (28-cad1.length())/2;
+        int size = (18-cad1.length())/2;
         for(int i=0;i<size;i++)
         {
             fila = espacio+fila ;
@@ -1047,7 +1047,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     {
         String fila=cad1;
         String espacio =" ";
-        int size = (36-cad1.length())/2;
+        int size = (34-cad1.length())/2;
         for(int i=0;i<size;i++)
         {
             fila = espacio+fila ;

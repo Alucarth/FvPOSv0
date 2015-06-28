@@ -26,9 +26,13 @@ public class Account
     private String num_auto;
     private String fecha_limite;
 
+    private String AccountJsonText;
+
 
     public Account(String jsonText)
     {
+
+        this.AccountJsonText = jsonText;
         try {
             JSONObject json = new JSONObject(jsonText);
             if(json.has("branch"))
@@ -180,5 +184,9 @@ public class Account
 
     public void setFecha_limite(String fecha_limite) {
         this.fecha_limite = fecha_limite;
+    }
+
+    public String getAccountJsonText() {
+        return AccountJsonText;
     }
 }

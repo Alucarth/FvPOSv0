@@ -42,7 +42,27 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         productos = (ArrayList<Product>)getArguments().getSerializable("productos");
-        Log.i("Fragment grid","productos size:"+productos.size());
+        Log.i("Fragment grid", "productos size:" + productos.size());
+
+        //enviar productos
+        enviarProductos(productos);
+    }
+
+    private void enviarProductos(ArrayList<Product> productos) {
+        for(int i =0;i<productos.size();i++)
+        {
+            Product pro = (Product) productos.get(i);
+            if(!pro.getQty().equals("0"))
+            {
+                Intent intent = new Intent("cast_product");
+                intent.putExtra("operacion", ProductReceiver.PRODUCTO_AGREGADO);
+                Log.i("David", "parsenado double:" + pro.getCost());
+                Double monto = Double.parseDouble(pro.getCost())*Double.parseDouble(pro.getQty());
+                intent.putExtra("monto", monto);
+                intent.putExtra("producto",pro);
+                getActivity().sendBroadcast(intent);
+            }
+        }
     }
 
     @Override

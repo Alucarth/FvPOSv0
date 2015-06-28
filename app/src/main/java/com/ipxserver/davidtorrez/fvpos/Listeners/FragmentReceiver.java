@@ -20,6 +20,7 @@ public class FragmentReceiver extends BroadcastReceiver
     public static final int FRAGMENT_TABSWIPE=6;
     public static final int FRAGMENT_LISTA=7;
     public static final int FRAGMENT_EMPRESA=8;
+    public static final int FRAGMENT_EDITTABSWIPE=10;
 
     private final GridbarAdapter gridAdapter;
     private final PrincipalActivity main;
@@ -61,6 +62,10 @@ public class FragmentReceiver extends BroadcastReceiver
     public ArrayList<Product> getListaProductos() {
         Log.i("David", "retornando lista  size " + listaProductos.size());
         return listaProductos;
+    }
+    public void setListaProductos(ArrayList<Product> productos)
+    {
+        listaProductos = productos;
     }
 
     public Double getMonto() {
