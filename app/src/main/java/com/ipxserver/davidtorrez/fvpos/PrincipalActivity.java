@@ -62,6 +62,7 @@ public class PrincipalActivity extends ActionBarActivity {
 
     private String respuesta;
     private Account cuenta;
+    NavAdapter navAdapter;
     String[] names;
 
     private ArrayList<NavItem> navmenu;
@@ -79,11 +80,12 @@ public class PrincipalActivity extends ActionBarActivity {
 
 //        cuenta = new Account("{\"productos\":{\"categoria1\":[{\"id\":9,\"product_key\":\"AM11\",\"notes\":\" producto 1\",\"cost\":\"10.00\"},{\"id\":13,\"product_key\":\"AM15\",\"notes\":\" producto con descripsion\",\"cost\":\"99.00\"},{\"id\":11,\"product_key\":\"AM13\",\"notes\":\" producto 3\",\"cost\":\"10.00\"}],\"categoria2\":[{\"id\":12,\"product_key\":\"AM14\",\"notes\":\" producto 4\",\"cost\":\"10.00\"},{\"id\":10,\"product_key\":\"AM12\",\"notes\":\" producto 2\",\"cost\":\"10.00\"},{\"id\":14,\"product_key\":\"AM16\",\"notes\":\" producto 6\",\"cost\":\"10.00\"}],\"categoria3\":[{\"id\":16,\"product_key\":\"AM18\",\"notes\":\" producto 8\",\"cost\":\"10.00\"},{\"id\":17,\"product_key\":\"AM19\",\"notes\":\" producto 9\",\"cost\":\"10.00\"},{\"id\":18,\"product_key\":\"AM20\",\"notes\":\" producto 0\",\"cost\":\"10.00\"}]},\"categorias\":[{\"categoria\":\"categoria1\"},{\"categoria\":\"categoria2\"},{\"categoria\":\"categoria3\"}],\"first_name\":\"Aurora\",\"last_name\":\"Bustillo Bravo\",\"branch\":\"Casa Matriz\"}");
         Log.i("David","respuesta "+respuesta);
-        Log.i("David","usuario "+usuario.getUser());
+        Log.i("David", "usuario " + usuario.getUser());
         navigationInit();
 
        inicializarContenido();
-        cargarFragmento(getFragmentLista());
+//        cargarFragmento(getFragmentLista());
+        cambiarFragmento(FragmentReceiver.FRAGMENT_LISTA);
 
     }
 
@@ -97,7 +99,8 @@ public class PrincipalActivity extends ActionBarActivity {
         NavItem navItem = new NavItem("Nueva Factura",R.drawable.ic_action_new_black);
         navmenu.add(navItem);
 
-        navItem = new NavItem("Reporte Diario",R.drawable.ic_action_report);
+        navItem = new NavItem("Reporte de Ventas",R.drawable.ic_action_report);
+
         navmenu.add(navItem);
 
         navItem = new NavItem("Acerca de Factura Virtual",R.drawable.ic_action_empresa_black);
@@ -110,7 +113,7 @@ public class PrincipalActivity extends ActionBarActivity {
 //
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1, names);
-        NavAdapter navAdapter = new NavAdapter(navList.getContext(),navmenu);
+        navAdapter = new NavAdapter(navList.getContext(),navmenu);
         navList.setAdapter(navAdapter);
         //hasta aqui el esquelo funciona bien XD
 
@@ -171,16 +174,36 @@ public class PrincipalActivity extends ActionBarActivity {
 //                    Product pro = (Product) reciver.getListaProductos().get(i);
 //                    getFragmentFactura().listAdapter.adcionarProducto(pro);
 //                }
-                setTitle("Factura");
+                mTitle = "Factura";
+                getSupportActionBar().setTitle(mTitle);
+                navAdapter.seleccionar(0);
                 break;
-            case FragmentReceiver.FRAGMENT_TABSWIPE: cargarFragmento(getFragmentTabswipe());
-                setTitle("Productos");
+            case FragmentReceiver.FRAGMENT_TABSWIPE:
+                navAdapter.seleccionar(0);
+//                navmenu.get(0).setHabilitado(true);
+//
+//                uncheck(0);
+
+                cargarFragmento(getFragmentTabswipe());
+                mTitle = "Productos";
+                getSupportActionBar().setTitle(mTitle);
+
+                Log.e("Camviando a tabswipe","id:"+FragmentReceiver.FRAGMENT_TABSWIPE);
                 break;
-            case FragmentReceiver.FRAGMENT_LISTA: cargarFragmento(getFragmentLista());
-                setTitle("Reporte de Ventas");
+            case FragmentReceiver.FRAGMENT_LISTA:
+                navAdapter.seleccionar(1);
+//                navmenu.get(1).setHabilitado(true);
+//
+//                uncheck(1);
+                cargarFragmento(getFragmentLista());
+
+                mTitle = "Reporte de Ventas";
+                getSupportActionBar().setTitle(mTitle);
                 break;
             case FragmentReceiver.FRAGMENT_EMPRESA: cargarFragmento(getFragmentEmpresa());
-                setTitle("Factura Virtual");
+                mTitle = "Factura Virtual";
+                navAdapter.seleccionar(2);
+                getSupportActionBar().setTitle(mTitle);
                 break;
             case FragmentReceiver.FRAGMENT_EDITTABSWIPE:
                 ArrayList<Product> listaModificada= reciver.getListaProductos();
@@ -189,10 +212,12 @@ public class PrincipalActivity extends ActionBarActivity {
 
 //                Intent intent = new Intent("cast_product");
 //                intent.putExtra("operacion", ProductReceiver.ACTUALIZAR_LISTA);
-//                Log.i("David","enviando lista modificada tamaño:"+listaModificada.size());
+//
 //                intent.putExtra("lista_editada",listaModificada);
 //                sendBroadcast(intent);
-                setTitle("Productos");
+                mTitle = "Productos";
+                navAdapter.seleccionar(0);
+                getSupportActionBar().setTitle(mTitle);
                 break;
 
         }
@@ -311,6 +336,10 @@ public class PrincipalActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent("cambiar_fragmento");
+
+            intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
+            sendBroadcast(intent);
             return true;
         }
 
@@ -342,19 +371,31 @@ public class PrincipalActivity extends ActionBarActivity {
         //Todo Colocar evento para cada opsion de la lista
         switch (position)
         {
-            case 0: cargarFragmento(getFragmentTabswipe());
+            case 0: cambiarFragmento(FragmentReceiver.FRAGMENT_TABSWIPE);
                 break;
-            case 1: cargarFragmento(getFragmentLista());
+            case 1: cambiarFragmento(FragmentReceiver.FRAGMENT_LISTA);
                 break;
-            case 2: cargarFragmento(getFragmentEmpresa());
+            case 2: cambiarFragmento(FragmentReceiver.FRAGMENT_EMPRESA);
                 break;
             case 3: this.finish();
                 break;
         }
-        NavItem navItem = (NavItem) navmenu.get(position);
-        mTitle = navItem.getTitulo();
-        navList.setItemChecked(position, true);
-        getSupportActionBar().setTitle(mTitle);
+//        NavItem navItem = (NavItem) navmenu.get(position);
+//        navItem.setHabilitado(true);
+//
+////        navmenu.set(position, navItem);
+//        if(position==0)
+//        {
+//            mTitle = "Factura";
+//        }
+//        else{
+//            mTitle = navItem.getTitulo();
+//        }
+//        navAdapter.seleccionar(position);
+//        navList.setItemChecked(position, true);
+//        getSupportActionBar().setTitle(mTitle);
         drawerLayout.closeDrawer(drawer_child);
+
     }
+
 }

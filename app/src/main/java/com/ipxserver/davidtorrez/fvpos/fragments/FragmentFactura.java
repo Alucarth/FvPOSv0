@@ -37,7 +37,7 @@ import com.ipxserver.davidtorrez.fvpos.R;
 import com.ipxserver.davidtorrez.fvpos.Util.Converter;
 import com.ipxserver.davidtorrez.fvpos.Util.DateUtil;
 import com.ipxserver.davidtorrez.fvpos.Util.Tokenizer;
-import com.ipxserver.davidtorrez.fvpos.adapter.GridbarAdapter;
+import com.ipxserver.davidtorrez.fvpos.adapter.GridbarAdapterFactura;
 import com.ipxserver.davidtorrez.fvpos.adapter.ListAdapter;
 import com.ipxserver.davidtorrez.fvpos.models.Client;
 import com.ipxserver.davidtorrez.fvpos.models.Factura;
@@ -139,7 +139,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
         lista.setAdapter(listAdapter);
 
         GridView gridBar = (GridView) rootView.findViewById(R.id.barra_factura_saldo);
-        GridbarAdapter gridbarAdapter = new GridbarAdapter(rootView.getContext());
+        GridbarAdapterFactura gridbarAdapter = new GridbarAdapterFactura(rootView.getContext());
         gridBar.setAdapter(gridbarAdapter);
 
         gridbarAdapter.incrementar(monto);

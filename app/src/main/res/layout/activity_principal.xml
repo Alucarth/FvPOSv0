@@ -24,40 +24,55 @@
         android:layout_gravity="start"
 
         android:orientation="vertical" >
-
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="80dp"
             android:background="@color/actionbar_background"
-            android:src="@drawable/ic_action_person_white"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/icono_usuario"
+                android:id="@+id/imageView"
+                android:layout_alignParentStart="true"
+
+                 />
+            <TextView
+                android:id="@+id/txt_fist_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="usuario"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"
+
+                android:textColor="@color/fab_material_white"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/imageView" />
+            <TextView
+                android:id="@+id/txt_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:paddingLeft="20dp"
+                android:text="apellido"
+                android:layout_below="@+id/txt_fist_name"
+
+                android:textColor="@color/fab_material_white"
 
 
-            />
-        <TextView
-            android:id="@+id/txt_fist_name"
-            android:layout_width="match_parent"
 
-            android:layout_height="20dp"
-            android:background="@color/actionbar_background"
-            android:text="usuario"
-            android:paddingLeft="20dp"
-            android:textColor="@color/fab_material_white"
-            />
-        <TextView
-            android:id="@+id/txt_last_name"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:paddingLeft="20dp"
-            android:text="apellido"
-            android:background="@color/actionbar_background"
-            android:textColor="@color/fab_material_white"
-            />
+                android:layout_toEndOf="@+id/imageView" />
+        </RelativeLayout>
+
+
         <ListView
             android:id="@+id/left_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:background="@android:color/white"
+            android:background="@color/white"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp" />

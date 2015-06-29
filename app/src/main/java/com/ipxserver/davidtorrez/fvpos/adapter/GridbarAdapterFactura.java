@@ -9,23 +9,21 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ipxserver.davidtorrez.fvpos.R;
-import com.ipxserver.davidtorrez.fvpos.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvpos.models.ItemBar;
 
 import java.util.ArrayList;
 
 /**
- * Created by David Torrez on 20/05/2015.
+ * Created by David-Pc on 29/06/2015.
  */
-public class GridbarAdapter extends BaseAdapter
+public class GridbarAdapterFactura extends BaseAdapter
 {
-    ArrayList <ItemBar> items;
+    ArrayList<ItemBar> items;
     Context context;
     Double saldo;
-    final FragmentTabswipe tabswipe;
-    public GridbarAdapter(FragmentTabswipe tabswipe,Context context)
+    public GridbarAdapterFactura(Context context)
     {
-        this.tabswipe = tabswipe;
+        this.context = context;
         this.context = context;
         items = new ArrayList<ItemBar>();
 
@@ -39,13 +37,10 @@ public class GridbarAdapter extends BaseAdapter
         ib.setDescripcion("Total");
         items.add(ib);
         saldo = 0.0;
-
     }
     public void incrementar(Double monto)
     {
-
         saldo = saldo + monto;
-        verificarVenta();
         if(items!=null)
         {
             for(int i=0;i<items.size();i++)
@@ -56,22 +51,10 @@ public class GridbarAdapter extends BaseAdapter
             notifyDataSetChanged();
         }
     }
-    void verificarVenta()
-    {
-        if(saldo>0)
-        {
-            tabswipe.activarVenta(true);
-        }
-        else
-        {
-            tabswipe.activarVenta(false);
-        }
-    }
+
     public void disminuir(Double monto)
     {
-
         saldo = saldo -monto;
-        verificarVenta();
         if(items!=null)
         {
             for(int i=0;i<items.size();i++)

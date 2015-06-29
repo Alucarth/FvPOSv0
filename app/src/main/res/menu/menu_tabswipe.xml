@@ -4,12 +4,13 @@
 
     <item android:id="@+id/action_cancelar"
         android:title="cancelar"
-
+        android:titleCondensed="cancelar"
         android:icon="@drawable/ic_action_cancel"
         app:showAsAction="always|withText"
         />
     <item android:id="@+id/action_facturar"
         android:title="facturar"
+        android:titleCondensed="facturar"
         android:icon="@drawable/ic_action_ok"
         app:showAsAction="always|withText"
         />

@@ -18,7 +18,7 @@
             android:id="@+id/view_about_content_1"/>
 
         <TextView style="@style/AboutTextContent"
-            android:text="Factura Virtual is a flexible Web-based Mobile Portal System that it can be made to fit to various services such as an SMS gateway, personal messaging systems, corporate and group communication tools. More information about playSMS can be found at the project URL http://www.facturavirtual.com."
+            android:text="Factura Virtual is a flexible Web-based Mobile Portal System that it can be made to fit to various services such as an SMS gateway, personal messaging systems, corporate and group communication tools. More information about Factura Virtual can be found at the project URL http://www.facturavirtual.com.bo"
             android:id="@+id/view_about_content_2"/>
         </LinearLayout>
     </ScrollView>

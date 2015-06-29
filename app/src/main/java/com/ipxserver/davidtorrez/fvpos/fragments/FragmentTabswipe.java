@@ -1,5 +1,7 @@
 package com.ipxserver.davidtorrez.fvpos.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -56,7 +58,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         categorias = (ArrayList<Categoria>) getArguments().getSerializable("categorias");
-        Log.i("David","categorias size:"+categorias.size());
+        Log.i("David", "categorias size:" + categorias.size());
 
     }
 
@@ -92,8 +94,8 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 //                            .setTabListener(this));
 //        }
 //
-//        //Todo: Revisar el tipo de contexto al cual pertenese el gridbarAdapter
-        gridbarAdapter = new GridbarAdapter(rootView.getContext());
+//
+        gridbarAdapter = new GridbarAdapter(this,rootView.getContext());
         gridbar= (GridView) rootView.findViewById(R.id.barraSaldo);
         gridbar.setAdapter(gridbarAdapter);
 
@@ -110,6 +112,13 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 //        actionBar.setHomeButtonEnabled(false);
 //
 //    }
+    public void activarVenta(boolean activar)
+    {
+        if(activar!=activarMenu) {
+            this.activarMenu = activar;
+            getActivity().invalidateOptionsMenu();
+        }
+    }
 
 
     @Override
@@ -129,10 +138,11 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if(activarMenu)
         {
-            inflater.inflate(R.menu.menu_toast, menu);
+            inflater.inflate(R.menu.menu_tabswipe, menu);
         }
         else {
-            inflater.inflate(R.menu.menu_tabswipe, menu);
+
+            inflater.inflate(R.menu.menu_toast, menu);
         }
 
     }
@@ -147,9 +157,14 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
                 cancelarFactura(item);
                 return true;
             case R.id.action_facturar: llamarFacturar(item); return true;
+            case R.id.action_ayuda: llamarAyudia(item);return true;
             default:  return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private void llamarAyudia(MenuItem item) {
+        alerta("Factura Virtual","Por favor seleccione un producto a facturar");
     }
 
     private void llamarFacturar(MenuItem item) {
@@ -210,5 +225,23 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
         intent.putExtra("operacion", FragmentReceiver.FRAGMENT_LISTA);
         getActivity().sendBroadcast(intent);
         Log.i("David","entro a la funcion de cancelar factura");
+    }
+    public void alerta(String titulo,String mensaje) {
+        //se prepara la alerta creando nueva instancia
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        //seleccionamos la cadena a mostrar
+        dialogBuilder.setMessage(mensaje);
+        //elegimo un titulo y configuramos para que se pueda quitar
+        dialogBuilder.setCancelable(true).setTitle(titulo);
+        dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        //mostramos el dialogBuilder
+        dialogBuilder.create().show();
+
+//		  ProgressDialog.show( MulticobroPrincipal.this,titulo,mensaje,true,true);
+
     }
 }

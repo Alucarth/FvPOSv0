@@ -16,6 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:paddingTop="15dp"
         android:text="Small Text"
+        android:textColor="#ff000000"
         android:id="@+id/txtTitulo"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/icono" />

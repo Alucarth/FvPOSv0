@@ -13,9 +13,9 @@
         app:showAsAction="withText|always"
         />
     <item android:id="@+id/action_factura_cancelar"
-        android:title="cancelar"
+        android:title="Editar"
 
         android:icon="@drawable/ic_action_cancel"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|never"
         />
 </menu>
