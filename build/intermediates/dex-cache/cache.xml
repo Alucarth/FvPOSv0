@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-1a22bbaa2ecb72dc01b75d1f3f05f2f90f4461aa.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-ccf0b093db8775988af7f343153b30e55b93d290.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.github.shell-software\viewmover\1.0.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d065ab6e064a1398750b52b1108e52c6d5e77807">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-147157c23ffe238c7a0809abf66817c6fa51cfc5.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\libs\core.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="69ab751723c7f7c8a01fddb1d169a93160fadca7">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\core-18cc5090ff0e17da472e01b0646b7427a2d56bf1.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.astuetz\pagerslidingtabstrip\1.0.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7912610ed96381c25c36d986eba422731b9641b6">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-4cbe1d358542ed5c9a80cca375aeaef7092a0e8d.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.github.shell-software\uitools\1.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="841420e749b01799d17bf0a83cc6eb64dd8fa136">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-588e6a7ab89bdd95eab69f4e72fa084b0b4192ef.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-0e9af850388cdaaded4691198b07f54120a34fe7.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-71340a138ff634aa7e14c0abe7aa30e86bfc4933.jar" />
+    </item>
+    <item
+        jar="D:\sdkAndroidStudio\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-cbac341ed8dd22a84f3b2e3f8f7d8594bfa457ec.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-244f52b88881f891f85e2ba5fb825c08d64132f2.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\build\intermediates\exploded-aar\com.github.shell-software\fab\1.1.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="cf52449fa39e6e61964c43f880ea827e0bcc8c9c">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\classes-97565c11fbc11ee42ef30c3ccf55ec2bd0496624.jar" />
+    </item>
+    <item
+        jar="D:\AndroidApps\FvPOSv0\app\libs\com.nbbse.mobiprint3-v0.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="07d49efabc37a2db063810471458b15f8b9dd921">
+        <dex dex="D:\AndroidApps\FvPOSv0\app\build\intermediates\pre-dexed\debug\com.nbbse.mobiprint3-v0.2-b1ca6f6606e3b94a9043d2315cc331a62abfecd9.jar" />
+    </item>
+
+</items>
