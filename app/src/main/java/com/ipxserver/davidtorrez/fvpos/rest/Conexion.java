@@ -21,15 +21,15 @@ public class Conexion {
     public final static int GUARDARFACTURA=2;
     public final static int REGISTROCLIENTE=3;
 //    public final static String SERVIDOR="192.168.2.194";
-    public final static String SERVIDOR="demo.facturavirtual.com.bo";
+    public final static String SERVIDOR="davidcorp.demo.emizor.com";
     public final static String PROTOCOLO="http://";
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
 //    public final static  String LOGIN_URL="/cloud2/public/loginPOS";
 //    public final static String CLIENTE_URL="/clou d2/public/cliente/";
 //    public final static String GUARDARFACTURA_URL="/cloud2/public/guardarFactura";
-    public final static  String LOGIN_URL="/loginPOS";
+    public final static  String LOGIN_URL="/pos";
     public final static String CLIENTE_URL="/cliente/";
-    public final static String REGISTROCLIENTE_URL="/saveclient";
+    public final static String REGISTROCLIENTE_URL="/guardarCliente";
     public final static String GUARDARFACTURA_URL="/guardarFactura";
     private String respuesta;
     private int codigo;
@@ -95,6 +95,8 @@ public class Conexion {
 
 
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            Log.i("Direcccion-----> ",direccion);
+
             Log.i("David","user:"+user);
             Log.i("David","pass:"+pass);
             String basicAuth = "Basic " + new String(Base64.encode((user + ":" + pass).getBytes(), Base64.NO_WRAP));
@@ -146,6 +148,7 @@ public class Conexion {
     }
     private void sendPost(String direccion,String urlParameters)
     {
+        Log.i("Direcccion-----> ",direccion);
         try{
 //        String urlParameters  = "param1=a&param2=b&param3=c";
             byte[] postData       = urlParameters.getBytes();
