@@ -39,6 +39,7 @@ import com.ipxserver.davidtorrez.fvpos.Util.DateUtil;
 import com.ipxserver.davidtorrez.fvpos.Util.Tokenizer;
 import com.ipxserver.davidtorrez.fvpos.adapter.GridbarAdapterFactura;
 import com.ipxserver.davidtorrez.fvpos.adapter.ListAdapter;
+import com.ipxserver.davidtorrez.fvpos.database.SqliteController;
 import com.ipxserver.davidtorrez.fvpos.models.Client;
 import com.ipxserver.davidtorrez.fvpos.models.Factura;
 import com.ipxserver.davidtorrez.fvpos.models.FacturaCardItem;
@@ -77,7 +78,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
     User usuario;
 
     int servicio;
-
+    private SqliteController base;
 
 //    FacturaReceiver facturaReceiver;
    public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, Double monto,User usuario)
@@ -106,6 +107,8 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        base = new SqliteController(this.getActivity().getApplication());
         View rootView = inflater.inflate(R.layout.fragment_factura,container,false );
 
         nit = (TextView) rootView.findViewById(R.id.txt_factura_nit);
@@ -549,6 +552,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                     Log.e("David","Cliente id"+cliente.getPublic_id());
                     sf.setName(cliente.getNombre());
                     sf.setNit(cliente.getNit());
+                    sf.setBranch_id(base.getSucursal());
                     sf.setProductos(listaSeleccionados);
 
                     Log.i("David", "solicitud json: " + solicitudFactura.toJSON(sf));

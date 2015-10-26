@@ -15,18 +15,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ipxserver.davidtorrez.fvpos.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvpos.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvpos.adapter.NavAdapter;
+import com.ipxserver.davidtorrez.fvpos.database.SqliteController;
 import com.ipxserver.davidtorrez.fvpos.fragments.FragmentEmpresa;
 import com.ipxserver.davidtorrez.fvpos.fragments.FragmentFactura;
 import com.ipxserver.davidtorrez.fvpos.fragments.FragmentLista;
 import com.ipxserver.davidtorrez.fvpos.fragments.FragmentTabswipe;
 import com.ipxserver.davidtorrez.fvpos.models.Account;
+import com.ipxserver.davidtorrez.fvpos.models.Branches;
 import com.ipxserver.davidtorrez.fvpos.models.Categoria;
 import com.ipxserver.davidtorrez.fvpos.models.NavItem;
 import com.ipxserver.davidtorrez.fvpos.models.Product;
@@ -39,6 +43,7 @@ public class PrincipalActivity extends ActionBarActivity {
 
 
     GridbarAdapter gridbarAdapter;
+    Spinner branchSelect;
 
    FragmentReceiver reciver;
     FragmentLista fragmentLista=null;
@@ -63,20 +68,62 @@ public class PrincipalActivity extends ActionBarActivity {
     private String respuesta;
     private Account cuenta;
     NavAdapter navAdapter;
-    String[] names;
-
+    String sucursales[];
+    String branch_id;
     private ArrayList<NavItem> navmenu;
 
+    private SqliteController base;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
+        base = new SqliteController(this);
         Intent intent = getIntent();
         respuesta = intent.getStringExtra("cuenta");
-        usuario =(User) intent.getSerializableExtra("usuario");
+        usuario = (User) intent.getSerializableExtra("usuario");
         cuenta = new Account(respuesta);
+
+        sucursales = new String[cuenta.getBranches().size()];
+        for (int i = 0; i < cuenta.getBranches().size(); i++)
+        {
+            sucursales[i]= ((Branches) cuenta.getBranches().get(i)).getName();
+        }
+        branch_id = getString(R.string.branch_id);
+        branch_id = cuenta.getBranches().get(0).getId();
+        base.insertCuenta(cuenta.getName(),cuenta.getBranches().get(0).getId(),cuenta.getBranches().get(0).getName());
+
+        branchSelect = (Spinner) findViewById(R.id.branch_select);
+
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                sucursales);
+        branchSelect.setAdapter(spinnerArrayAdapter);
+        branchSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                branch_id = cuenta.getBranches().get(i).getId();
+
+                Log.i("Branch "," selecciono la sucursal "+branch_id);
+                Log.i("Branch ","actual _>"+base.getSucursal());
+                base.modificarSucursal(branch_id);
+                Log.i("Branch ", "cambiando a _>" + base.getSucursal());
+//                Log.i("Branch "," valor del recurso branch_id "+getString(R.string.branch_id));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+//        branchSelect.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+////                branch_id = cuenta.getBranches().get(i).getId();
+//                Log.i("Branch "," selecciono la sucursal "+branch_id);
+//            }
+//        });
+
 
 //        cuenta = new Account("{\"productos\":{\"categoria1\":[{\"id\":9,\"product_key\":\"AM11\",\"notes\":\" producto 1\",\"cost\":\"10.00\"},{\"id\":13,\"product_key\":\"AM15\",\"notes\":\" producto con descripsion\",\"cost\":\"99.00\"},{\"id\":11,\"product_key\":\"AM13\",\"notes\":\" producto 3\",\"cost\":\"10.00\"}],\"categoria2\":[{\"id\":12,\"product_key\":\"AM14\",\"notes\":\" producto 4\",\"cost\":\"10.00\"},{\"id\":10,\"product_key\":\"AM12\",\"notes\":\" producto 2\",\"cost\":\"10.00\"},{\"id\":14,\"product_key\":\"AM16\",\"notes\":\" producto 6\",\"cost\":\"10.00\"}],\"categoria3\":[{\"id\":16,\"product_key\":\"AM18\",\"notes\":\" producto 8\",\"cost\":\"10.00\"},{\"id\":17,\"product_key\":\"AM19\",\"notes\":\" producto 9\",\"cost\":\"10.00\"},{\"id\":18,\"product_key\":\"AM20\",\"notes\":\" producto 0\",\"cost\":\"10.00\"}]},\"categorias\":[{\"categoria\":\"categoria1\"},{\"categoria\":\"categoria2\"},{\"categoria\":\"categoria3\"}],\"first_name\":\"Aurora\",\"last_name\":\"Bustillo Bravo\",\"branch\":\"Casa Matriz\"}");
         Log.i("David","respuesta "+respuesta);
@@ -140,7 +187,7 @@ public class PrincipalActivity extends ActionBarActivity {
             public void onDrawerOpened(View drawerView) {
 
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(cuenta.getBranch());
+                getSupportActionBar().setTitle(cuenta.getName());
                 // creates call to onPrepareOptionsMenu()
 
             }

@@ -14,6 +14,7 @@ public class solicitudFactura {
     private String client_id;
     private String name;
     private String nit;
+    private String branch_id;
     private ArrayList<Product> productos;
 
     /**
@@ -38,6 +39,7 @@ public class solicitudFactura {
             json.put("client_id", solfac.client_id);
             json.put("name",solfac.name);
             json.put("nit",solfac.nit);
+            json.put("branch_id",solfac.getBranch_id());
             json.put("invoice_items",solfac.getProductos() );
         } catch (JSONException ex) {
             ex.printStackTrace();
@@ -77,5 +79,11 @@ public class solicitudFactura {
         this.nit = nit;
     }
 
+    public String getBranch_id() {
+        return branch_id;
+    }
 
+    public void setBranch_id(String branch_id) {
+        this.branch_id = branch_id;
+    }
 }

@@ -22,4 +22,4 @@
         android:layout_below="@+id/txtNumero"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
-<!-- From: file:/D:/AndroidApps/FvPOSv0/app/src/main/res/layout/gridbar_item.xml -->
+<!-- From: file:/C:/Users/David%20Torrez/Documents/FacturaVirtual/FvPOSv0/app/src/main/res/layout/gridbar_item.xml -->

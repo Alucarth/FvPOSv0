@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Account
 {
     private String TAG="David";
-    private String branch,first_name,last_name;
+    private String first_name,last_name;
     //TODO: tratar productos XD ver logica de envio
     private String productos;
     private ArrayList<Categoria> categorias;
@@ -28,6 +28,8 @@ public class Account
 
     private String AccountJsonText;
 
+    private ArrayList<Branches> branches;
+
 
     public Account(String jsonText)
     {
@@ -37,7 +39,7 @@ public class Account
             JSONObject json = new JSONObject(jsonText);
             if(json.has("branch"))
             {
-                setBranch(json.getString("branch"));
+                setBranches(Branches.fromArrayJson(json.getString("branch")));
             }
             if(json.has("first_name"))
             {
@@ -102,12 +104,12 @@ public class Account
 
     }
 
-    public String getBranch() {
-        return branch;
+    public ArrayList<Branches> getBranches() {
+        return branches;
     }
 
-    public void setBranch(String branch) {
-        this.branch = branch;
+    public void setBranches(ArrayList<Branches> branches) {
+        this.branches = branches;
     }
 
     public String getFirst_name() {
