@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -53,10 +52,12 @@ import com.nbbse.mobiprint3.Printer;
 import java.util.ArrayList;
 import java.util.Vector;
 
+//import android.util.Printer;
+
 /**
  * Created by keyrus on 23-05-15.
  */
-public class FragmentFactura extends Fragment //implements //DialogUser.UserDialgoListener
+public class FragmentFactura extends android.support.v4.app.Fragment //implements //DialogUser.UserDialgoListener
 {
 
 
@@ -449,7 +450,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
             switch(servicio)
             {
                 case  Conexion.CLIENTE:
-                        conexion = new Conexion(usuario.getUser(),usuario.getPassword());
+                        conexion = new Conexion(usuario.getUser(),usuario.getPassword(),getActivity().getBaseContext());
                         conexion.enviarGet(Conexion.CLIENTE, clienteNit);
                         break;
                 case Conexion.GUARDARFACTURA:
@@ -556,7 +557,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
                     sf.setProductos(listaSeleccionados);
 
                     Log.i("David", "solicitud json: " + solicitudFactura.toJSON(sf));
-                    conexion = new Conexion(usuario.getUser(),usuario.getPassword());
+                    conexion = new Conexion(usuario.getUser(),usuario.getPassword(),getActivity().getBaseContext());
                     conexion.enviarPost(Conexion.GUARDARFACTURA, solicitudFactura.toJSON(sf));
                     break;
             }
@@ -651,7 +652,7 @@ public class FragmentFactura extends Fragment //implements //DialogUser.UserDial
 
 
                     Log.i("David", "solicitud json: " + Client.toJson(cliente));
-                    conexion = new Conexion(usuario.getUser(),usuario.getPassword());
+                    conexion = new Conexion(usuario.getUser(),usuario.getPassword(),getActivity().getBaseContext());
                     conexion.enviarPost(Conexion.REGISTROCLIENTE,Client.toJson(cliente).toString());
                     break;
             }

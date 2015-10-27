@@ -25,6 +25,7 @@ public class Account
     private String address2;
     private String num_auto;
     private String fecha_limite;
+    private String subdominio;
 
     private String AccountJsonText;
 
@@ -97,11 +98,23 @@ public class Account
             {
                 fecha_limite=json.getString("fecha_limite");
             }
+            if(json.has("subdominio"))
+            {
+                setSubdominio(json.getString("subdominio"));
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public String getSubdominio() {
+        return subdominio;
+    }
+
+    public void setSubdominio(String subdominio) {
+        this.subdominio = subdominio;
     }
 
     public ArrayList<Branches> getBranches() {

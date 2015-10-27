@@ -1,7 +1,10 @@
 package com.ipxserver.davidtorrez.fvpos.rest;
 
+import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
+
+import com.ipxserver.davidtorrez.fvpos.database.SqliteController;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -21,7 +24,7 @@ public class Conexion {
     public final static int GUARDARFACTURA=2;
     public final static int REGISTROCLIENTE=3;
 //    public final static String SERVIDOR="192.168.2.194";
-    public final static String SERVIDOR="davidcorp.demo.emizor.com";
+    public final static String SERVIDOR=".demo.emizor.com";
     public final static String PROTOCOLO="http://";
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
 //    public final static  String LOGIN_URL="/cloud2/public/loginPOS";
@@ -35,15 +38,22 @@ public class Conexion {
     private int codigo;
     private String error;
 
-
+    private SqliteController base;
     private String user;
     private String pass;
+    private String domain;
 
-
-    public Conexion(String user,String pass)
+    public Conexion(String user,String pass,Context context)
     {
         this.user = user;
         this.pass = pass;
+        base = new SqliteController(context);
+    }
+    public Conexion(String user,String pass,String domain)
+    {
+        this.user = user;
+        this.pass = pass;
+        this.domain = domain;
     }
     public void enviarGet(int servicio)
     {
@@ -55,7 +65,7 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendGet(Conexion.PROTOCOLO+Conexion.SERVIDOR+url);
+        sendGet(Conexion.PROTOCOLO+this.domain+Conexion.SERVIDOR+url);
 
     }
     public void enviarGet(int servicio,String parametros)
@@ -68,7 +78,7 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendGet(Conexion.PROTOCOLO+Conexion.SERVIDOR+url);
+        sendGet(Conexion.PROTOCOLO+base.getSubdominio()+Conexion.SERVIDOR+url);
     }
     public void enviarPost(int servicio,String parametros)
     {
@@ -85,7 +95,7 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendPost(Conexion.PROTOCOLO+Conexion.SERVIDOR+url,parametros);
+        sendPost(Conexion.PROTOCOLO+base.getSubdominio()+Conexion.SERVIDOR+url,parametros);
     }
     private void sendGet(String direccion)
     {

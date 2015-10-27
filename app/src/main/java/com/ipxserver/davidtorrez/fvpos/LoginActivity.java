@@ -55,7 +55,7 @@ public class LoginActivity extends FragmentActivity {
 //                printer.printEndLine();
 
                 usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
-                conexion = new Conexion(usuario.getUser(), usuario.getPassword());
+                conexion = new Conexion(usuario.getUser(), usuario.getPassword(),usuario.getNitempresa());
                 pDialog = new ProgressDialog(LoginActivity.this);
                 pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pDialog.setTitle("Autentificando");

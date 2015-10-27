@@ -91,7 +91,7 @@ public class PrincipalActivity extends ActionBarActivity {
         }
         branch_id = getString(R.string.branch_id);
         branch_id = cuenta.getBranches().get(0).getId();
-        base.insertCuenta(cuenta.getName(),cuenta.getBranches().get(0).getId(),cuenta.getBranches().get(0).getName());
+        base.insertCuenta(cuenta.getName(),cuenta.getBranches().get(0).getId(),cuenta.getBranches().get(0).getName(),cuenta.getSubdominio());
 
         branchSelect = (Spinner) findViewById(R.id.branch_select);
 

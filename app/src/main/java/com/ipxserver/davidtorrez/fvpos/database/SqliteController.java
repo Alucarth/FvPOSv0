@@ -22,7 +22,7 @@ public class SqliteController extends SQLiteOpenHelper {
         String query;
 
         Log.d(TAG, "tabla formulario Created");
-        query = "CREATE TABLE cuentas (id INTEGER PRIMARY KEY, name TEXT, branch_id TEXT, branch_name TEXT);";
+        query = "CREATE TABLE cuentas (id INTEGER PRIMARY KEY, name TEXT, branch_id TEXT, branch_name TEXT, subdominio TEXT);";
         sqLiteDatabase.execSQL(query);
     }
 
@@ -32,17 +32,18 @@ public class SqliteController extends SQLiteOpenHelper {
         query = "DROP TABLE IF EXISTS cuentas";
         sqLiteDatabase.execSQL(query);
     }
-    public void insertCuenta(String name, String branch_id, String branc_name) {
+    public void insertCuenta(String name, String branch_id, String branc_name,String subdominio) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("branch_id", branch_id);
         values.put("branch_name", branc_name);
+        values.put("subdominio",subdominio);
         database.insert("cuentas", null, values);
         database.close();
     }
     public String  getSucursal() {
-        String selectQuery = "SELECT  * FROM cuentas";
+        String selectQuery = "SELECT  * FROM cuentas where id=1";
 
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
@@ -58,6 +59,24 @@ public class SqliteController extends SQLiteOpenHelper {
 //            } while (cursor.moveToNext());
 //        }
         return brach_id;
+    }
+    public String  getSubdominio() {
+        String selectQuery = "SELECT  * FROM cuentas where id=1";
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        String subdominio=null;
+        cursor.moveToFirst();
+        subdominio =  cursor.getString(4);
+//        if (cursor.moveToFirst()) {
+//            do {
+//                Log.w(TAG, "id:" + cursor.getString(0));
+//                Log.w(TAG, "nombre:" + cursor.getString(1));
+//                Log.w(TAG, "estructura:" + cursor.getString(2));
+//
+//            } while (cursor.moveToNext());
+//        }
+        return subdominio;
     }
     public void modificarSucursal(String branch_id) {
         SQLiteDatabase database = this.getWritableDatabase();
