@@ -76,7 +76,9 @@
             android:id="@+id/barra_factura_saldo"
             android:numColumns="2"
 
-            android:background="#cb000000"
+            android:gravity="center"
+            android:background="#cb000z000"
+
 
             />
 

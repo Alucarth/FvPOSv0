@@ -2,6 +2,7 @@ package com.ipxserver.davidtorrez.fvpos.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +32,16 @@ public class GridbarAdapter extends BaseAdapter
 
         ItemBar ib = new ItemBar();
         ib.setNumero(0.0);
-        ib.setDescripcion("Subtotal");
+        Log.v("Brian","1ro");
+        //ib.setDescripcion("Subtotal");
         items.add(ib);
 
         ib = new ItemBar();
         ib.setNumero(0.0);
-        ib.setDescripcion("Total");
+        Log.v("Brian","2do");
+        //ib.setDescripcion("Total");
         items.add(ib);
+
         saldo = 0.0;
 
     }
@@ -108,20 +112,38 @@ public class GridbarAdapter extends BaseAdapter
             rootView =  inflater.inflate(R.layout.gridbar_item,viewGroup,false);
         }
         TextView txtNumero =(TextView)rootView.findViewById(R.id.txtNumero);
-        TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
+        //TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
 
         ItemBar item = (ItemBar) items.get(i);
+        if(i==0) {
+            txtNumero.setText("Bs " + String.format("%.2f", item.getNumero()));
+        }
+        else{
+            txtNumero.setText("PAGAR");
+        }
 
-        txtNumero.setText("Bs "+String.format("%.2f",item.getNumero()));
-        txtDescripcion.setText(item.getDescripcion());
+        Log.v("Brian","valor seteado"+i);
+        //txtDescripcion.setText(item.getDescripcion());
 
         txtNumero.setTextColor(Color.parseColor("#76FF03"));
-        txtDescripcion.setTextColor(Color.parseColor("#76FF03"));
+        //txtDescripcion.setTextColor(Color.parseColor("#76FF03"));
 
         return rootView;
     }
 
     public Double getSaldo() {
         return saldo;
+    }
+
+    //Gridbar.setOnItemClickListener(new OnItemClickListener() {
+    //public void onItemClick(AdapterView<?> parent, View v,
+    //int position, long id) {
+       // Intent intent = new Intent(this,
+         //       MyNewActivity.class);
+     //   startActivity(intent);
+    //}
+//});
+    public void nextStep(){
+        Log.v("Brian","this is us");
     }
 }

@@ -7,19 +7,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Numero"
-        android:textSize="22dp"
+        android:textSize="25dp"
         android:id="@+id/txtNumero"
         android:layout_centerHorizontal="true"
+        android:onClick="nextStep"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Descripcion"
-
-        android:id="@+id/txtDescripcion"
-        android:layout_below="@+id/txtNumero"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>
-<!-- From: file:/D:/AndroidApps/FvPOSv0/app/src/main/res/layout/gridbar_item.xml -->
+<!-- From: file:/C:/Users/Brian/AndroidStudioProjects/FvPOSv0/app/src/main/res/layout/gridbar_item.xml -->

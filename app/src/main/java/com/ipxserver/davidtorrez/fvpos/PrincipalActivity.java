@@ -150,7 +150,7 @@ public class PrincipalActivity extends ActionBarActivity {
 
         navmenu.add(navItem);
 
-        navItem = new NavItem("Acerca de Factura Virtual",R.drawable.ic_action_empresa_black);
+        navItem = new NavItem("Acerca de Emizor",R.drawable.ic_action_empresa_black);
         navmenu.add(navItem);
 
         navItem = new NavItem("Cerrar Sesion",R.drawable.ic_action_exit);
@@ -248,7 +248,7 @@ public class PrincipalActivity extends ActionBarActivity {
                 getSupportActionBar().setTitle(mTitle);
                 break;
             case FragmentReceiver.FRAGMENT_EMPRESA: cargarFragmento(getFragmentEmpresa());
-                mTitle = "Factura Virtual";
+                mTitle = "Emizor";
                 navAdapter.seleccionar(2);
                 getSupportActionBar().setTitle(mTitle);
                 break;

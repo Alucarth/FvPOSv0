@@ -34,7 +34,7 @@ public class FragmentReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
 //        int operacion = intent.getIntExtra("operacion",-1);
-
+        Log.v("Brian","get into onReceive from FragmentReceiver");
         cambiarFragmento(intent);
     }
     private void cambiarFragmento(Intent intent) {

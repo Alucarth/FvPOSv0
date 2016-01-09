@@ -79,7 +79,8 @@ public class GridAdapter extends BaseAdapter
             txtNotes= (TextView) rootView.findViewById(R.id.txtNotes);
             txtCost = (TextView) rootView.findViewById(R.id.txtCost);
             txtQty = (TextView) rootView.findViewById(R.id.txtQty);
-            txtSubtotal = (TextView) rootView.findViewById(R.id.txtSubtotal);
+            //txtSubtotal = (TextView) rootView.findViewById(R.id.txtSubtotal);
+            txtSubtotal = (TextView) rootView.findViewById(R.id.txtCost);
             img = (ImageView) rootView.findViewById(R.id.img_ic_remove);
             cardView =(CardView) rootView.findViewById(R.id.cvgrid);
             rootView.setTag(new ViewHolder(cardView,img,txtNotes,txtCost,txtQty,txtSubtotal));
@@ -135,7 +136,7 @@ public class GridAdapter extends BaseAdapter
             Double subtotal = (Double)(cantidad*costo);
             //Double subtotal = (double)(Double.parseDouble(producto.getCost())*Integer.parseInt(producto.getQty()));
             txtSubtotal.setText(subtotal.toString() + "Bs");
-//            itemSeleccionado(rootView);
+            itemSeleccionado(rootView);
 
             txtNotes.setTextColor(Color.WHITE);
             txtQty.setTextColor(Color.WHITE);
@@ -224,4 +225,5 @@ public class GridAdapter extends BaseAdapter
         DecimalFormat twoDForm = new DecimalFormat("#.##");
         return Double.valueOf(twoDForm.format(d));
     }
+
 }

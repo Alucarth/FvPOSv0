@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -23,6 +24,7 @@ import com.ipxserver.davidtorrez.fvpos.R;
 import com.ipxserver.davidtorrez.fvpos.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvpos.adapter.PagerAdapter;
 import com.ipxserver.davidtorrez.fvpos.models.Categoria;
+import com.ipxserver.davidtorrez.fvpos.models.Product;
 
 import java.util.ArrayList;
 
@@ -164,7 +166,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
     }
 
     private void llamarAyudia(MenuItem item) {
-        alerta("Factura Virtual","Por favor seleccione un producto a facturar");
+        alerta("Emizor","Por favor seleccione un producto a facturar");
     }
 
     private void llamarFacturar(MenuItem item) {
@@ -243,5 +245,25 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 
 //		  ProgressDialog.show( MulticobroPrincipal.this,titulo,mensaje,true,true);
 
+    }
+
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.v("Brian","entra al onclick bitch");
+        //Product pro = (Product) gridAdapter.getItem(position);
+
+        //int cant = Integer.parseInt(pro.getQty().toString())+1;
+        //pro.setQty(""+cant);
+//        pro.setCost(""+pro.getCost()+"x "+pro.getQty());
+        //gridAdapter.notifyDataSetChanged();
+
+        //enviando al broadcast
+        //Intent intent = new Intent("cast_product");
+        //intent.putExtra("operacion", ProductReceiver.PRODUCTO_AGREGADO);
+        //Log.i("David","parsenado double:"+pro.getCost());
+        //intent.putExtra("monto", Double.parseDouble(pro.getCost()));
+        //intent.putExtra("producto",pro);
+        //getActivity().sendBroadcast(intent);
+
+//        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();
     }
 }

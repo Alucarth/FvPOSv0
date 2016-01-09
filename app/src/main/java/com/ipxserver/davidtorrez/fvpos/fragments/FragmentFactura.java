@@ -980,7 +980,7 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
                     imprimir.printBitmap(getResources().openRawResource(R.raw.fac3));
 //                    imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
                     imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
-                    imprimir.printText(ConstruirFila("www.facturavirtual.com.bo"), 1);
+                    imprimir.printText(ConstruirFila("www.emizor.com"), 1);
 //                                      Vector vec = TextLine(factura.getLaw());
 //                                       BmpArray b2 = new BmpArray(this);
 //                                    try {
