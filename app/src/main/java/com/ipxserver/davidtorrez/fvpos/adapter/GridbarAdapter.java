@@ -33,13 +33,13 @@ public class GridbarAdapter extends BaseAdapter
         ItemBar ib = new ItemBar();
         ib.setNumero(0.0);
         Log.v("Brian","1ro");
-        //ib.setDescripcion("Subtotal");
+        ib.setDescripcion("Subtotal");
         items.add(ib);
 
         ib = new ItemBar();
         ib.setNumero(0.0);
         Log.v("Brian","2do");
-        //ib.setDescripcion("Total");
+        ib.setDescripcion("Total");
         items.add(ib);
 
         saldo = 0.0;
@@ -112,22 +112,24 @@ public class GridbarAdapter extends BaseAdapter
             rootView =  inflater.inflate(R.layout.gridbar_item,viewGroup,false);
         }
         TextView txtNumero =(TextView)rootView.findViewById(R.id.txtNumero);
-        //TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
+//        TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
 
         ItemBar item = (ItemBar) items.get(i);
-        if(i==0) {
+//        if(i==0) {
+        Log.i("david"," numero-> "+item.getNumero());
             txtNumero.setText("Bs " + String.format("%.2f", item.getNumero()));
-        }
-        else{
-            txtNumero.setText("PAGAR");
-        }
+//        }
+//        else{
+//            txtNumero.setText("PAGAR");
+//        }
 
-        Log.v("Brian","valor seteado"+i);
-        //txtDescripcion.setText(item.getDescripcion());
+        Log.i("david"," descripsion-> "+item.getDescripcion());
+//        txtDescripcion.setText(item.getDescripcion());
 
         txtNumero.setTextColor(Color.parseColor("#76FF03"));
-        //txtDescripcion.setTextColor(Color.parseColor("#76FF03"));
 
+//        txtDescripcion.setTextColor(Color.parseColor("#76FF03"));
+        Log.v("david", "valor seteado");
         return rootView;
     }
 

@@ -24,7 +24,7 @@ public class Conexion {
     public final static int GUARDARFACTURA=2;
     public final static int REGISTROCLIENTE=3;
 //    public final static String SERVIDOR="192.168.2.194";
-    public final static String SERVIDOR=".demo.emizor.com";
+    public final static String SERVIDOR=".dev.emizor.com";
     public final static String PROTOCOLO="http://";
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
 //    public final static  String LOGIN_URL="/cloud2/public/loginPOS";

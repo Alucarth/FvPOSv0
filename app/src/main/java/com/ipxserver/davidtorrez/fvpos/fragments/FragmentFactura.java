@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -16,6 +17,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +33,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
 import com.ipxserver.davidtorrez.fvpos.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvpos.R;
 import com.ipxserver.davidtorrez.fvpos.Util.Converter;
@@ -39,6 +43,9 @@ import com.ipxserver.davidtorrez.fvpos.Util.Tokenizer;
 import com.ipxserver.davidtorrez.fvpos.adapter.GridbarAdapterFactura;
 import com.ipxserver.davidtorrez.fvpos.adapter.ListAdapter;
 import com.ipxserver.davidtorrez.fvpos.database.SqliteController;
+import com.ipxserver.davidtorrez.fvpos.davidqr.AndroidBmpUtil;
+import com.ipxserver.davidtorrez.fvpos.davidqr.Contents;
+import com.ipxserver.davidtorrez.fvpos.davidqr.QRCodeEncoder;
 import com.ipxserver.davidtorrez.fvpos.models.Client;
 import com.ipxserver.davidtorrez.fvpos.models.Factura;
 import com.ipxserver.davidtorrez.fvpos.models.FacturaCardItem;
@@ -49,6 +56,7 @@ import com.ipxserver.davidtorrez.fvpos.models.solicitudFactura;
 import com.ipxserver.davidtorrez.fvpos.rest.Conexion;
 import com.nbbse.mobiprint3.Printer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -81,10 +89,14 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
     int servicio;
     private SqliteController base;
 
+    public  static final String LOG_TAG="factura";
+    public String bmp_path = "qrcode.bmp";
+
 //    FacturaReceiver facturaReceiver;
    public static FragmentFactura newInstance(ArrayList<Product> listaSeleccionados, Double monto,User usuario)
    {
        FragmentFactura  fragmentFactura = new FragmentFactura();
+
        Bundle arg = new Bundle();
        //Todo: Adicionar un parametro de monto total para tenerlo todo en el fragmento
 
@@ -941,15 +953,33 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
 
                         imprimir.printText(linea, 1);
                     }
-                    imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
+
+
+
                     //imprimir impuesto ic
                     // imprimir.printText()
 
                     imprimir.printText("CODIGO DE CONTROL: "+factura.getControlCode(),1);
-                    imprimir.printText("FECHA LIMITE EMISION:"+factura.getFechaLimite(),1);
+                    imprimir.printText("FECHA LIMITE EMISION:" + factura.getFechaLimite(), 1);
 
-                    imprimir.printBitmap(getResources().openRawResource(R.raw.bus_ticket_qr));
+//                    imprimir.printBitmap(getResources().openRawResource(R.raw.bus_ticket_qr));
+                    bmp_path = getActivity().getApplicationContext().getFilesDir().getAbsolutePath()+"/qrcode.bmp";
+                    try {
+                        String datos =factura.getAccount().getNit()+"|"+factura.getInvoiceNumber()+"|"+factura.getNumAuto()+"|"+factura.getInvoiceDate()+"|"+factura.getAmount()+"|"+factura.getFiscal()+"|"+factura.getControlCode()+"|"+factura.getCliente().getNit()+"|0|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6)+"|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6);
 
+                        if (AndroidBmpUtil.save(getQr(datos), bmp_path))
+                        {
+                            Log.e("guardando qr", "sin Errores :) soy muy pendejo XD ");
+                        }
+                        else
+                        {
+                            Log.e("guardando qr", "Error al generar qr mensaje: por queeeeeeeeeeeeeee XD jajaja");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+//
+                    imprimir.printBitmap(bmp_path);
 //                                    imprimir.printEndLine();
 //                                    imprimir.printText("CSD:"+operador.getId()+" "+operador.getUsuario() +"-"+factura.getDatecom(), 1);
 //                                    imprimir.printText("CSD:143 farbo-18:00:35", 1);
@@ -957,7 +987,7 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
 
                     try {
 
-//                        imprimir.printBitmap(ImagenQr);
+//                        imprimir.printBitmap(bmp_path);
 
 
                     } catch (Exception ex) {
@@ -1127,14 +1157,47 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
         return splitArray;
     }
 
-public static String convertiraISO(String s) {
-    String out = null;
-    try {
-        out = new String(s.getBytes("ISO-8859-1"), "UTF-8");
-    } catch (java.io.UnsupportedEncodingException e) {
+    public static String convertiraISO(String s) {
+        String out = null;
+        try {
+            out = new String(s.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
 
-        return null;
+            return null;
+        }
+        return out;
     }
-    return out;
-}
+    public Bitmap getQr(String texto)
+    {
+        String qrInputText = texto;
+        Log.v(LOG_TAG, qrInputText);
+        Bitmap bitmap=null;
+        //Find screen size
+        WindowManager manager = (WindowManager) getActivity().getSystemService(getActivity().WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        int width = point.x;
+        int height = point.y;
+        int smallerDimension = width < height ? width : height;
+        smallerDimension = smallerDimension * 4/8;
+
+        //Encode with a QR Code image
+        QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(qrInputText,
+                null,
+                Contents.Type.TEXT,
+                BarcodeFormat.QR_CODE.toString(),
+                smallerDimension);
+        try {
+             bitmap = qrCodeEncoder.encodeAsBitmap();
+//            ImageView myImage = (ImageView) findViewById(R.id.imagen);
+//            myImage.setImageBitmap(bitmap);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+
 }

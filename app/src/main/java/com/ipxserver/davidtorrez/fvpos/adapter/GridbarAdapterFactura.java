@@ -91,15 +91,15 @@ public class GridbarAdapterFactura extends BaseAdapter
             rootView =  inflater.inflate(R.layout.gridbar_item,viewGroup,false);
         }
         TextView txtNumero =(TextView)rootView.findViewById(R.id.txtNumero);
-        TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
+//        TextView txtDescripcion= (TextView) rootView.findViewById(R.id.txtDescripcion);
 
         ItemBar item = (ItemBar) items.get(i);
 
         txtNumero.setText("Bs "+String.format("%.2f",item.getNumero()));
-        txtDescripcion.setText(item.getDescripcion());
+//        txtDescripcion.setText(item.getDescripcion());
 
         txtNumero.setTextColor(Color.parseColor("#76FF03"));
-        txtDescripcion.setTextColor(Color.parseColor("#76FF03"));
+//        txtDescripcion.setTextColor(Color.parseColor("#76FF03"));
 
         return rootView;
     }

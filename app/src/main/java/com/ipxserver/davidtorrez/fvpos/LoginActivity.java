@@ -70,6 +70,7 @@ public class LoginActivity extends FragmentActivity {
 
             }
         });
+        Log.w(TAG,"direccion app:"+ getApplicationContext().getFilesDir().getAbsolutePath());
     }
     public void limpar()
     {
