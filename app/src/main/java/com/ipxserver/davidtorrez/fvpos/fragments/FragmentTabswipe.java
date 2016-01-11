@@ -24,7 +24,6 @@ import com.ipxserver.davidtorrez.fvpos.R;
 import com.ipxserver.davidtorrez.fvpos.adapter.GridbarAdapter;
 import com.ipxserver.davidtorrez.fvpos.adapter.PagerAdapter;
 import com.ipxserver.davidtorrez.fvpos.models.Categoria;
-import com.ipxserver.davidtorrez.fvpos.models.Product;
 
 import java.util.ArrayList;
 
@@ -249,6 +248,7 @@ public class FragmentTabswipe extends Fragment //implements ActionBar.TabListene
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.v("Brian","entra al onclick bitch");
+        Log.v("David","jajaja no va entrar ");
         //Product pro = (Product) gridAdapter.getItem(position);
 
         //int cant = Integer.parseInt(pro.getQty().toString())+1;

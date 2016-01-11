@@ -31,7 +31,7 @@ public class Conexion {
 //    public final static String CLIENTE_URL="/clou d2/public/cliente/";
 //    public final static String GUARDARFACTURA_URL="/cloud2/public/guardarFactura";
     public final static  String LOGIN_URL="/pos";
-    public final static String CLIENTE_URL="/cliente/";
+    public final static String CLIENTE_URL="/clientepos/";
     public final static String REGISTROCLIENTE_URL="/guardarCliente";
     public final static String GUARDARFACTURA_URL="/guardarFactura";
     private String respuesta;

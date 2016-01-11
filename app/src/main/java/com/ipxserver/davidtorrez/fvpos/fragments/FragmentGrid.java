@@ -74,6 +74,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
         gridAdapter = new GridAdapter(rootView.getContext(),productos);
         gv.setAdapter(gridAdapter);
         gv.setOnItemClickListener(this);
+
 //        gv.setOnClickListener(new AdapterView.OnItemClickListener() {
 //            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 ////                Toast.makeText(gv, "" + position,Toast.LENGTH_SHORT).show();
@@ -105,5 +106,7 @@ public class FragmentGrid extends Fragment implements AdapterView.OnItemClickLis
 
 //        Toast.makeText(view.getContext(),""+pro.getQty(), Toast.LENGTH_SHORT).show();
     }
+
+
 
 }
