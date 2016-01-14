@@ -75,7 +75,7 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="50dp"
 
 
@@ -84,11 +84,11 @@
 
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-            android:background="#fffd1423"
-            android:src="@drawable/ic_window_minimize"
+
+            android:src="@drawable/ic_circle_white"
             android:id="@+id/img_ic_remove"
 
 

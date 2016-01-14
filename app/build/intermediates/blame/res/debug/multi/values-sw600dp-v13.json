@@ -102,27 +102,8 @@
                     "startLine": 7,
                     "startColumn": 4,
                     "startOffset": 393,
-                    "endColumn": 41,
-                    "endOffset": 430
-                },
-                "from": {
-                    "file": "/home/david/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.github.shell-software/fab/1.1.1/res/values-sw600dp-v13/values.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 157,
-                        "endColumn": 41,
-                        "endOffset": 194
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 435,
                     "endColumn": 54,
-                    "endOffset": 485
+                    "endOffset": 443
                 },
                 "from": {
                     "file": "/home/david/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values-sw600dp/values.xml",

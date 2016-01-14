@@ -35,13 +35,13 @@ public class GridbarAdapter extends BaseAdapter
         Log.v("Brian","1ro");
         ib.setDescripcion("Subtotal");
         items.add(ib);
-
-        ib = new ItemBar();
-        ib.setNumero(0.0);
-        Log.v("Brian","2do");
-        ib.setDescripcion("Total");
-        items.add(ib);
-
+//
+//        ib = new ItemBar();
+//        ib.setNumero(0.0);
+//        Log.v("Brian","2do");
+//        ib.setDescripcion("Total");
+//        items.add(ib);
+//
         saldo = 0.0;
 
     }
@@ -117,7 +117,7 @@ public class GridbarAdapter extends BaseAdapter
         ItemBar item = (ItemBar) items.get(i);
 //        if(i==0) {
         Log.i("david"," numero-> "+item.getNumero());
-            txtNumero.setText("Bs " + String.format("%.2f", item.getNumero()));
+            txtNumero.setText("TOTAL:  Bs " + String.format("%.2f", item.getNumero()));
 //        }
 //        else{
 //            txtNumero.setText("PAGAR");
@@ -145,7 +145,5 @@ public class GridbarAdapter extends BaseAdapter
      //   startActivity(intent);
     //}
 //});
-    public void nextStep(){
-        Log.v("Brian","this is us");
-    }
+
 }

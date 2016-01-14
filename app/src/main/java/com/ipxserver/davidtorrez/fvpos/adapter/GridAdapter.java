@@ -149,7 +149,7 @@ public class GridAdapter extends BaseAdapter
             Font.NINBUS.apply(context,txtCost);
 
         }else{
-//            itemNormal(rootView);
+            itemNormal(rootView);
             cardView.setCardBackgroundColor(Color.parseColor("#ffffff"));
             txtCost.setText(producto.getCost() + " Bs");
             Font.NINBUS.apply(context, txtCost);

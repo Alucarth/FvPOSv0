@@ -9,8 +9,9 @@
         android:text="Numero"
         android:textSize="25dp"
         android:id="@+id/txtNumero"
-        android:layout_centerHorizontal="true"
-        android:onClick="nextStep"
-        />
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:id="@+id/barraSaldo"
-            android:numColumns="2"
+            android:numColumns="1"
             android:background="#e0000000"
             android:stretchMode="columnWidth"
             />

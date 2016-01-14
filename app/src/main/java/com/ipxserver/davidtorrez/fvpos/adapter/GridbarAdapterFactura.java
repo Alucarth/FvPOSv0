@@ -31,11 +31,11 @@ public class GridbarAdapterFactura extends BaseAdapter
         ib.setNumero(0.0);
         ib.setDescripcion("Subtotal");
         items.add(ib);
-
-        ib = new ItemBar();
-        ib.setNumero(0.0);
-        ib.setDescripcion("Total");
-        items.add(ib);
+//
+//        ib = new ItemBar();
+//        ib.setNumero(0.0);
+//        ib.setDescripcion("Total");
+//        items.add(ib);
         saldo = 0.0;
     }
     public void incrementar(Double monto)
@@ -95,7 +95,7 @@ public class GridbarAdapterFactura extends BaseAdapter
 
         ItemBar item = (ItemBar) items.get(i);
 
-        txtNumero.setText("Bs "+String.format("%.2f",item.getNumero()));
+        txtNumero.setText("TOTAL:  Bs "+String.format("%.2f",item.getNumero()));
 //        txtDescripcion.setText(item.getDescripcion());
 
         txtNumero.setTextColor(Color.parseColor("#76FF03"));

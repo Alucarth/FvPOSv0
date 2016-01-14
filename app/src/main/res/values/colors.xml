@@ -10,4 +10,5 @@
     <color name="red">#fffd1423</color>
     <color name="blue">#ff3a6cf1</color>
     <color name="green">#ff25478e</color>
+    <color name="card_selected">#3F51B5</color>
 </resources>

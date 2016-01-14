@@ -468,7 +468,7 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
                 case Conexion.GUARDARFACTURA:
 
                     solicitudFactura sf= new solicitudFactura();
-                    sf.setClient_id(cliente.getPublic_id());
+                    sf.setClient_id(cliente.getId());
                     sf.setName(cliente.getNombre());
                     sf.setNit(cliente.getNit());
                     sf.setProductos(listaSeleccionados);
@@ -490,8 +490,10 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
 
                 switch(servicio) {
                     case Conexion.CLIENTE:
+                        cliente = null;
                         cliente= Client.fromJson(conexion.getRespuesta());
-
+                        Log.i("David"," cliente:id "+cliente.getId());
+                        Log.i("David"," cliente:public_id  "+cliente.getPublic_id());
                         Log.i("David"," cliente:nit "+cliente.getNit());
                         Log.i("David","cliente:name "+cliente.getNombre());
                         mostrarCliente();
@@ -561,8 +563,8 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
                 case Conexion.GUARDARFACTURA:
 
                     solicitudFactura sf= new solicitudFactura();
-                    sf.setClient_id(cliente.getPublic_id());
-                    Log.e("David","Cliente id"+cliente.getPublic_id());
+                    sf.setClient_id(cliente.getId());
+                    Log.e("David","Cliente id"+cliente.getId());
                     sf.setName(cliente.getNombre());
                     sf.setNit(cliente.getNit());
                     sf.setBranch_id(base.getSucursal());
@@ -934,15 +936,15 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
 
 //                                  imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
 
-                    imprimir.printText("                TOTAL: Bs "+factura.getAmount(), 1);
+                    imprimir.printText("              TOTAL: Bs "+factura.getAmount(), 1);
 
                     double descuento = Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount());
 //                                    imprimir.printText("ICE: "+factura.getIce(), 1);
 
-                    imprimir.printText("           DESCUENTOS: Bs "+redondeo(descuento,2)+" ", 1);
+                    imprimir.printText("         DESCUENTOS: Bs "+redondeo(descuento,2)+" ", 1);
 
 //                                    imprimir.printText("IMPORTE BASE CREDITO FISCAL: "+factura.getFiscal(),1);
-                    imprimir.printText("        MONTO A PAGAR: Bs "+factura.getAmount(),1);
+                    imprimir.printText("      MONTO A PAGAR: Bs "+factura.getAmount(),1);
 
 
 //                                    imprimir.printText("SON:"+NumeroLiteral(""+monto)+"Bolivianos",1);
@@ -959,13 +961,14 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
                     //imprimir impuesto ic
                     // imprimir.printText()
 
-                    imprimir.printText("CODIGO DE CONTROL: "+factura.getControlCode(),1);
+                    imprimir.printText("CODIGO DE CONTROL:"+factura.getControlCode(),1);
                     imprimir.printText("FECHA LIMITE EMISION:" + factura.getFechaLimite(), 1);
 
 //                    imprimir.printBitmap(getResources().openRawResource(R.raw.bus_ticket_qr));
                     bmp_path = getActivity().getApplicationContext().getFilesDir().getAbsolutePath()+"/qrcode.bmp";
                     try {
                         String datos =factura.getAccount().getNit()+"|"+factura.getInvoiceNumber()+"|"+factura.getNumAuto()+"|"+factura.getInvoiceDate()+"|"+factura.getAmount()+"|"+factura.getFiscal()+"|"+factura.getControlCode()+"|"+factura.getCliente().getNit()+"|0|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6)+"|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6);
+//                        String datos =factura.getAccount().getNit()+"|"+factura.getInvoiceNumber()+"|"+factura.getNumAuto()+"|"+factura.getInvoiceDate()+"|"+factura.getAmount()+"|"+factura.getFiscal()+"|"+factura.getControlCode()+"|"+factura.getCliente().getNit()+"|0|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6)+"|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6);
 
                         if (AndroidBmpUtil.save(getQr(datos), bmp_path))
                         {
@@ -1007,10 +1010,10 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
 //                        }
 //
 //                    }catch(Exception e){}
-                    imprimir.printBitmap(getResources().openRawResource(R.raw.fac3));
+                    imprimir.printBitmap(getResources().openRawResource(R.raw.leyenda_generica));
 //                    imprimir.printBitmap(deviceOps.readImage("/linea.bmp", 0));
-                    imprimir.printBitmap(getResources().openRawResource(R.raw.linea));
-                    imprimir.printText(ConstruirFila("www.emizor.com"), 1);
+                    imprimir.printBitmap(getResources().openRawResource(R.raw.pie_de_pagina));
+//                    imprimir.printText(ConstruirFila("www.emizor.com"), 1);
 //                                      Vector vec = TextLine(factura.getLaw());
 //                                       BmpArray b2 = new BmpArray(this);
 //                                    try {
@@ -1180,7 +1183,7 @@ public class FragmentFactura extends android.support.v4.app.Fragment //implement
         int width = point.x;
         int height = point.y;
         int smallerDimension = width < height ? width : height;
-        smallerDimension = smallerDimension * 4/8;
+        smallerDimension = smallerDimension * 3/4;
 
         //Encode with a QR Code image
         QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(qrInputText,

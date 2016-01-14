@@ -45,6 +45,9 @@ public class LoginActivity extends FragmentActivity {
         edpass = (EditText)findViewById(R.id.etPass);
         btsesion =(Button) findViewById(R.id.btnSingIn);
 
+        ednit.setText("davidcorp");
+        eduser.setText("admin");
+        edpass.setText("123456");
         btsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +58,7 @@ public class LoginActivity extends FragmentActivity {
 //                printer.printEndLine();
 
                 usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
+//                usuario = new User("cascada","factura","virtual");
                 conexion = new Conexion(usuario.getUser(), usuario.getPassword(),usuario.getNitempresa());
                 pDialog = new ProgressDialog(LoginActivity.this);
                 pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -70,6 +74,22 @@ public class LoginActivity extends FragmentActivity {
 
             }
         });
+
+//        usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
+
+//        usuario = new User("cascada","factura","virtual");
+//        conexion = new Conexion(usuario.getUser(), usuario.getPassword(),usuario.getNitempresa());
+//        pDialog = new ProgressDialog(LoginActivity.this);
+//        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        pDialog.setTitle("Autentificando");
+//        pDialog.setMessage("Por favor espere...");
+//        pDialog.setCancelable(true);
+//
+//
+//        AsyncCallWS task = new AsyncCallWS();
+//        //Call execute
+//        task.execute();
+
         Log.w(TAG,"direccion app:"+ getApplicationContext().getFilesDir().getAbsolutePath());
     }
     public void limpar()

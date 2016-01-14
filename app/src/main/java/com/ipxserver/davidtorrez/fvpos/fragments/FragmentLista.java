@@ -15,7 +15,7 @@ import com.ipxserver.davidtorrez.fvpos.Listeners.FragmentReceiver;
 import com.ipxserver.davidtorrez.fvpos.R;
 import com.ipxserver.davidtorrez.fvpos.adapter.FacturaCardAdapter;
 import com.ipxserver.davidtorrez.fvpos.models.FacturaCardItem;
-import com.software.shell.fab.ActionButton;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class FragmentLista extends Fragment
 {
     View rootView;
 
-    ActionButton actionButton;
+
     RecyclerView recyclerView;
     FacturaReceiver receiver;
     FacturaCardAdapter facturaCardAdapter;
@@ -50,17 +50,28 @@ public class FragmentLista extends Fragment
 
         facturaCardAdapter= new FacturaCardAdapter(lista);
         recyclerView.setAdapter(facturaCardAdapter);
-        actionButton = (ActionButton) rootView.findViewById(R.id.action_button);
-        actionButton.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.attachToRecyclerView(recyclerView);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View view) {
                 Intent intent = new Intent("cambiar_fragmento");
-
+//
                 intent.putExtra("operacion", FragmentReceiver.FRAGMENT_TABSWIPE);
                 getActivity().sendBroadcast(intent);
             }
         });
+//        actionButton = (ActionButton) rootView.findViewById(R.id.action_button);
+//        actionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent("cambiar_fragmento");
+//
+//                intent.putExtra("operacion", FragmentReceiver.FRAGMENT_TABSWIPE);
+//                getActivity().sendBroadcast(intent);
+//            }
+//        });
         setHasOptionsMenu(true);
 
         return rootView;
