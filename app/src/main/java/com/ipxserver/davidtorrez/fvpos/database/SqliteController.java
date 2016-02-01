@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.ipxserver.davidtorrez.fvpos.models.Factura;
+import com.ipxserver.davidtorrez.fvpos.models.FacturaCardItem;
+
+import java.util.ArrayList;
+
 /**
  * Created by David Torrez on 26/10/2015.
  */
@@ -24,12 +29,18 @@ public class SqliteController extends SQLiteOpenHelper {
         Log.d(TAG, "tabla formulario Created");
         query = "CREATE TABLE cuentas (id INTEGER PRIMARY KEY, name TEXT, branch_id TEXT, branch_name TEXT, subdominio TEXT);";
         sqLiteDatabase.execSQL(query);
+
+        query = "CREATE TABLE invoices (id INTEGER PRIMARY KEY AUTOINCREMENT, invoice_number TEXT, invoice_date TEXT, amount TEXT,invoice_json TEXT);";
+        sqLiteDatabase.execSQL(query);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String query;
         query = "DROP TABLE IF EXISTS cuentas";
+        sqLiteDatabase.execSQL(query);
+        query = "DROP TABLE IF EXISTS invoices";
         sqLiteDatabase.execSQL(query);
     }
     public void insertCuenta(String name, String branch_id, String branc_name,String subdominio) {
@@ -84,6 +95,53 @@ public class SqliteController extends SQLiteOpenHelper {
         values.put("branch_id", branch_id);
         database.update("cuentas", values, "id=1", null);
         database.close();
+    }
+    public void insertInvoice(String json_invoice, Factura factura)
+    {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        Log.i(TAG,"json_invoice"+json_invoice);
+        Log.i(TAG,"numero de factura "+factura.getInvoiceNumber());
+        Log.i(TAG,"fecha "+factura.getInvoiceDate());
+        Log.i(TAG,"amount"+factura.getAmount());
+        values.put("invoice_number", factura.getInvoiceNumber());
+        values.put("invoice_date",factura.getInvoiceDate());
+        values.put("amount",factura.getAmount());
+        values.put("invoice_json",json_invoice);
+
+        database.insert("invoices", null, values);
+        database.close();
+
+    }
+    public ArrayList getFacturas()
+    {
+        ArrayList<FacturaCardItem> facturas = new ArrayList<>();
+
+        String selectQuery = "SELECT  * FROM invoices ORDER BY id DESC";
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Log.w(TAG, "id: " + cursor.getString(0));
+                Log.w(TAG, "invoice_number: " + cursor.getString(1));
+                Log.w(TAG, "inovices_date: " + cursor.getString(2));
+                Log.w(TAG, "amount: "+cursor.getString(3));
+                Log.w(TAG, "invoice_json" + cursor.getString(4));
+                FacturaCardItem item = new FacturaCardItem();
+                item.setId(cursor.getString(0));
+                item.setNumero(cursor.getString(1));
+                item.setFecha(cursor.getString(2));
+                item.setMonto(cursor.getString(3));
+                item.setJson_invoice(cursor.getString(4));
+
+                facturas.add(item);
+
+            } while (cursor.moveToNext());
+        }
+
+
+        return facturas;
     }
 
 }

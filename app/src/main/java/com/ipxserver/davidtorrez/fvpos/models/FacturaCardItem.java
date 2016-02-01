@@ -10,7 +10,9 @@ public class FacturaCardItem implements Serializable {
     private String monto;
     private String fecha;
     private String id;
-    private String idCliente;
+    private String nit;
+    private String razon;
+    private String json_invoice;
 
     public String getNumero() {
         return numero;
@@ -44,11 +46,27 @@ public class FacturaCardItem implements Serializable {
         this.id = id;
     }
 
-    public String getIdCliente() {
-        return idCliente;
+    public String getNit() {
+        return nit;
     }
 
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
+    public String getRazon() {
+        return razon;
+    }
+
+    public void setRazon(String razon) {
+        this.razon = razon;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    public String getJson_invoice() {
+        return json_invoice;
+    }
+
+    public void setJson_invoice(String json_invoice) {
+        this.json_invoice = json_invoice;
     }
 }

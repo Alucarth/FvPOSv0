@@ -45,9 +45,9 @@ public class LoginActivity extends FragmentActivity {
         edpass = (EditText)findViewById(R.id.etPass);
         btsesion =(Button) findViewById(R.id.btnSingIn);
 
-        ednit.setText("davidcorp");
-        eduser.setText("admin");
-        edpass.setText("123456");
+//        ednit.setText("davidcorp");
+//        eduser.setText("admin");
+//        edpass.setText("123456");
         btsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +58,7 @@ public class LoginActivity extends FragmentActivity {
 //                printer.printEndLine();
 
                 usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
+//                usuario = new User("factura","virtual","cascada");
 //                usuario = new User("cascada","factura","virtual");
                 conexion = new Conexion(usuario.getUser(), usuario.getPassword(),usuario.getNitempresa());
                 pDialog = new ProgressDialog(LoginActivity.this);
@@ -77,7 +78,7 @@ public class LoginActivity extends FragmentActivity {
 
 //        usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
 
-//        usuario = new User("cascada","factura","virtual");
+//        usuario = new User("factura","virtual","cascada");
 //        conexion = new Conexion(usuario.getUser(), usuario.getPassword(),usuario.getNitempresa());
 //        pDialog = new ProgressDialog(LoginActivity.this);
 //        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

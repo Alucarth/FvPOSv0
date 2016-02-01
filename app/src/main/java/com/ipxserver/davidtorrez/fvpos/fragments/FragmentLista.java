@@ -48,7 +48,7 @@ public class FragmentLista extends Fragment
             lista.add(item);
         }
 
-        facturaCardAdapter= new FacturaCardAdapter(lista);
+        facturaCardAdapter= new FacturaCardAdapter(this.getActivity());
         recyclerView.setAdapter(facturaCardAdapter);
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.attachToRecyclerView(recyclerView);
