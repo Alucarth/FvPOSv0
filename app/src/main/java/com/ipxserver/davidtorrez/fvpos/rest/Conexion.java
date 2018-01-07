@@ -23,8 +23,9 @@ public class Conexion {
     public final static int CLIENTE=1;
     public final static int GUARDARFACTURA=2;
     public final static int REGISTROCLIENTE=3;
-//    public final static String SERVIDOR="192.168.2.194";
-    public final static String SERVIDOR=".dev.emizor.com";
+    public final static String SERVIDOR="192.168.0.11";
+//    public final static String SERVIDOR=".dev.emizor.com";
+   // public final static String SERVIDOR="192.168.0.11/bridamac/public";
     public final static String PROTOCOLO="http://";
 //    public final static  String LOGIN_URL="http://192.168.2.194/cloud/public/loginPOS";
 //    public final static  String LOGIN_URL="/cloud2/public/loginPOS";
@@ -53,7 +54,7 @@ public class Conexion {
     {
         this.user = user;
         this.pass = pass;
-        this.domain = domain;
+        this.domain = "";
     }
     public void enviarGet(int servicio)
     {
@@ -65,7 +66,8 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendGet(Conexion.PROTOCOLO+this.domain+Conexion.SERVIDOR+url);
+        //sendGet(Conexion.PROTOCOLO+this.domain+Conexion.SERVIDOR+url);
+        sendGet(Conexion.PROTOCOLO+Conexion.SERVIDOR+url);
 
     }
     public void enviarGet(int servicio,String parametros)
@@ -78,7 +80,8 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendGet(Conexion.PROTOCOLO+base.getSubdominio()+Conexion.SERVIDOR+url);
+        sendGet(Conexion.PROTOCOLO+Conexion.SERVIDOR+url);
+        //sendGet(Conexion.PROTOCOLO+base.getSubdominio()+Conexion.SERVIDOR+url);
     }
     public void enviarPost(int servicio,String parametros)
     {
@@ -95,7 +98,8 @@ public class Conexion {
                 break;
             default: url="sin direccion";
         }
-        sendPost(Conexion.PROTOCOLO+base.getSubdominio()+Conexion.SERVIDOR+url,parametros);
+//        sendPost(Conexion.PROTOCOLO+base.getSubdominio()+Conexion.SERVIDOR+url,parametros);
+        sendPost(Conexion.PROTOCOLO+Conexion.SERVIDOR+url,parametros);
     }
     private void sendGet(String direccion)
     {
