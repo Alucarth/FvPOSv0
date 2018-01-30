@@ -2,13 +2,6 @@
 <items version="2" >
 
     <item
-        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/libs/com.nbbse.mobiprint3-v0.2.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="07d49efabc37a2db063810471458b15f8b9dd921">
-        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.nbbse.mobiprint3-v0.2_99031ef62029daa82a46ae96d0c83ec1430395bb.jar" />
-    </item>
-    <item
         jar="/home/alucarth/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -16,18 +9,11 @@
         <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/library-2.4.0_2ea404539d25da1ae8f339ffc4df1980d7f48c7c.jar" />
     </item>
     <item
-        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/libs/com.nbbse.mobiprint3-v0.2.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3_e9e3a2e3e923a970fb4c87800272f994313ea3e5.jar" />
-    </item>
-    <item
-        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-21.0.3_1d868a3dd4f9145b72a2cc83034eceedac55d98d.jar" />
+        sha1="07d49efabc37a2db063810471458b15f8b9dd921">
+        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.nbbse.mobiprint3-v0.2_99031ef62029daa82a46ae96d0c83ec1430395bb.jar" />
     </item>
     <item
         jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/jars/classes.jar"
@@ -37,18 +23,18 @@
         <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.astuetz-pagerslidingtabstrip-1.0.1_3403546a3e026a78a37410b7671ab04c4f04bedd.jar" />
     </item>
     <item
-        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/21.0.3/jars/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
-        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-21.0.3_00b5827ad66ffdd243804caa0dc7a48e5e9d8f56.jar" />
-    </item>
-    <item
         jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/libs/core.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="69ab751723c7f7c8a01fddb1d169a93160fadca7">
         <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/core_26fe3e315eabe47917af8efa5bdeca8182c2fb90.jar" />
+    </item>
+    <item
+        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3_e9e3a2e3e923a970fb4c87800272f994313ea3e5.jar" />
     </item>
     <item
         jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
@@ -65,11 +51,11 @@
         <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3_fe8b26eab8203d80aff4dfb2cd9e46b64117231c.jar" />
     </item>
     <item
-        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.melnykov/floatingactionbutton/1.3.0/jars/classes.jar"
+        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/21.0.3/jars/classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="8c6ebb7d087d1a30bf84356bd2aecf85309fc024">
-        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.melnykov-floatingactionbutton-1.3.0_670db792dc19fe7dacb3afa38e189c3e88cd2862.jar" />
+        sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
+        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-21.0.3_00b5827ad66ffdd243804caa0dc7a48e5e9d8f56.jar" />
     </item>
     <item
         jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/jars/classes.jar"
@@ -77,6 +63,20 @@
         revision="21.1.2"
         sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
         <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-21.0.3_7934b3a8fa579a231f0213f9199822ee8e1c91cb.jar" />
+    </item>
+    <item
+        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.melnykov/floatingactionbutton/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8c6ebb7d087d1a30bf84356bd2aecf85309fc024">
+        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.melnykov-floatingactionbutton-1.3.0_670db792dc19fe7dacb3afa38e189c3e88cd2862.jar" />
+    </item>
+    <item
+        jar="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/home/alucarth/AndroidStudioProjects/FvPOSv0/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-21.0.3_1d868a3dd4f9145b72a2cc83034eceedac55d98d.jar" />
     </item>
 
 </items>

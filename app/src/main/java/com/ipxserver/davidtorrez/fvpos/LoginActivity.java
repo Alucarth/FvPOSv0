@@ -17,6 +17,14 @@ import android.widget.EditText;
 import com.ipxserver.davidtorrez.fvpos.models.User;
 import com.ipxserver.davidtorrez.fvpos.rest.Conexion;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+
 
 public class LoginActivity extends FragmentActivity {
 
@@ -36,9 +44,43 @@ public class LoginActivity extends FragmentActivity {
 //        Double num=Double.parseDouble("10.00");
 //
 //        Log.i("Login conversor","imprimiendo double:"+num);
-
+//        Socket mSocket = null;
+//        try {
+//            mSocket = new Socket("192.168.0.29", 9100);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            OutputStream mPrinter = null;
+//            try {
+//                mPrinter = mSocket.getOutputStream();
+//                mPrinter.write(0x1B);
+//                mPrinter.write(0x70);
+//                mPrinter.write(0);
+//                mPrinter.write(200);  // t1
+//                mPrinter.write(255);
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//
+//        }
     }
+    private void ejecutaCliente() {
+        String ip = "192.168.0.29";
+        int puerto = 9100;
 
+        try {
+            Socket sk = new Socket(ip, puerto);
+            BufferedReader entrada = new BufferedReader(
+                    new InputStreamReader(sk.getInputStream()));
+            PrintWriter salida = new PrintWriter(
+                    new OutputStreamWriter(sk.getOutputStream()), true);
+
+            salida.println("Hola Mundo");
+
+            sk.close();
+        } catch (Exception e) {
+            Log.i("error: ", e.toString());
+        }
+    }
     private void inicializarComponentes() {
         ednit = (EditText) findViewById(R.id.etStore);
         eduser = (EditText)findViewById(R.id.etUserName);
@@ -157,7 +199,8 @@ public class LoginActivity extends FragmentActivity {
 //	            getFahrenheit(celcius);
             //getCobro();
 //	            calcularEdad();
-            conexion.enviarGet(Conexion.LOGIN);
+            ejecutaCliente();
+            //conexion.enviarGet(Conexion.LOGIN);
             return null;
         }
 
