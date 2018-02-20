@@ -12,6 +12,7 @@ import com.google.zxing.WriterException;
 import com.ipxserver.davidtorrez.fvpos.R;
 import com.ipxserver.davidtorrez.fvpos.Util.Converter;
 import com.ipxserver.davidtorrez.fvpos.Util.DateUtil;
+import com.ipxserver.davidtorrez.fvpos.Util.PrintPic;
 import com.ipxserver.davidtorrez.fvpos.Util.Tokenizer;
 import com.ipxserver.davidtorrez.fvpos.davidqr.AndroidBmpUtil;
 import com.ipxserver.davidtorrez.fvpos.davidqr.Contents;
@@ -21,6 +22,9 @@ import com.ipxserver.davidtorrez.fvpos.models.InvoiceItem;
 import com.nbbse.mobiprint3.Printer;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Vector;
 
 /**
@@ -32,10 +36,161 @@ public class EmizorPrint {
     Printer imprimir;
     Context context;
     public static final String TAG ="Emizor Print XD";
+
+
+    public static final byte[] INIT = {27, 64};
+    public static byte[] FEED_LINE = {10};
+
+    public static byte[] SELECT_FONT_A = {27, 33, 0};
+    public static byte[] SELECT_FONT_B = {0x1b, 0x21, 4};
+    public static byte[] ALIGN_LEFT = {0x1b, 0x61, 0};
+    public static byte[] ALIGN_CENTER = {0x1b, 0x61, 1};
+
+    public static byte[] SET_BAR_CODE_HEIGHT = {29, 104, 100};
+    public static byte[] PRINT_BAR_CODE_1 = {29, 107, 2};
+    public static byte[] SEND_NULL_BYTE = {0x00};
+
+    public static byte[] SELECT_PRINT_SHEET = {0x1B, 0x63, 0x30, 0x02};
+    public static byte[] FEED_PAPER_AND_CUT = {0x1D, 0x56, 66,0};
+
+    public static byte[] SELECT_CYRILLIC_CHARACTER_CODE_TABLE = {0x1B, 0x74, 0x11};
+
+    public static byte[] SELECT_BIT_IMAGE_MODE = {0x1B, 0x76, 0x30};
+    public static byte[] SET_LINE_SPACING_24 = {0x1B, 0x33, 24};
+    public static byte[] SET_LINE_SPACING_30 = {0x1B, 0x33, 30};
+
+    public static byte[] TRANSMIT_DLE_PRINTER_STATUS = {0x10, 0x04, 0x01};
+    public static byte[] TRANSMIT_DLE_OFFLINE_PRINTER_STATUS = {0x10, 0x04, 0x02};
+    public static byte[] TRANSMIT_DLE_ERROR_STATUS = {0x10, 0x04, 0x03};
+    public static byte[] TRANSMIT_DLE_ROLL_PAPER_SENSOR_STATUS = {0x10, 0x04, 0x04};
     public EmizorPrint(Context context)
     {
         this.context = context;
     }
+    public void Imprimir(final Factura factura, final String ip, final int puerto)
+    {
+        Log.d(TAG,"imprimiendo con esc/bema");
+//        String ip = "192.168.0.32";
+//        int puerto = 9100;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Socket mSocket = new Socket(ip, puerto);
+                    OutputStream mPrinter = mSocket.getOutputStream();
+                    PrintWriter printer = new PrintWriter(mSocket.getOutputStream(), true);
+//            Bitmap bmp = getQr("Para mi amiga Nadia que tu hermosa sonrisa siga iluminando el mundo Atte: David  ");
+//            Bitmap bmp = getQr("Para mi amiga Carla que tu fortaleza y belleza perduren en el tiempo  Atte: David  ");
+                    String datos =factura.getAccount().getNit()+"|"+factura.getInvoiceNumber()+"|"+factura.getNumAuto()+"|"+factura.getInvoiceDate()+"|"+factura.getAmount()+"|"+factura.getFiscal()+"|"+factura.getControlCode()+"|"+factura.getCliente().getNit()+"|0|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6)+"|"+redondeo((Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount())),6);
+                    Bitmap bmp = getQr(datos);
+                    byte[] cmd = new byte[3];
+                    byte[] imagenByte = null;
+                    Vector prods = new Vector();
+                    for(int i=0;i<factura.getInvoiceItems().size();i++)
+                    {
+                        InvoiceItem product = (InvoiceItem) factura.getInvoiceItems().get(i);
+                        double subTotal = (Double.parseDouble(product.getCost())*Double.parseDouble(product.getQty()));
+
+                        String  producto = ConstruirFila(""+product.getQty(),""+product.getCost(),""+redondeo(subTotal,2));
+                        prods.addElement(producto);
+                    }
+                    Converter conv= new Converter();
+
+                    mPrinter.write(INIT);
+                    mPrinter.write(SELECT_FONT_B);
+                    mPrinter.write(ALIGN_CENTER);
+                    printer.println(factura.getAccount().getName());
+
+                    mPrinter.write(SELECT_FONT_A);
+                    mPrinter.write(ALIGN_CENTER);
+                    printer.println(factura.getAddress1());
+                    printer.println(factura.getAddress2());
+                    printer.println("Factura");
+                    printer.println("--------------------------------------------------");
+
+                    printer.println("NIT: " + factura.getAccount().getNit());
+                    printer.println("FACTURA No.: " + factura.getInvoiceNumber());
+                    printer.println("AUTORIZACION No.: " + factura.getNumAuto());
+                    printer.println("--------------------------------------------------");
+                    mPrinter.write(ALIGN_LEFT);
+                    printer.println(factura.getActividad());
+
+                    printer.println("FECHA: "+factura.getInvoiceDate()+" Hora:"+ DateUtil.dateToString1());
+                    printer.println("NIT/CI: "+factura.getCliente().getNit()+"    Cod.:"+factura.getCliente().getPublic_id());
+                    printer.println("NOMBRE: " + factura.getCliente().getName());
+                    printer.println(ConstruirFila("Cant.","Precio","Importe"));
+
+                    for(int i=0;i<factura.getInvoiceItems().size();i++)
+                    {
+                        InvoiceItem invitem = (InvoiceItem) factura.getInvoiceItems().elementAt(i);
+
+                        Vector vl = TextLine(invitem.getNotes(),36);
+                        for(int y = 0;y<vl.size();y++)
+                        {
+                            String l = (String) vl.elementAt(y);
+                            printer.println(l);
+                        }
+//                                        imprimir.printText(invitem.getNotes(), 1);
+                        String  producto = (String) prods.elementAt(i);
+                        printer.println(producto);
+//                      imprimir.printBitmap(b);
+
+                    }
+                    printer.println("--------------------------------------------------");
+                    printer.println("                  TOTAL: Bs "+factura.getAmount());
+
+                    double descuento = Double.parseDouble(factura.getSubtotal())-Double.parseDouble(factura.getAmount());
+
+                    printer.println("             DESCUENTOS: Bs "+redondeo(descuento,2)+" ");
+
+                    printer.println("          MONTO A PAGAR: Bs "+factura.getAmount());
+                    printer.println("SON: "+conv.getStringOfNumber(factura.getAmount()));
+
+
+                    /**Impresion de imagen**/
+                    PrintPic pg = new PrintPic();
+                    pg.initCanvas(384);
+                    pg.initPaint();
+                    pg.drawImage(0, 0,bmp);
+                    imagenByte = pg.printDraw();
+                    mPrinter.write(ALIGN_CENTER);
+//                    cmd[0] = 0x1b;
+//                    cmd[1] = 0x76;
+//                    cmd[2] = 0x30;
+                    mPrinter.write(SELECT_BIT_IMAGE_MODE);
+                    mPrinter.write(imagenByte);
+                    mPrinter.write(ALIGN_LEFT);
+                    printer.println(factura.getLaw());
+                    printer.println("www.emizor.com");
+                    mPrinter.write(FEED_PAPER_AND_CUT);
+
+            /*-----------**/
+                    //mPrinter.write(FEED_LINE);
+//                    cmd[0] = 0x1b;
+//                    cmd[1] = 0x61;
+//                    cmd[2] = 1;
+//                    mPrinter.write(cmd);
+//
+//                    printer.println("hola mundo XD");
+//                    // mPrinter.write(FEED_PAPER_AND_CUT);
+//                    cmd[0] = 0x1d;
+//                    cmd[1] = 0x56;
+//                    cmd[2] = 0;
+//                    mPrinter.write(cmd);
+                    //printer.write(String.valueOf(FEED_PAPER_AND_CUT));
+//            mPrinter.write(cmd);
+
+                    mPrinter.flush();
+                    mPrinter.close();
+                    mSocket.close();
+                } catch (Exception e) {
+                    Log.i("error: ", e.toString());
+                }
+            }
+        }).start();
+
+    }
+
     //---------------------------------------------------Modulo de Impresion--------------------------------------//
     public void Imprimir(Factura factura)
     {
@@ -453,7 +608,8 @@ public class EmizorPrint {
         int width = point.x;
         int height = point.y;
         int smallerDimension = width < height ? width : height;
-        smallerDimension = smallerDimension * 3/4;
+        //smallerDimension = smallerDimension * 3/4;//para MobiPrint3
+        smallerDimension = smallerDimension * 1/3;//para Esc/bema
 
         //Encode with a QR Code image
         QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(qrInputText,

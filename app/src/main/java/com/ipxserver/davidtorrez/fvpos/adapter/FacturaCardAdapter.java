@@ -52,7 +52,7 @@ public class FacturaCardAdapter extends RecyclerView.Adapter<FacturaCardAdapter.
             public void onClick(View view) {
                 EmizorPrint emizorPrint = new EmizorPrint(context);
                 Factura factura = new Factura(facturaCardItem.getJson_invoice());
-                emizorPrint.Imprimir(factura);
+                emizorPrint.Imprimir(factura,"192.168.0.32",9100);
             }
         });
 

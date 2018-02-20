@@ -4,26 +4,39 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.ipxserver.davidtorrez.fvpos.Util.PrintPic;
+import com.ipxserver.davidtorrez.fvpos.davidqr.AndroidBmpUtil;
+import com.ipxserver.davidtorrez.fvpos.davidqr.Contents;
+import com.ipxserver.davidtorrez.fvpos.davidqr.QRCodeEncoder;
 import com.ipxserver.davidtorrez.fvpos.models.User;
 import com.ipxserver.davidtorrez.fvpos.rest.Conexion;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.BitSet;
 
 
 public class LoginActivity extends FragmentActivity {
@@ -34,6 +47,10 @@ public class LoginActivity extends FragmentActivity {
     Button btsesion;
     User usuario;
     Conexion conexion;
+    public String bmp_path = "qrcode.bmp";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,19 +81,55 @@ public class LoginActivity extends FragmentActivity {
 //        }
     }
     private void ejecutaCliente() {
-        String ip = "192.168.0.29";
+
+
+        String ip = "192.168.0.32";
         int puerto = 9100;
 
         try {
-            Socket sk = new Socket(ip, puerto);
-            BufferedReader entrada = new BufferedReader(
-                    new InputStreamReader(sk.getInputStream()));
-            PrintWriter salida = new PrintWriter(
-                    new OutputStreamWriter(sk.getOutputStream()), true);
+            Socket mSocket = new Socket(ip, puerto);
+            OutputStream  mPrinter = mSocket.getOutputStream();
+            PrintWriter printer = new  PrintWriter(mSocket.getOutputStream(),true);
+//            Bitmap bmp = getQr("Para mi amiga Nadia que tu hermosa sonrisa siga iluminando el mundo Atte: David  ");
+//            Bitmap bmp = getQr("Para mi amiga Carla que tu fortaleza y belleza perduren en el tiempo  Atte: David  ");
 
-            salida.println("Hola Mundo");
+            Bitmap bmp = getQr("Cechus y Karem XD ");
+            byte[] cmd = new byte[3];
+            byte[] imagenByte = null;
 
-            sk.close();
+
+            PrintPic pg = new PrintPic();
+            pg.initCanvas(384);
+            pg.initPaint();
+            pg.drawImage(0, 0,bmp);
+            imagenByte = pg.printDraw();
+            cmd[0] = 0x1b;
+            cmd[1] = 0x40;
+            cmd[2] = 0x0;
+            mPrinter.write(cmd);
+            cmd[0] = 0x1b;
+            cmd[1] = 0x76;
+            cmd[2] = 0x30;
+            mPrinter.write(cmd);
+            mPrinter.write(imagenByte);
+            //mPrinter.write(FEED_LINE);
+            cmd[0] = 0x1b;
+            cmd[1] = 0x61;
+            cmd[2] = 1;
+            mPrinter.write(cmd);
+
+            printer.println("hola mundo XD");
+           // mPrinter.write(FEED_PAPER_AND_CUT);
+            cmd[0] = 0x1d;
+            cmd[1] = 0x56;
+            cmd[2] = 0;
+            mPrinter.write(cmd);
+            //printer.write(String.valueOf(FEED_PAPER_AND_CUT));
+//            mPrinter.write(cmd);
+
+            mPrinter.flush();
+            mPrinter.close();
+            mSocket.close();
         } catch (Exception e) {
             Log.i("error: ", e.toString());
         }
@@ -94,11 +147,6 @@ public class LoginActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
 
-//                Printer printer = Printer.getInstance();
-//                printer.printText("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",2);
-//                printer.printText("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",3);
-//                printer.printEndLine();
-
                 usuario = new User(eduser.getText().toString(), ednit.getText().toString(), edpass.getText().toString());
 //                usuario = new User("factura","virtual","cascada");
 //                usuario = new User("cascada","factura","virtual");
@@ -108,7 +156,6 @@ public class LoginActivity extends FragmentActivity {
                 pDialog.setTitle("Autentificando");
                 pDialog.setMessage("Por favor espere...");
                 pDialog.setCancelable(true);
-
 
                 AsyncCallWS task = new AsyncCallWS();
                 //Call execute
@@ -196,11 +243,8 @@ public class LoginActivity extends FragmentActivity {
         @Override
         protected Void doInBackground(String... params) {
             Log.i(TAG, "doInBackground");
-//	            getFahrenheit(celcius);
-            //getCobro();
-//	            calcularEdad();
-            ejecutaCliente();
-            //conexion.enviarGet(Conexion.LOGIN);
+//            ejecutaCliente();
+            conexion.enviarGet(Conexion.LOGIN);
             return null;
         }
 
@@ -244,4 +288,36 @@ public class LoginActivity extends FragmentActivity {
         }
 
     }
+    public Bitmap getQr(String texto)
+    {
+        String qrInputText = texto;
+        Log.v(TAG, qrInputText);
+        Bitmap bitmap=null;
+        //Find screen size
+        WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        int width = point.x;
+        int height = point.y;
+        int smallerDimension = width < height ? width : height;
+        smallerDimension = smallerDimension * 1/3;
+
+        //Encode with a QR Code image
+        QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(qrInputText,
+                null,
+                Contents.Type.TEXT,
+                BarcodeFormat.QR_CODE.toString(),
+                smallerDimension);
+        try {
+            bitmap = qrCodeEncoder.encodeAsBitmap();
+//            ImageView myImage = (ImageView) findViewById(R.id.imagen);
+//            myImage.setImageBitmap(bitmap);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
 }
